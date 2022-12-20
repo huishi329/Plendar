@@ -30,7 +30,6 @@ class User(db.Model, UserMixin):
                         server_default=func.now(), onupdate=func.now(),
                         nullable=False)
 
-    products = relationship("Product", back_populates="seller")
 
     @property
     def password(self):
