@@ -13,7 +13,7 @@ export default function SigninForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
-        return dispatch(sessionActions.signIn({ email, password }))
+        return dispatch(sessionActions.signin({ email, password }))
             .then(() => dispatch(setSigninModal(false)))
             .catch(e => {
                 const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
@@ -37,7 +37,7 @@ export default function SigninForm() {
                 </ul>
             }
             <label >
-                Email address <br />
+                Email<br />
                 <input
                     className="field"
                     type="text"
