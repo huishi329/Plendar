@@ -19,7 +19,7 @@ export const restoreUser = () => async dispatch => {
 };
 
 
-export const login = credentials => async dispatch => {
+export const signin = credentials => async dispatch => {
   const response = await csrfFetch('/api/session', {
     method: 'POST',
     body: JSON.stringify(credentials),
@@ -31,7 +31,7 @@ export const login = credentials => async dispatch => {
 };
 
 
-export const logout = () => async (dispatch) => {
+export const signout = () => async (dispatch) => {
   await csrfFetch('/api/session', { method: 'DELETE' });
   await dispatch(setUser(null));
 };
@@ -47,7 +47,7 @@ export const signup = body => async (dispatch) => {
 
 const initialState = { user: null };
 
-export default function reducer(state = initialState, action) {
+export default function sessionReducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
       return { user: action.user }

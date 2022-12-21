@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import current_user, login_user, logout_user, login_required
-from app.forms import LoginForm, validation_errors_formatter
+from app.forms import SigninForm, validation_errors_formatter
 from app.models import User
 
 bp = Blueprint("session", __name__, url_prefix="/session")
@@ -15,11 +15,11 @@ def restore():
 
 
 @bp.route("", methods=["POST"])
-def login():
+def signin():
     if current_user.is_authenticated:
         return {"message": "Already logged in"}, 400
 
-    form = LoginForm()
+    form = SigninForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         user = User.query.filter(User.email == form.email.data).first()

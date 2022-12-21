@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired, Email, URL, NumberRange, Length, Va
 from app.models import User
 
 
-class LoginForm(FlaskForm):
+class SigninForm(FlaskForm):
     email = EmailField('email', validators=[DataRequired(), Email()])
     password = StringField('password', validators=[
                            DataRequired()])
