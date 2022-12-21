@@ -1,4 +1,4 @@
-import styles from './SignInForm.module.css';
+import styles from './SignUpForm.module.css';
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../../store/session";
@@ -14,11 +14,12 @@ export default function SignInForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (password !== confirmPassword) {
-            setErrors["Confirm password: The 2 passwords you entered did not match."]
-        }
         setErrors([]);
-        return dispatch(sessionActions.register({ email, name, password }))
+        if (password !== confirmPassword) {
+            setErrors(["Confirm password: The passwords you entered did not match."])
+            return;
+        }
+        return dispatch(sessionActions.signUp({ email, name, password }))
             .then(() => dispatch(setSignInModal(false)))
             .catch(e => {
                 const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
@@ -28,8 +29,8 @@ export default function SignInForm() {
 
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
-            <div className={styles.header}>Create your account</div>
-            <div className={styles.tagline}>Registration is easy.</div>
+            <div className={styles.header}>Create your Plendar account</div>
+            <div className={styles.tagline}>to continue to Plendar</div>
             {errors.length > 0 && <ul className={styles.formErrors}>
                 {errors.map((error, i) => <li key={i}>{error}</li>)}
             </ul>}
@@ -44,7 +45,7 @@ export default function SignInForm() {
                 />
             </label>
             <label className={styles.label}>
-                First name <span style={{ color: "#A61A2E" }}>*</span><br />
+                Name <span style={{ color: "#A61A2E" }}>*</span><br />
                 <input
                     type="text"
                     value={name}
@@ -70,7 +71,10 @@ export default function SignInForm() {
                     required
                 />
             </label>
-            <button type="submit" className={`${styles.button} ${email && name && password ? styles.buttonReady : styles.buttonNotReady}`}>SignIn</button>
+            <button
+                type="submit"
+                className={`${styles.button} ${email && name && password && confirmPassword ? styles.buttonReady : styles.buttonNotReady}`}
+            >Sign Up</button>
         </form>
     );
 }

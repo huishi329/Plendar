@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { Modal } from '../../../context/Modal';
-import { setSignUpModal } from '../../../store/ui';
+import { setSignUpModal } from '../../../store/modals';
 import SignUpForm from './SignUpForm';
 
 export default function SignUpFormModal() {

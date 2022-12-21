@@ -20,6 +20,6 @@ class SignUpForm(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired()])
     profile_picture_url = URLField(
         "Profile picture URL",
-        default=".plendar.png",
+        default="https://github.com/huishi329/Plendar/blob/main/app/plendar.png?raw=true",
         validators=[URL()]
     )
