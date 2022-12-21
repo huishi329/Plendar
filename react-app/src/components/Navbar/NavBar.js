@@ -1,11 +1,12 @@
 
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setSigninModal } from '../../store/modals';
 import styles from './NavBar.module.css'
 
 const NavBar = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.session.user)
   return (
     <div className={styles.navbarWrapper}>
       <nav>
@@ -14,7 +15,14 @@ const NavBar = () => {
           <div className={styles.logoText}>Plendar</div>
         </div>
         <div className={styles.rightNavbar}>
-          <button onClick={() => dispatch(setSigninModal(true))}> Sign in</button>
+          {user ?
+            <button className={styles.userIcon}>
+
+              <i className="fa-solid fa-user"></i>
+            </button>
+            :
+            <button onClick={() => dispatch(setSigninModal(true))}> Sign in</button>
+          }
         </div>
       </nav >
 
