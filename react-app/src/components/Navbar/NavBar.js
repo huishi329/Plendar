@@ -1,11 +1,16 @@
 
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { setSigninModal } from '../../store/modals';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSignInModal } from '../../store/modals';
 import styles from './NavBar.module.css'
+import ProfileDropdown from './ProfileDropdown/ProfileDropdown';
+
 
 const NavBar = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const [showDropdown, setShowDropdown] = useState(false);
+  const user = useSelector(state => state.session.user)
+  console.log(showDropdown);
   return (
     <div className={styles.navbarWrapper}>
       <nav>
@@ -14,9 +19,19 @@ const NavBar = () => {
           <div className={styles.logoText}>Plendar</div>
         </div>
         <div className={styles.rightNavbar}>
-          <button onClick={() => dispatch(setSigninModal(true))}> Sign in</button>
+          {user ?
+            <button
+              onClick={() => setShowDropdown(true)}
+              className={styles.userIcon}
+            >
+              <i className="fa-solid fa-user"></i>
+            </button>
+            :
+            <button onClick={() => dispatch(setSignInModal(true))}> Sign in</button>
+          }
         </div>
       </nav >
+      {showDropdown && <ProfileDropdown user={user} setShowDropdown={setShowDropdown} />}
 
     </div >
 

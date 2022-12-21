@@ -13,13 +13,13 @@ def user_exists(form, field):
         raise ValidationError('Email address is already in use.')
 
 
-class SignupForm(FlaskForm):
+class SignUpForm(FlaskForm):
     name = StringField(
         'Name', validators=[DataRequired()])
     email = EmailField('Email', validators=[DataRequired(), Email(), user_exists])
     password = PasswordField("Password", validators=[DataRequired()])
     profile_picture_url = URLField(
         "Profile picture URL",
-        default=".plendar.png",
+        default="https://github.com/huishi329/Plendar/blob/main/app/plendar.png?raw=true",
         validators=[URL()]
     )

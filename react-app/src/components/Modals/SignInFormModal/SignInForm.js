@@ -1,10 +1,10 @@
-import styles from './SigninForm.module.css';
+import styles from './SignInForm.module.css';
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../../store/session";
-import { setSigninModal, setSignupModal } from '../../../store/modals'
+import { setSignInModal, setSignUpModal } from '../../../store/modals'
 
-export default function SigninForm() {
+export default function SignInForm() {
     const dispatch = useDispatch();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -13,8 +13,8 @@ export default function SigninForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
-        return dispatch(sessionActions.signin({ email, password }))
-            .then(() => dispatch(setSigninModal(false)))
+        return dispatch(sessionActions.signIn({ email, password }))
+            .then(() => dispatch(setSignInModal(false)))
             .catch(e => {
                 const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
                 setErrors(errors);
@@ -22,14 +22,9 @@ export default function SigninForm() {
     };
 
     return (
-        <form className={styles.signinForm} onSubmit={handleSubmit}>
-            <div className={styles.signinHeader}>
-                <div className={styles.signin}>Sign in</div>
-                <div className={styles.signinFormSignupButton} onClick={() => {
-                    dispatch(setSignupModal(true));
-                    dispatch(setSigninModal(false));
-                }}>Sign up
-                </div>
+        <form className={styles.signInForm} onSubmit={handleSubmit}>
+            <div className={styles.signInHeader}>
+                <div className={styles.signInText}>Sign in</div>
             </div>
             {
                 errors.length > 0 && <ul className={styles.formErrors}>
@@ -56,8 +51,15 @@ export default function SigninForm() {
                     required
                 />
             </label>
+            <div className={styles.signInOrSignUpBtnDiv}>
 
-            <button type="submit" className={styles.signinButton}>Sign in</button>
+                <button className={styles.signUpButton} onClick={() => {
+                    dispatch(setSignUpModal(true));
+                    dispatch(setSignInModal(false));
+                }}>Create account
+                </button>
+                <button type="submit" className={styles.signInButton}>Sign in</button>
+            </div>
 
             <button type="submit" className={styles.demoButton} onClick={() => {
                 setEmail("demo@aa.io");
