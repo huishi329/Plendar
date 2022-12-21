@@ -1,0 +1,26 @@
+.navbarWrapper {
+    width: 100%;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0.5rem;
+    max-width: 98%;
+}
+
+.logoText {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.leftNavbar {
+    display: flex;
+    align-items: center;
+}
+
+.leftNavbar img {
+    width: 2rem
+}
