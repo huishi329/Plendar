@@ -2,7 +2,7 @@ import styles from './SigninForm.module.css';
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../../store/session";
-import { setSigninModal, setRegisterModal } from "../../../store/ui";
+import { setSigninModal, setSignupModal } from '../../../store/modals'
 
 export default function SigninForm() {
     const dispatch = useDispatch();
@@ -24,11 +24,11 @@ export default function SigninForm() {
     return (
         <form className={styles.signinForm} onSubmit={handleSubmit}>
             <div className={styles.signinHeader}>
-                <div className={styles.signIn}>Sign in</div>
-                <div className={styles.signInFormRegisterButton} onClick={() => {
-                    dispatch(setRegisterModal(true));
+                <div className={styles.signin}>Sign in</div>
+                <div className={styles.signinFormSignupButton} onClick={() => {
+                    dispatch(setSignupModal(true));
                     dispatch(setSigninModal(false));
-                }}>Register
+                }}>Sign up
                 </div>
             </div>
             {
