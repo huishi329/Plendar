@@ -24,13 +24,9 @@ export default function SignInForm() {
     return (
         <form className={styles.signInForm} onSubmit={handleSubmit}>
             <div className={styles.signInHeader}>
-                <div className={styles.signIn}>Sign in</div>
-                <div className={styles.signInFormSignUpButton} onClick={() => {
-                    dispatch(setSignUpModal(true));
-                    dispatch(setSignInModal(false));
-                }}>Sign up
-                </div>
+                <div className={styles.signInText}>Sign in</div>
             </div>
+
             {
                 errors.length > 0 && <ul className={styles.formErrors}>
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
@@ -56,8 +52,15 @@ export default function SignInForm() {
                     required
                 />
             </label>
+            <div className={styles.signInOrSignUpBtnDiv}>
 
-            <button type="submit" className={styles.signInButton}>Sign in</button>
+                <button className={styles.signUpButton} onClick={() => {
+                    dispatch(setSignUpModal(true));
+                    dispatch(setSignInModal(false));
+                }}>Create account
+                </button>
+                <button type="submit" className={styles.signInButton}>Sign in</button>
+            </div>
 
             <button type="submit" className={styles.demoButton} onClick={() => {
                 setEmail("demo@aa.io");
