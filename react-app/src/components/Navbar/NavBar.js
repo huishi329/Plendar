@@ -22,12 +22,15 @@ const NavBar = () => {
           {user ?
             <button
               onClick={() => setShowDropdown(true)}
-              className={styles.userIcon}
-            >
+              className={styles.userIcon}>
               <i className="fa-solid fa-tree"></i>
             </button>
             :
-            <button onClick={() => dispatch(setSignInModal(true))}> Sign in</button>
+            <div className={styles.signInBtn}>
+              <button
+                onClick={() => dispatch(setSignInModal(true))}
+              > Sign in</button>
+            </div>
           }
         </div>
       </nav >
