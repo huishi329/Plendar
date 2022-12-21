@@ -33,14 +33,6 @@
     background-color: #f7f7f7;
 }
 
-.iconWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    font-size: 24px;
-}
-
 .right {
     display: flex;
     flex-direction: column;
@@ -50,11 +42,6 @@
 
 .profilePicture {
     color: #6e6e6e
-}
-
-.link {
-    text-decoration: none;
-    color: #222222;
 }
 
 .signOut {

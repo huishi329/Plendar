@@ -1,12 +1,16 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSignInModal } from '../../store/modals';
 import styles from './NavBar.module.css'
+import ProfileDropdown from './ProfileDropdown/ProfileDropdown';
+
 
 const NavBar = () => {
   const dispatch = useDispatch();
+  const [showDropdown, setShowDropdown] = useState(false);
   const user = useSelector(state => state.session.user)
+
   return (
     <div className={styles.navbarWrapper}>
       <nav>
@@ -16,7 +20,10 @@ const NavBar = () => {
         </div>
         <div className={styles.rightNavbar}>
           {user ?
-            <button className={styles.userIcon}>
+            <button
+              onClick={() => setShowDropdown(true)}
+              className={styles.userIcon}
+            >
               <i className="fa-solid fa-user"></i>
             </button>
             :
@@ -24,6 +31,7 @@ const NavBar = () => {
           }
         </div>
       </nav >
+      {showDropdown && <ProfileDropdown user={user} setShowDropdown={setShowDropdown} />}
 
     </div >
 
