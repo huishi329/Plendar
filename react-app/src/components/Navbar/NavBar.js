@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSigninModal } from '../../store/modals';
+import { setSignInModal } from '../../store/modals';
 import styles from './NavBar.module.css'
 
 const NavBar = () => {
@@ -17,11 +17,10 @@ const NavBar = () => {
         <div className={styles.rightNavbar}>
           {user ?
             <button className={styles.userIcon}>
-
               <i className="fa-solid fa-user"></i>
             </button>
             :
-            <button onClick={() => dispatch(setSigninModal(true))}> Sign in</button>
+            <button onClick={() => dispatch(setSignInModal(true))}> Sign in</button>
           }
         </div>
       </nav >

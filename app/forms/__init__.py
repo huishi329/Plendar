@@ -1,5 +1,5 @@
-from .signin_form import SigninForm
-from .signup_form import SignupForm
+from .sign_in_form import SignInForm
+from .sign_up_form import SignUpForm
 from .edit_profile_form import EditProfileForm
 
 def validation_errors_formatter(form, validation_errors):

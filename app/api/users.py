@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user, login_user, logout_user
-from app.forms import SignupForm, validation_errors_formatter
+from app.forms import SignUpForm, validation_errors_formatter
 from app.models import db, User
 
 
@@ -8,10 +8,10 @@ bp = Blueprint("users", __name__, url_prefix="/users")
 
 
 @bp.route("",  methods=["POST"])
-def signup():
+def signUp():
     if current_user.is_authenticated:
         return {"message": 'User has logged in'}
-    form = SignupForm()
+    form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         data = form.data
@@ -35,7 +35,7 @@ def signup():
 def update_user(user_id):
     if int(user_id) != current_user.id:
         return {'errors': ['Must own account to update it']}, 401
-    form = SignupForm()
+    form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         data = form.data

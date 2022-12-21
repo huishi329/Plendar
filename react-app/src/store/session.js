@@ -19,7 +19,7 @@ export const restoreUser = () => async dispatch => {
 };
 
 
-export const signin = credentials => async dispatch => {
+export const signIn = credentials => async dispatch => {
   const response = await csrfFetch('/api/session', {
     method: 'POST',
     body: JSON.stringify(credentials),
@@ -31,12 +31,12 @@ export const signin = credentials => async dispatch => {
 };
 
 
-export const signout = () => async (dispatch) => {
+export const signOut = () => async (dispatch) => {
   await csrfFetch('/api/session', { method: 'DELETE' });
   await dispatch(setUser(null));
 };
 
-export const signup = body => async (dispatch) => {
+export const signUp = body => async (dispatch) => {
   const response = await csrfFetch("/api/users", {
     method: "POST",
     body: JSON.stringify(body)

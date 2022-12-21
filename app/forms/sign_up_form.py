@@ -13,7 +13,7 @@ def user_exists(form, field):
         raise ValidationError('Email address is already in use.')
 
 
-class SignupForm(FlaskForm):
+class SignUpForm(FlaskForm):
     name = StringField(
         'Name', validators=[DataRequired()])
     email = EmailField('Email', validators=[DataRequired(), Email(), user_exists])
