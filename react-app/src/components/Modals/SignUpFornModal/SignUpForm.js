@@ -2,7 +2,7 @@ import styles from './SignUpForm.module.css';
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../../store/session";
-import { setSignInModal } from "../../../store/modals";
+import { setSignUpModal } from "../../../store/modals";
 
 export default function SignInForm() {
     const dispatch = useDispatch();
@@ -20,7 +20,7 @@ export default function SignInForm() {
             return;
         }
         return dispatch(sessionActions.signUp({ email, name, password }))
-            .then(() => dispatch(setSignInModal(false)))
+            .then(() => dispatch(setSignUpModal(false)))
             .catch(e => {
                 const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
                 setErrors(errors);
@@ -74,7 +74,8 @@ export default function SignInForm() {
             <button
                 type="submit"
                 className={`${styles.button} ${email && name && password && confirmPassword ? styles.buttonReady : styles.buttonNotReady}`}
-            >Sign Up</button>
+            >
+                Sign Up</button>
         </form>
     );
 }
