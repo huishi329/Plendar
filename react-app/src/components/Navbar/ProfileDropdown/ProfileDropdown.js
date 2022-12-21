@@ -18,16 +18,18 @@ export default function ProfileDropdown({ user, setShowDropdown }) {
 
     return <>
         <div className={styles.wrapper}>
-
-            <div className={styles.row}>
-                <div className={styles.right}>
-                    <div>{user.name}</div>
-                    <div>{user.email}</div>
-                </div>
+            <div className={styles.profileImage}>
+                <img src={user.profile_picture_url}></img>
             </div>
+            <div className={styles.userInfo}>
+                <div className={styles.userName}>{user.name}</div>
+                <div className={styles.userEmail}>{user.email}</div>
+            </div>
+            <div>
 
-            <div className={`${styles.row} ${styles.signOut}`} onClick={onClickSignOut}>
-                <div className={`${styles.right}`}>Sign out</div>
+            </div>
+            <div className={styles.signOut}>
+                <div className={styles.signOutBtn} onClick={onClickSignOut}>Sign out</div>
             </div>
         </div>
     </>;

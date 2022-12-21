@@ -28,5 +28,9 @@ nav {
 
 .userIcon i {
     font-size: 1.5rem;
+
+}
+
+.userIcon i:hover {
     color: #6BB29C;
 }
