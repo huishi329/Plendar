@@ -26,7 +26,6 @@ export default function SignInForm() {
             <div className={styles.signInHeader}>
                 <div className={styles.signInText}>Sign in</div>
             </div>
-
             {
                 errors.length > 0 && <ul className={styles.formErrors}>
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}

@@ -41,9 +41,15 @@
 }
 
 .formErrors {
-    color: rgb(246, 18, 18);
-    padding: 20px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
 }
+
+.formErrors li {
+    color: rgb(246, 18, 18);
+}
+
 
 .signInOrSignUpBtnDiv {
     display: flex;
