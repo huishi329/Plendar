@@ -1,9 +1,11 @@
 
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setSigninModal } from '../../store/modals';
 import styles from './NavBar.module.css'
 
 const NavBar = () => {
+  const dispatch = useDispatch()
   return (
     <div className={styles.navbarWrapper}>
       <nav>
@@ -12,11 +14,11 @@ const NavBar = () => {
           <div className={styles.logoText}>Plendar</div>
         </div>
         <div className={styles.rightNavbar}>
-          <button>Log in</button>
+          <button onClick={() => dispatch(setSigninModal(true))}> Sign in</button>
         </div>
-      </nav>
+      </nav >
 
-    </div>
+    </div >
 
   );
 }

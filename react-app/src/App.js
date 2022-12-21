@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import NavBar from './components/NavBar';
-
+import NavBar from './components/Navbar/NavBar';
+import Modals from "./components/Modals/Modals";
 import { restoreUser } from './store/session';
 
 function App() {
@@ -21,15 +21,15 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <>
       <NavBar />
+      <Modals />
       <Switch>
-
         <Route path='/' exact={true} >
-          <h1>My Home Page</h1>
+          <h1>Plendar</h1>
         </Route>
       </Switch>
-    </BrowserRouter>
+    </>
   );
 }
 

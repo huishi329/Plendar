@@ -1,5 +1,5 @@
-const SET_SIGNUP_MODAL = 'ui/setSignupModal';
-const SET_SIGNIN_MODAL = 'ui/setSigninModal';
+const SET_SIGNUP_MODAL = 'modals/setSignupModal';
+const SET_SIGNIN_MODAL = 'modals/setSigninModal';
 
 export const setSignupModal = showSignupModal => { return { type: SET_SIGNUP_MODAL, showSignupModal }; };
 export const setSigninModal = showSigninModal => { return { type: SET_SIGNIN_MODAL, showSigninModal }; };
