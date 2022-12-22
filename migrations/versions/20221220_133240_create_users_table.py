@@ -26,7 +26,7 @@ def upgrade():
     sa.Column('name', sa.VARCHAR(length=100), nullable=False),
     sa.Column('email', sa.VARCHAR(length=100), nullable=False),
     sa.Column('hashed_password', sa.TEXT(), nullable=False),
-    sa.Column('profile_picture_url', sa.TEXT(), server_default='..plendar.png', nullable=True),
+    sa.Column('profile_picture_url', sa.TEXT(), server_default='../plendar.png', nullable=True),
     sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.PrimaryKeyConstraint('id'),

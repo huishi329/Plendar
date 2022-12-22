@@ -26,6 +26,11 @@ nav {
     width: 2rem
 }
 
-.userIcon {
-    font-size: 1rem;
+.userIcon i {
+    font-size: 1.5rem;
+
+}
+
+.userIcon i:hover {
+    color: #6BB29C;
 }

@@ -22,7 +22,7 @@ class User(db.Model, UserMixin):
     name = Column(VARCHAR(100), nullable=False)
     email = Column(VARCHAR(100), nullable=False, unique=True)
     hashed_password = Column(TEXT, nullable=False)
-    profile_picture_url = Column(TEXT, server_default="..plendar.png")
+    profile_picture_url = Column(TEXT, server_default="../plendar.png")
 
     created_at = Column(DateTime(timezone=True),
                         server_default=func.now(), nullable=False)
