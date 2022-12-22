@@ -26,7 +26,7 @@ class Calendar(db.Model):
 
     id = Column(Integer, primary_key=True)
 
-    name = Column(VARCHAR(254), server_default='(No title)')
+    name = Column(VARCHAR(254), nullable=False)
     description = Column(VARCHAR(200))
     timezone = Column(VARCHAR(254))
     is_active = Column(BOOLEAN, server_default="True")
@@ -38,7 +38,7 @@ class Calendar(db.Model):
                         nullable=False)
 
     users = relationship("User", secondary=users_calendars, back_populates="calendars")
-    events = relationship("Event", back_populates="calendar")
+    events = relationship("Event", back_populates="calendar", cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
