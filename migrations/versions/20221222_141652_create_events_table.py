@@ -1,8 +1,8 @@
 """create events table
 
-Revision ID: 12e172da2e73
+Revision ID: a0dfacb86c88
 Revises: 8731335bff7e
-Create Date: 2022-12-21 22:00:28.442497
+Create Date: 2022-12-22 14:16:52.143183
 
 """
 from alembic import op
@@ -12,7 +12,7 @@ import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 # revision identifiers, used by Alembic.
-revision = '12e172da2e73'
+revision = 'a0dfacb86c88'
 down_revision = '8731335bff7e'
 branch_labels = None
 depends_on = None
@@ -26,9 +26,10 @@ def upgrade():
     sa.Column('title', sa.VARCHAR(), server_default='(No title)', nullable=True),
     sa.Column('address', sa.VARCHAR(), nullable=True),
     sa.Column('description', sa.VARCHAR(), nullable=True),
-    sa.Column('start', sa.DateTime(timezone=True), nullable=False),
-    sa.Column('end', sa.DateTime(timezone=True), nullable=False),
-    sa.Column('reccurence', sa.Integer(), nullable=True),
+    sa.Column('start_time', sa.TIME(timezone=True), nullable=False),
+    sa.Column('end_time', sa.TIME(timezone=True), nullable=False),
+    sa.Column('end_date', sa.DateTime(timezone=True), nullable=False),
+    sa.Column('recurrence', sa.Integer(), server_default='0', nullable=False),
     sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.ForeignKeyConstraint(['calendar_id'], ['calendars.id'], name='fk_event_calendar_id'),
