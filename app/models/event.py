@@ -1,6 +1,4 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
 
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.orm import relationship
@@ -32,12 +30,12 @@ class Event(db.Model):
                         server_default=func.now(), onupdate=func.now(),
                         nullable=False)
 
-    calendar = db.relationship('Calendar', back_populates="calendar")
+    calendar = relationship('Calendar', back_populates="events")
 
     def to_dict(self):
         return {
             "id": self.id,
-            # "calendar_id": self.calendar_id,
+            "calendar_id": self.calendar_id,
             "title": self.title,
             "address": self.address,
             "description": self.description,

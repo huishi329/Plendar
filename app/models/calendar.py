@@ -37,7 +37,8 @@ class Calendar(db.Model):
                         server_default=func.now(), onupdate=func.now(),
                         nullable=False)
 
-    users = db.relationship("User", secondary=users_calendars, back_populates="calendars")
+    users = relationship("User", secondary=users_calendars, back_populates="calendars")
+    events = relationship("Event", back_populates="calendar")
 
     def to_dict(self):
         return {

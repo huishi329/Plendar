@@ -30,7 +30,8 @@ class User(db.Model, UserMixin):
     updated_at = Column(DateTime(timezone=True),
                         server_default=func.now(), onupdate=func.now(),
                         nullable=False)
-    calendars=db.relationship("Calendar", secondary=users_calendars, back_populates="users")
+
+    calendars = relationship("Calendar", secondary=users_calendars, back_populates="users")
 
     @property
     def password(self):
