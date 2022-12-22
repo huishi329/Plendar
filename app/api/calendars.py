@@ -6,6 +6,6 @@ bp = Blueprint('calendars', __name__, url_prefix="/calendars")
 
 @bp.route("/current")
 @login_required
-def getCalendarOfCurrentUser():
+def get_calendar_of_current():
     user = User.query.filter(User.id == current_user.id).first()
     return [calendar.to_dict() for calendar in user.calendars]

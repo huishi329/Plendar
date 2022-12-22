@@ -8,7 +8,7 @@ bp = Blueprint("users", __name__, url_prefix="/users")
 
 
 @bp.route("",  methods=["POST"])
-def signUp():
+def sign_up():
     if current_user.is_authenticated:
         return {"message": 'User has logged in'}
     form = SignUpForm()
