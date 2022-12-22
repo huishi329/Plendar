@@ -24,7 +24,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('calendar_id', sa.Integer(), nullable=False),
     sa.Column('title', sa.VARCHAR(), server_default='(No title)', nullable=True),
-    sa.Column('address', sa.VARCHAR(length=254), nullable=True),
+    sa.Column('address', sa.VARCHAR(), nullable=True),
     sa.Column('description', sa.VARCHAR(), nullable=True),
     sa.Column('start', sa.DateTime(timezone=True), nullable=False),
     sa.Column('end', sa.DateTime(timezone=True), nullable=False),

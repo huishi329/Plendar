@@ -18,7 +18,7 @@ class Event(db.Model):
         add_prefix_for_prod('calendars.id'), name='fk_event_calendar_id'),
         nullable=False)
     title = Column(VARCHAR, server_default='(No title)')
-    address = Column(VARCHAR(254))
+    address = Column(VARCHAR)
     description = Column(VARCHAR)
     start = Column(DateTime(timezone=True), nullable=False)
     end = Column(DateTime(timezone=True), nullable=False)
