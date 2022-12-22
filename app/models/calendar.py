@@ -43,9 +43,9 @@ class Calendar(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "user_id": self.user_id,
             "name": self.name,
             "description": self.description,
             "timezone": self.timezone,
-            "is_active": self.is_active
+            "is_active": self.is_active,
+            "users": [user.to_dict() for user in self.users]
         }
