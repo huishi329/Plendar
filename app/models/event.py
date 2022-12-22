@@ -1,8 +1,8 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-
+import json
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.orm import relationship
-from sqlalchemy.types import Integer, DateTime, VARCHAR
+from sqlalchemy.types import Integer, DateTime, VARCHAR, TIME, DATE
 from sqlalchemy.sql import func
 
 
@@ -20,9 +20,10 @@ class Event(db.Model):
     title = Column(VARCHAR, server_default='(No title)')
     address = Column(VARCHAR)
     description = Column(VARCHAR)
-    start = Column(DateTime(timezone=True), nullable=False)
-    end = Column(DateTime(timezone=True), nullable=False)
-    reccurence = Column(Integer)
+    start_time = Column(TIME(timezone=True), nullable=False)
+    end_time = Column(TIME(timezone=True), nullable=False)
+    end_date = Column(DateTime(timezone=True), nullable=False)
+    recurrence = Column(Integer, server_default="0", nullable=False)
 
     created_at = Column(DateTime(timezone=True),
                         server_default=func.now(), nullable=False)
@@ -39,7 +40,8 @@ class Event(db.Model):
             "title": self.title,
             "address": self.address,
             "description": self.description,
-            "start": self.start,
-            "end": self.end,
-            "reccurence": self.reccurence
+            "start_time": self.start_time.strftime('%H:%M'),
+            "end_time": self.end_time.strftime('%H:%M'),
+            "recurrence": self.recurrence,
+            "end_date": self.end_date.strftime('%Y-%m-%d %H:%M:%S')
         }
