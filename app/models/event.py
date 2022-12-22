@@ -32,6 +32,8 @@ class Event(db.Model):
                         server_default=func.now(), onupdate=func.now(),
                         nullable=False)
 
+    calendar = db.relationship('Calendar', back_populates="calendar")
+
     def to_dict(self):
         return {
             "id": self.id,
