@@ -20,10 +20,10 @@ class Event(db.Model):
         add_prefix_for_prod('calendars.id'), name='fk_event_calendar_id'),
         nullable=False)
     title = Column(VARCHAR, server_default='(No title)')
-    address = Column(VARCHAR)
+    address = Column(VARCHAR(254))
     description = Column(VARCHAR)
-    start = Column(DateTime(timezone=True),  nullable=False)
-    end = Column(DateTime(timezone=True),  nullable=False)
+    start = Column(DateTime(timezone=True), nullable=False)
+    end = Column(DateTime(timezone=True), nullable=False)
     reccurence = Column(Integer)
 
     created_at = Column(DateTime(timezone=True),
@@ -34,7 +34,8 @@ class Event(db.Model):
 
     def to_dict(self):
         return {
-            "calendar_id": self.calendar_id,
+            "id": self.id,
+            # "calendar_id": self.calendar_id,
             "title": self.title,
             "address": self.address,
             "description": self.description,
