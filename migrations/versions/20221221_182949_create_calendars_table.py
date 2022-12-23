@@ -24,7 +24,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.VARCHAR(length=254), nullable=False),
     sa.Column('description', sa.VARCHAR(length=200), nullable=True),
-    sa.Column('timezone', sa.VARCHAR(length=254), nullable=True),
+    sa.Column('timezone', sa.VARCHAR(length=254), nullable=False),
     sa.Column('is_active', sa.BOOLEAN(), server_default='True', nullable=True),
     sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),

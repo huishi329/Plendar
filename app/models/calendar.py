@@ -30,7 +30,7 @@ class Calendar(db.Model):
         nullable=False)
     name = Column(VARCHAR(254), nullable=False)
     description = Column(VARCHAR(200))
-    timezone = Column(VARCHAR(254))
+    timezone = Column(VARCHAR(254), nullable=False)
     is_active = Column(BOOLEAN, server_default="True")
 
     created_at = Column(DateTime(timezone=True),
