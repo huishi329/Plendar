@@ -13,20 +13,46 @@ def post_event():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         data = form.data
-        # print(data)
-        user = User.query.get(current_user.id)
-        calendar = list(filter(lambda calendar: calendar.name == data['calendar'], user.calendars))[0]
-        event = Event(
-            calendar=calendar,
-            title=data['title'],
-            address=data['address'],
-            description=data["description"],
-            start_time=data["start_time"],
-            end_time=data["end_time"],
-            end_date=data["end_date"],
-            recurrence=data['recurrence']
-        )
-        db.session.add(event)
-        db.session.commit()
-        return event.to_dict(), 201
+        calendar=Calendar.query.get(data['calendar_id'])
+        if calendar.owner.id == current_user.id:
+            event = Event(
+                calendar_id=data['calendar_id'],
+                title=data['title'],
+                address=data['address'],
+                description=data["description"],
+                start_time=data["start_time"],
+                end_time=data["end_time"],
+                end_date=data["end_date"],
+                recurrence=data['recurrence']
+            )
+            db.session.add(event)
+            db.session.commit()
+            return event.to_dict(), 201
+        else:
+            return {'errors': ['Unauthorized']}, 401
+    return {'errors': validation_errors_formatter(form, form.errors)}, 400
+
+
+@bp.route("/<event_id>", methods=["PUT"])
+@login_required
+def put_event(event_id):
+    form = EventForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        data = form.data
+        calendar=Calendar.query.get(data['calendar_id'])
+        if calendar.owner.id == current_user.id:
+            event = Event.query.get(event_id)
+            event.calendar_id=data['calendar_id'],
+            event.title=data['title'],
+            event.address=data['address'],
+            event.description=data["description"],
+            event.start_time=data["start_time"],
+            event.end_time=data["end_time"],
+            event.end_date=data["end_date"],
+            event.recurrence=data['recurrence']
+            db.session.commit()
+            return event.to_dict(), 200
+        else:
+            return {'errors': ['Unauthorized']}, 401
     return {'errors': validation_errors_formatter(form, form.errors)}, 400
