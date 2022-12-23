@@ -20,8 +20,8 @@ class Event(db.Model):
     title = Column(VARCHAR, server_default='(No title)')
     address = Column(VARCHAR)
     description = Column(VARCHAR)
-    start_time = Column(TIME(timezone=True), nullable=False)
-    end_time = Column(TIME(timezone=True), nullable=False)
+    start_time = Column(DateTime(timezone=True), nullable=False)
+    end_time = Column(DateTime(timezone=True), nullable=False)
     end_date = Column(DateTime(timezone=True), nullable=False)
     recurrence = Column(Integer, server_default="0", nullable=False)
 
@@ -40,8 +40,8 @@ class Event(db.Model):
             "title": self.title,
             "address": self.address,
             "description": self.description,
-            "start_time": self.start_time.strftime('%H:%M'),
-            "end_time": self.end_time.strftime('%H:%M'),
+            "start_time": self.start_time.strftime('%Y-%m-%d %H:%M:%S'),
+            "end_time": self.end_time.strftime('%Y-%m-%d %H:%M:%S'),
             "recurrence": self.recurrence,
             "end_date": self.end_date.strftime('%Y-%m-%d %H:%M:%S')
         }
