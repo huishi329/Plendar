@@ -1,5 +1,8 @@
+import styles from './CalendarSideBar.module.css'
+
 export default function CalendarSideBar() {
     return (
-        <p>CalendarSideBar placeholder</p>
+        <div className={styles.Wrapper}
+        >CalendarSideBar placeholder</div>
     )
 }
