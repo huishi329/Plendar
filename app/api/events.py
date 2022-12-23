@@ -35,7 +35,7 @@ def post_event():
 
 @bp.route("/<int:event_id>", methods=["PUT"])
 @login_required
-def put_event(event_id):
+def update_event(event_id):
     form = EventForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -56,3 +56,14 @@ def put_event(event_id):
         else:
             return {'errors': ['Unauthorized']}, 401
     return {'errors': validation_errors_formatter(form, form.errors)}, 400
+
+@bp.route("/<int:event_id>", methods=["DELETE"])
+@login_required
+def delete_event(event_id):
+    event = Event.query.get(event_id)
+    if event.calendar.owner.id == current_user.id:
+        db.session.delete(event)
+        db.session.commit()
+        return {"message": f"Deleted event with id {event_id}"}
+    else:
+        return "404", 404
