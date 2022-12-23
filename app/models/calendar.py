@@ -25,7 +25,9 @@ class Calendar(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = Column(Integer, primary_key=True)
-
+    owner_id = Column(Integer, ForeignKey(
+        add_prefix_for_prod('users.id'), name='fk_calendar_owner_id'),
+        nullable=False)
     name = Column(VARCHAR(254), nullable=False)
     description = Column(VARCHAR(200))
     timezone = Column(VARCHAR(254))
@@ -38,6 +40,7 @@ class Calendar(db.Model):
                         nullable=False)
 
     users = relationship("User", secondary=users_calendars, back_populates="calendars")
+    owner = relationship("User", foreign_keys=[owner_id])
     events = relationship("Event", back_populates="calendar", cascade="all, delete-orphan")
 
     def to_dict(self):
