@@ -23,6 +23,7 @@ function App() {
   return (
     <>
       <NavBar />
+      <MainView />
       <Modals />
     </>
   );

@@ -4,7 +4,7 @@ import styles from './MainView.module.css'
 
 export default function MainView() {
     return (
-        <div className={styles.MainViewWrapper}>
+        <div className={styles.wrapper}>
             <CalendarSideBar />
             <MonthView />
         </div>
