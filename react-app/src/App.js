@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import NavBar from './components/Navbar/NavBar';
 import Modals from "./components/Modals/Modals";
 import { restoreUser } from './store/session';
+import MainView from './components/MainView/MainView';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
