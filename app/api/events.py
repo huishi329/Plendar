@@ -3,10 +3,8 @@ from flask_login import login_required, current_user
 from app.models import db, User, Calendar, Event
 from app.forms.event_form import EventForm
 from app.forms import validation_errors_formatter
-from datetime import datetime
 
 bp = Blueprint('events', __name__, url_prefix="/events")
-
 
 @bp.route("", methods=["POST"])
 @login_required
