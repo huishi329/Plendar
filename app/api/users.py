@@ -48,7 +48,7 @@ def update_user(user_id):
         user.profile_picture_url = data['profile_picture_url']
 
         db.session.commit()
-        return user.to_dict()
+        return user.to_dict(), 200
     return {'errors': validation_errors_formatter(form, form.errors)}, 400
 
 
