@@ -1,0 +1,14 @@
+.Wrapper {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1);
+    border-right: 0.1rem solid rgba(0, 0, 0, 0.1);
+    height: calc(90vh/5);
+
+}
+
+.dayName {
+    align-self: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
