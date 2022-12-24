@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import NavBar from './components/Navbar/NavBar';
 import Modals from "./components/Modals/Modals";
 import { restoreUser } from './store/session';
+import MainView from './components/MainView/MainView';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -23,12 +23,8 @@ function App() {
   return (
     <>
       <NavBar />
+      <MainView />
       <Modals />
-      <Switch>
-        <Route path='/' exact={true} >
-          <h1>Plendar</h1>
-        </Route>
-      </Switch>
     </>
   );
 }

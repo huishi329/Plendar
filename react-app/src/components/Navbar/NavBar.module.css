@@ -26,6 +26,16 @@ nav {
     width: 2rem
 }
 
+.signInBtn button {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.2rem;
+}
+
+.signInBtn button:hover {
+    background-color: #f7f7f7;
+}
+
 .userIcon i {
     font-size: 1.5rem;
 

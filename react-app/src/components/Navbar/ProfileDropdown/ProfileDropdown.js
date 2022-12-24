@@ -19,7 +19,7 @@ export default function ProfileDropdown({ user, setShowDropdown }) {
     return <>
         <div className={styles.wrapper}>
             <div className={styles.profileImage}>
-                <img src={user.profile_picture_url}></img>
+                <img src={user.profile_picture_url} alt={user.name}></img>
             </div>
             <div className={styles.userInfo}>
                 <div className={styles.userName}>{user.name}</div>

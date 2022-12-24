@@ -15,7 +15,7 @@ def restore():
 
 
 @bp.route("", methods=["POST"])
-def signIn():
+def sign_in():
     if current_user.is_authenticated:
         return {"message": "Already logged in"}, 400
 
@@ -34,7 +34,7 @@ def signIn():
 
 @bp.route("", methods=["DELETE"])
 @login_required
-def logout():
+def log_out():
     logout_user()
     return {"message": "Logged out"}
 
