@@ -1,6 +1,4 @@
 .Wrapper {
-    /* min-width: 500px; */
-    max-width: 20rem;
-    min-width: 20rem;
-    /* flex: 1 0 auto; */
+    max-width: 15rem;
+    min-width: 15rem;
 }
