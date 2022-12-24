@@ -8,7 +8,6 @@ export const getEvents = (calendar_id, year, month) => async dispatch => {
         month
     })}`);
     const events = await response.json();
-    console.log(events, 'events');
     dispatch({ type: GET_MONTH_EVENTS, events })
 }
 
