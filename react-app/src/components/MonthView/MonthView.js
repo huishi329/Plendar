@@ -5,8 +5,8 @@ import moment from 'moment';
 import styles from './MonthView.module.css'
 import DayTile from './DayTile/DayTile'
 import DayOfWeek from './DayOfWeek/DayOfWeek';
+import DayPlaceholder from "./DayPlaceholder/DayPlaceholder";
 import { getEvents } from "../../store/events";
-
 
 export default function MonthView() {
     const dispatch = useDispatch()
@@ -14,8 +14,7 @@ export default function MonthView() {
     const year = targetDate.getFullYear()
     const month = targetDate.getMonth()
     targetDate.setDate(1);
-    console.log(year);
-    // const firstDayOfMonth = targetDate.getDay();
+    const firstDayOfMonth = targetDate.getDay();
     const monthDaysNum = moment(targetDate.toLocaleDateString(
         'en-us',
         { year: "numeric", month: "numeric" }), "MM/YYYY").daysInMonth();
@@ -29,10 +28,12 @@ export default function MonthView() {
         <div className={styles.wrapper}>
             <DayOfWeek />
             <div className={styles.monthGrid}>
+                {[...Array(firstDayOfMonth)].map(idx => (<DayPlaceholder key={idx} />))}
                 {[...Array(monthDaysNum)].map((_, idx) => {
                     return <DayTile date={new Date(year, month, idx + 1)} key={idx + 1} />
                 })
                 }
+                {[...Array(35 - firstDayOfMonth - monthDaysNum)].map(idx => (<DayPlaceholder key={idx} />))}
             </div>
         </div>
     )
