@@ -17,7 +17,8 @@ export default function MyCalendars() {
     return (
         <div className={styles.wrapper}>
             <div className={styles.title}>My calendars</div>
-            {calendars && Object.values(calendars).map(calendar => (<CalendarItem calendar={calendar} />))}
+            {calendars && Object.values(calendars).map(calendar =>
+                (<CalendarItem calendar={calendar} key={calendar.name} />))}
         </div>
     )
 }
