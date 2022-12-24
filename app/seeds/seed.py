@@ -10,13 +10,14 @@ def seed_all():
     bobbie = User(
         name='bobbie', email='bobbie@aa.io', password='password')
 
-    demo_calendar = Calendar(owner=demo, users=[demo, marnie, bobbie], name=demo.name, timezone='Canada/Pacific')
+    demo_work_calendar = Calendar(owner=demo, users=[demo, marnie, bobbie], name='Demo - work', timezone='Canada/Pacific')
+    demo_calendar = Calendar(owner=demo, users=[demo], name=demo.name, timezone='Canada/Pacific')
     marnie_calendar = Calendar(owner=marnie, users=[marnie], name=marnie.name, timezone='Canada/Pacific')
     bobbie_calendar = Calendar(owner=bobbie, users=[bobbie], name=bobbie.name, timezone='Canada/Pacific')
 
     db.session.add_all([
         Event(
-            calendar=demo_calendar,
+            calendar=demo_work_calendar,
             title='Stand Up',
             start_time=datetime(2022, 12, 19, 8, 0),
             end_time=datetime(2022, 12, 19, 8, 15),
@@ -24,7 +25,7 @@ def seed_all():
             recurrence=1,
         ),
         Event(
-            calendar=demo_calendar,
+            calendar=demo_work_calendar,
             title='Project Time: Solo Full Stack',
             start_time=datetime(2022, 12, 19, 8, 15),
             end_time=datetime(2022, 12, 19, 11, 15),
@@ -32,7 +33,7 @@ def seed_all():
             recurrence=1,
         ),
         Event(
-            calendar=demo_calendar,
+            calendar=demo_work_calendar,
             title='Lunch',
             start_time=datetime(2022, 12, 19, 11, 15),
             end_time=datetime(2022, 12, 19, 12, 30),
@@ -40,7 +41,7 @@ def seed_all():
             recurrence=1,
         ),
         Event(
-            calendar=demo_calendar,
+            calendar=demo_work_calendar,
             title='Peer Review',
             start_time=datetime(2022, 12, 19, 12, 30),
             end_time=datetime(2022, 12, 19, 13, 30),
@@ -48,7 +49,7 @@ def seed_all():
             recurrence=1,
         ),
         Event(
-            calendar=demo_calendar,
+            calendar=demo_work_calendar,
             title='Peer Review',
             start_time=datetime(2022, 12, 19, 12, 30),
             end_time=datetime(2022, 12, 19, 13, 30),
@@ -56,7 +57,7 @@ def seed_all():
             recurrence=1,
         ),
         Event(
-            calendar=demo_calendar,
+            calendar=demo_work_calendar,
             title='Project Time: Solo Full Stack',
             start_time=datetime(2022, 12, 19, 13, 30),
             end_time=datetime(2022, 12, 19, 17, 00),
