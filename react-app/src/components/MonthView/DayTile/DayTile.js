@@ -15,7 +15,6 @@ export default function DayTile({ date }) {
         b.start_time = new Date(b.start_time)
         b.start_time.setDate(date.getDate())
         return a.start_time - b.start_time
-        // new Date(a.start_time).getTime() - new Date(b.start_time).getTime()
     })
 
     return (
