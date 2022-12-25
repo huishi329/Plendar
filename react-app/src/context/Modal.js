@@ -17,6 +17,7 @@ export function ModalProvider({ children }) {
             <ModalContext.Provider value={value}>
                 {children}
             </ModalContext.Provider>
+            {/* return a div for displaying Modal*/}
             <div ref={modalRef} />
         </>
     );
