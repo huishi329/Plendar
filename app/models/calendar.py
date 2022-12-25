@@ -36,5 +36,4 @@ class Calendar(db.Model):
             "name": self.name,
             "description": self.description,
             "timezone": self.timezone,
-            # "users": [user.to_dict() for user in self.users]
         }
