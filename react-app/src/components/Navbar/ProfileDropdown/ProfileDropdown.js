@@ -2,11 +2,13 @@ import styles from "./ProfileDropdown.module.css";
 import { useDispatch } from 'react-redux';
 import { signOut } from '../../../store/session';
 import { useEffect } from "react";
+import { clearEvents } from "../../../store/events";
 
 export default function ProfileDropdown({ user, setShowDropdown }) {
     const dispatch = useDispatch();
     const onClickSignOut = () => {
-        dispatch(signOut());
+        dispatch(signOut())
+            .then(() => dispatch(clearEvents()))
         setShowDropdown(false);
     };
     useEffect(() => {
