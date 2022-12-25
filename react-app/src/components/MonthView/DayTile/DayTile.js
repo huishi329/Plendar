@@ -8,8 +8,8 @@ export default function DayTile({ date }) {
     const day_events = events?.filter(event =>
         new Date(event.start_time).getDate() === date.getDate() ||
         (event.recurrence === 1 && date.getDate() >= new Date(event.start_time).getDate()))
-    // Make a shallow copy and set date to the DayTile date
-    const day_events_sorted = [...day_events]?.sort((a, b) => {
+    // Make a deep copy and set date to the DayTile date
+    const day_events_sorted = JSON.parse(JSON.stringify(day_events)).sort((a, b) => {
         a.start_time = new Date(a.start_time)
         a.start_time.setDate(date.getDate())
         b.start_time = new Date(b.start_time)
