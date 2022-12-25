@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import moment from 'moment';
 
@@ -10,6 +10,7 @@ import { getEvents } from "../../store/events";
 
 export default function MonthView() {
     const dispatch = useDispatch()
+    const calendars = useSelector(state => state.calendars)
     const targetDate = new Date()
     const year = targetDate.getFullYear()
     const month = targetDate.getMonth()
@@ -18,11 +19,13 @@ export default function MonthView() {
     const monthDaysNum = moment(targetDate.toLocaleDateString(
         'en-us',
         { year: "numeric", month: "numeric" }), "MM/YYYY").daysInMonth();
-    console.log(moment().days());
 
     useEffect(() => {
-        dispatch(getEvents(1, year, month))
-    }, [dispatch, month, year])
+        if (calendars) {
+            Object.values(calendars).forEach((calendar) =>
+                dispatch(getEvents(calendar.id, year, month)))
+        }
+    }, [dispatch, month, year, calendars])
 
     return (
         <div className={styles.wrapper}>
@@ -31,8 +34,7 @@ export default function MonthView() {
                 {[...Array(firstDayOfMonth)].map(idx => (<DayPlaceholder key={idx} />))}
                 {[...Array(monthDaysNum)].map((_, idx) => {
                     return <DayTile date={new Date(year, month, idx + 1)} key={idx + 1} />
-                })
-                }
+                })}
                 {[...Array(35 - firstDayOfMonth - monthDaysNum)].map(idx => (<DayPlaceholder key={idx} />))}
             </div>
         </div>

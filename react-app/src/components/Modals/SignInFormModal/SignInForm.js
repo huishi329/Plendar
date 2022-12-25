@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../../store/session";
 import { setSignInModal, setSignUpModal } from '../../../store/modals'
+import { getCalendars } from '../../../store/calendars';
 
 export default function SignInForm() {
     const dispatch = useDispatch();
@@ -15,6 +16,7 @@ export default function SignInForm() {
         setErrors([]);
         return dispatch(sessionActions.signIn({ email, password }))
             .then(() => dispatch(setSignInModal(false)))
+            .then(() => dispatch(getCalendars()))
             .catch(e => {
                 const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
                 setErrors(errors);

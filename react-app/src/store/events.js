@@ -11,6 +11,12 @@ export const getEvents = (calendar_id, year, month) => async dispatch => {
     dispatch({ type: GET_MONTH_EVENTS, events })
 }
 
+const CLEAR_EVENTS = 'events/clearEvents'
+
+export const clearEvents = () => {
+    return { type: CLEAR_EVENTS }
+}
+
 export default function eventsReducer(state = {}, action) {
     const newState = { ...state };
     switch (action.type) {
@@ -19,6 +25,8 @@ export default function eventsReducer(state = {}, action) {
                 events[event.id] = event;
                 return events;
             }, newState);
+        case CLEAR_EVENTS:
+            return {}
         default:
             return state;
     }

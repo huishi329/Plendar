@@ -1,0 +1,19 @@
+.wrapper:hover {
+    background-color: #f7f7f7;
+    cursor: pointer;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0.2rem 0;
+}
+
+.dot {
+    font-size: 0.5rem;
+    margin-right: 0.2rem;
+}
