@@ -10,7 +10,6 @@ from flask_login import UserMixin
 #  a crypto library that came with Flask
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from .calendar import users_calendars
 
 class User(db.Model, UserMixin):
     __tablename__ = "users"
@@ -31,7 +30,7 @@ class User(db.Model, UserMixin):
                         server_default=func.now(), onupdate=func.now(),
                         nullable=False)
 
-    calendars = relationship("Calendar", secondary=users_calendars, back_populates="users", cascade="all, delete-orphan", single_parent=True)
+    calendars = relationship("UserCalendar", back_populates="user", cascade="all, delete-orphan")
 
     @property
     def password(self):
