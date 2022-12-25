@@ -50,14 +50,6 @@ def seed_all():
         ),
         Event(
             calendar=demo_work_calendar,
-            title='Peer Review',
-            start_time=datetime(2022, 12, 19, 12, 30),
-            end_time=datetime(2022, 12, 19, 13, 30),
-            end_date=datetime.max,
-            recurrence=1,
-        ),
-        Event(
-            calendar=demo_work_calendar,
             title='Project Time: Solo Full Stack',
             start_time=datetime(2022, 12, 19, 13, 30),
             end_time=datetime(2022, 12, 19, 17, 00),
