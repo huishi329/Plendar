@@ -3,7 +3,6 @@ import styles from './DayTile.module.css'
 import EventItem from './EventItem/EventItem';
 
 export default function DayTile({ date }) {
-    const user = useSelector(state => state.session.user)
     const events = useSelector(state => Object.values(state.events));
     // filter to get the events for the date
     const day_events = events?.filter(event => {
@@ -23,7 +22,6 @@ export default function DayTile({ date }) {
         b.start_time.setDate(date.getDate())
         return a.start_time - b.start_time
     })
-    // if (!user || !events.length) return null;
 
     return (
         <div className={styles.wrapper}>
