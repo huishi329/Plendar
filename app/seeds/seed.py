@@ -56,6 +56,14 @@ def seed_all():
             end_date=datetime.max,
             recurrence=1,
         ),
+        Event(
+            calendar=demo_calendar,
+            title='Viniyasa | Yoga with Young Ji',
+            start_time=datetime(2022, 12, 4, 11, 30),
+            end_time=datetime(2022, 12, 4, 12, 30),
+            end_date=datetime.max,
+            recurrence=7,
+        ),
     ])
 
 
