@@ -16,12 +16,18 @@ export const toggleCalendar = (calendar_id) => async dispatch => {
     console.log('toggleCalendar', calendar_id);
     const response = await csrfFetch(`/api/users_calendars/current/${calendar_id}`, {
         method: "PATCH"
-    })
+    });
     const calendar = await response.json();
     if (calendar.is_displayed) dispatch(getEvents(calendar.id))
     else dispatch(removeEvents(calendar.id))
     dispatch({ type: TOGGLE_CALENDAR, calendar });
 }
+
+const CLEAR_CALENDARS = 'calendars/clearCalendars'
+
+export const clearCalendars = () => {
+    return { type: CLEAR_CALENDARS };
+};
 
 export default function calendarsReducer(state = null, action) {
     const newState = { ...state };
@@ -34,6 +40,8 @@ export default function calendarsReducer(state = null, action) {
         case TOGGLE_CALENDAR:
             newState[action.calendar.id] = action.calendar;
             return newState;
+        case CLEAR_CALENDARS:
+            return {};
         default:
             return state;
     }
