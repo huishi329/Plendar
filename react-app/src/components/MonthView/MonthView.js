@@ -9,11 +9,11 @@ import DayPlaceholder from "./DayPlaceholder/DayPlaceholder";
 import { getEvents } from "../../store/events";
 
 export default function MonthView() {
-    const dispatch = useDispatch()
-    const calendars = useSelector(state => state.calendars)
-    const targetDate = new Date()
-    const year = targetDate.getFullYear()
-    const month = targetDate.getMonth()
+    const dispatch = useDispatch();
+    const calendars = useSelector(state => state.calendars);
+    const targetDate = new Date();
+    const year = targetDate.getFullYear();
+    const month = targetDate.getMonth();
     targetDate.setDate(1);
     const firstDayOfMonth = targetDate.getDay();
     const monthDaysNum = moment(targetDate.toLocaleDateString(
