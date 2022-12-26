@@ -1,8 +1,13 @@
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux'
 import styles from './DayTile.module.css'
 import EventItem from './EventItem/EventItem';
 
 export default function DayTile({ date }) {
+    const tileRef = useRef();
+    const [x, setX] = useState();
+    const [y, setY] = useState();
+
     const events = useSelector(state => Object.values(state.events));
     // filter to get the events for the date
     const day_events = events?.filter(event => {
@@ -23,8 +28,13 @@ export default function DayTile({ date }) {
         return a.start_time - b.start_time
     })
 
+    useEffect(() => {
+        setX(tileRef.current.offsetLeft);
+        setY(tileRef.current.offsetTop);
+    }, [])
+
     return (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} ref={tileRef}>
             <div className={styles.dayName}>{date.getDate()}</div>
             {day_events_sorted && day_events_sorted.map(event =>
                 (<EventItem event={event} key={event.id} />))}
