@@ -10,7 +10,6 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const [showDropdown, setShowDropdown] = useState(false);
   const user = useSelector(state => state.session.user)
-  console.log(showDropdown);
   return (
     <div className={styles.navbarWrapper}>
       <nav>

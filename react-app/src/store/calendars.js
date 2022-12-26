@@ -13,7 +13,6 @@ export const getCalendars = () => async dispatch => {
 const TOGGLE_CALENDAR = 'calendars/toggleCalendar'
 
 export const toggleCalendar = (calendar_id) => async dispatch => {
-    console.log('toggleCalendar', calendar_id);
     const response = await csrfFetch(`/api/users_calendars/current/${calendar_id}`, {
         method: "PATCH"
     });
