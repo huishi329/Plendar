@@ -1,7 +1,6 @@
 import styles from './EventItem.module.css'
 
 export default function EventItem({ event }) {
-    console.log(event);
     return (<div className={styles.wrapper}>
         <div className={styles.content}>
             <div className={styles.dot}>

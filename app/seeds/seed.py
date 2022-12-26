@@ -1,4 +1,4 @@
-from app.models import db, User, Calendar, Event, environment, SCHEMA
+from app.models import db, User, Calendar, Event, UserCalendar, environment, SCHEMA
 from datetime import time, datetime
 
 # Adds a demo user, you can add other users here if you want
@@ -10,12 +10,22 @@ def seed_all():
     bobbie = User(
         name='bobbie', email='bobbie@aa.io', password='password')
 
-    demo_work_calendar = Calendar(owner=demo, users=[demo, marnie, bobbie], name='Demo - work', timezone='Canada/Pacific')
-    demo_calendar = Calendar(owner=demo, users=[demo], name=demo.name, timezone='Canada/Pacific')
-    marnie_calendar = Calendar(owner=marnie, users=[marnie], name=marnie.name, timezone='Canada/Pacific')
-    bobbie_calendar = Calendar(owner=bobbie, users=[bobbie], name=bobbie.name, timezone='Canada/Pacific')
+    demo_calendar = Calendar(owner=demo, name=demo.name, timezone='Canada/Pacific')
+    demo_work_calendar = Calendar(owner=demo,name='Demo - work', timezone='Canada/Pacific')
+    marnie_calendar = Calendar(owner=marnie, name=marnie.name, timezone='Canada/Pacific')
+    bobbie_calendar = Calendar(owner=bobbie, name=bobbie.name, timezone='Canada/Pacific')
+
+
+
 
     db.session.add_all([
+        UserCalendar(calendar=demo_work_calendar, user=demo),
+        UserCalendar(calendar=demo_work_calendar, user=bobbie),
+        UserCalendar(calendar=demo_work_calendar, user=marnie),
+        UserCalendar(calendar=demo_calendar, user=demo),
+        UserCalendar(calendar=marnie_calendar, user=marnie),
+        UserCalendar(calendar=bobbie_calendar, user=bobbie),
+
         Event(
             calendar=demo_work_calendar,
             title='Stand Up',

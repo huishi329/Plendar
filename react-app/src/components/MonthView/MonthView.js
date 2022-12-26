@@ -22,8 +22,9 @@ export default function MonthView() {
 
     useEffect(() => {
         if (calendars) {
-            Object.values(calendars).forEach((calendar) =>
-                dispatch(getEvents(calendar.id, year, month)))
+            Object.values(calendars).forEach((calendar) => {
+                if (calendar.is_displayed) dispatch(getEvents(calendar.id, year, month))
+            })
         }
     }, [dispatch, month, year, calendars])
 

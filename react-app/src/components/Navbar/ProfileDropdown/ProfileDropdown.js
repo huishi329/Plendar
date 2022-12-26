@@ -3,12 +3,16 @@ import { useDispatch } from 'react-redux';
 import { signOut } from '../../../store/session';
 import { useEffect } from "react";
 import { clearEvents } from "../../../store/events";
+import { clearCalendars } from "../../../store/calendars";
 
 export default function ProfileDropdown({ user, setShowDropdown }) {
     const dispatch = useDispatch();
     const onClickSignOut = () => {
         dispatch(signOut())
-            .then(() => dispatch(clearEvents()))
+            .then(() => {
+                dispatch(clearEvents());
+                dispatch(clearCalendars());
+            })
         setShowDropdown(false);
     };
     useEffect(() => {
