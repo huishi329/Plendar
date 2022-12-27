@@ -18,7 +18,6 @@ export default function ProfileDropdown({ user, setShowDropdown }) {
     };
     useEffect(() => {
         const closeDropdown = (e) => {
-            console.log(e);
             if (e.path.find(ele => ele === dropdownRef.current)) return;
             setShowDropdown(false);
         };
