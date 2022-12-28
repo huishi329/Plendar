@@ -1,16 +1,46 @@
+import { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentEvent } from '../../../../store/modals';
+import EventDetail from './EventDetail/EventDetail';
 import styles from './EventItem.module.css'
 
 export default function EventItem({ event }) {
-    return (<div className={styles.wrapper}>
-        <div className={styles.content}>
-            <div className={styles.dot}>
-                <i className="fa-solid fa-circle"></i>
+    const eventRef = useRef();
+    const dispatch = useDispatch();
+    const currentEvent = useSelector(state => state.modals.event)
+    const showEventDetail = currentEvent?.id === event.id &&
+        currentEvent?.start_time.getTime() === event.start_time.getTime();
+
+    const [x, setX] = useState();
+    const [y, setY] = useState();
+
+    const handleEventClick = (e) => {
+        e.stopPropagation();
+        dispatch(setCurrentEvent(event));
+    };
+
+    useEffect(() => {
+        setX(eventRef.current.offsetLeft - eventRef.current.offsetWidth);
+        setY(eventRef.current.offsetTop + eventRef.current.offsetHeight);
+    }, [])
+
+    return (
+        <>
+            <div className={styles.wrapper} ref={eventRef} onClick={handleEventClick}>
+                <div className={styles.title}>
+                    <div className={styles.dot}>
+                        <i className="fa-solid fa-circle"></i>
+                    </div>
+                    {`${new Date(event.start_time).toLocaleTimeString(
+                        'en-US',
+                        { hour: '2-digit', minute: '2-digit' })
+                        .toLowerCase()
+                        .split(" ")
+                        .join("")} ${event.title}`}
+                </div>
             </div>
-            {`${new Date(event.start_time).toLocaleTimeString(
-                'en-US',
-                { hour: '2-digit', minute: '2-digit' })
-                .toLowerCase()
-                .split(" ")
-                .join("")} ${event.title}`}</div>
-    </div>)
+            {showEventDetail &&
+                <EventDetail event={event} x={x} y={y} />}
+        </>
+    )
 }

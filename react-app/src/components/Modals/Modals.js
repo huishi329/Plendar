@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import SignInFormModal from './SignInFormModal/SignInFormModal';
-import SignUpFormModal from './SignUpFornModal/SignUpFormModal';
+import SignUpFormModal from './SignUpFormModal/SignUpFormModal';
 
 export default function Modals() {
     const modals = useSelector(state => state.modals);

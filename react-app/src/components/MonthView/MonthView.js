@@ -9,11 +9,11 @@ import DayPlaceholder from "./DayPlaceholder/DayPlaceholder";
 import { getEvents } from "../../store/events";
 
 export default function MonthView() {
-    const dispatch = useDispatch()
-    const calendars = useSelector(state => state.calendars)
-    const targetDate = new Date()
-    const year = targetDate.getFullYear()
-    const month = targetDate.getMonth()
+    const dispatch = useDispatch();
+    const calendars = useSelector(state => state.calendars);
+    const targetDate = new Date();
+    const year = targetDate.getFullYear();
+    const month = targetDate.getMonth();
     targetDate.setDate(1);
     const firstDayOfMonth = targetDate.getDay();
     const monthDaysNum = moment(targetDate.toLocaleDateString(
@@ -32,11 +32,11 @@ export default function MonthView() {
         <div className={styles.wrapper}>
             <DayOfWeek />
             <div className={styles.monthGrid}>
-                {[...Array(firstDayOfMonth)].map(idx => (<DayPlaceholder key={idx} />))}
+                {[...Array(firstDayOfMonth)].map((_, idx) => (<DayPlaceholder key={idx} />))}
                 {[...Array(monthDaysNum)].map((_, idx) => {
                     return <DayTile date={new Date(year, month, idx + 1)} key={idx + 1} />
                 })}
-                {[...Array(35 - firstDayOfMonth - monthDaysNum)].map(idx => (<DayPlaceholder key={idx} />))}
+                {[...Array(35 - firstDayOfMonth - monthDaysNum)].map((_, idx) => (<DayPlaceholder key={idx} />))}
             </div>
         </div>
     )
