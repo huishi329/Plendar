@@ -19,12 +19,14 @@ export default function DayTile({ date }) {
             // events that repeat weekly
             (event.recurrence === 7 && date.getDate() >= eventDate.getDate() && date.getDay() === eventDate.getDay()))
     })
-    // Make a deep copy and set date to the DayTile date
-    const day_events_sorted = JSON.parse(JSON.stringify(day_events)).sort((a, b) => {
-        a.start_time = new Date(a.start_time)
-        a.start_time.setDate(date.getDate())
-        b.start_time = new Date(b.start_time)
-        b.start_time.setDate(date.getDate())
+    // Make a deep copy and then set date to the DayTile date
+    const day_events_copy = JSON.parse(JSON.stringify(day_events))
+    day_events_copy.forEach((event) => {
+        event.start_time = new Date(event.start_time);
+        event.start_time.setDate(date.getDate());
+    })
+
+    const day_events_sorted = day_events_copy.sort((a, b) => {
         return a.start_time - b.start_time
     })
 
