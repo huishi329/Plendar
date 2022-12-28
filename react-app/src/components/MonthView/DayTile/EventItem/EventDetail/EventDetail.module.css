@@ -20,6 +20,22 @@
     margin-bottom: 0.5rem;
 }
 
+.datetime {
+    display: flex;
+    align-items: center;
+    margin: 0 0 0.5rem 1.5rem;
+}
+
 .datetime i {
-    font-size: 0.1rem;
+    font-size: 0.2rem;
+    margin: 0 0.5rem;
+
+}
+
+.address {
+    margin-bottom: 0.5rem;
+}
+
+.description {
+    margin-bottom: 0.5rem;
 }
