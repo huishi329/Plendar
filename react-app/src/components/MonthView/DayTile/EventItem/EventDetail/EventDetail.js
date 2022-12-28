@@ -2,11 +2,12 @@ import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentEvent } from '../../../../../store/modals';
 import styles from './EventDetail.module.css'
+import EventNavbar from './EventNavbar/EventNavbar';
 
 export default function EventDetail({ event, x, y }) {
     const eventRef = useRef();
     const dispatch = useDispatch();
-    const calendars = useSelector(state => state.calendars)
+    const calendars = useSelector(state => state.calendars);
 
     useEffect(() => {
         const closeEventDetail = (e) => {
@@ -18,8 +19,11 @@ export default function EventDetail({ event, x, y }) {
         return () => document.removeEventListener('click', closeEventDetail)
     }, [dispatch])
 
+    if (!calendars) return null;
+
     return (
         <div className={styles.wrapper} style={{ top: y }} ref={eventRef}>
+            <EventNavbar event={event} calendar={calendars[event.calendar_id]} />
             <div className={styles.title}>
                 <i className="fa-solid fa-square"></i>
                 {event.title}
