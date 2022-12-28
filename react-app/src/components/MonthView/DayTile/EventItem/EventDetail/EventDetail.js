@@ -1,27 +1,24 @@
 import { useEffect, useRef } from 'react'
+import { useDispatch } from 'react-redux';
+import { setCurrentEvent } from '../../../../../store/modals';
 import styles from './EventDetail.module.css'
 
-export default function EventDetail({ event, x, y, setShowEventDetail }) {
+export default function EventDetail({ event, x, y }) {
     const eventRef = useRef();
-    const eventDate = new Date(event.start_time)
-    console.log(eventDate);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const closeEventDetail = (e) => {
             e.stopPropagation();
-            console.log(e);
             if (e.path.find(ele => ele === eventRef.current)) return;
-            setShowEventDetail(false);
+            dispatch(setCurrentEvent(null))
         };
         document.addEventListener('click', closeEventDetail);
-        return () => {
-            document.removeEventListener('click', closeEventDetail)
-            setShowEventDetail(false);
-        };
-    }, [setShowEventDetail])
+        return () => document.removeEventListener('click', closeEventDetail)
+    }, [dispatch])
 
     return (
-        <div className={styles.wrapper} style={{ top: y + 20 }} ref={eventRef}>
+        <div className={styles.wrapper} style={{ top: y }} ref={eventRef}>
             <div className={styles.title}>
                 <i className="fa-solid fa-square"></i>
                 {event.title}
