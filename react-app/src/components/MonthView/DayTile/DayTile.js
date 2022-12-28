@@ -24,6 +24,8 @@ export default function DayTile({ date }) {
     day_events_copy.forEach((event) => {
         event.start_time = new Date(event.start_time);
         event.start_time.setDate(date.getDate());
+        event.end_time = new Date(event.end_time);
+        event.end_time.setDate(date.getDate());
     })
 
     const day_events_sorted = day_events_copy.sort((a, b) => {
