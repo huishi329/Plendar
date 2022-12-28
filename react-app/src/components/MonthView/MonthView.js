@@ -32,11 +32,11 @@ export default function MonthView() {
         <div className={styles.wrapper}>
             <DayOfWeek />
             <div className={styles.monthGrid}>
-                {[...Array(firstDayOfMonth)].map(idx => (<DayPlaceholder key={idx} />))}
+                {[...Array(firstDayOfMonth)].map((_, idx) => (<DayPlaceholder key={idx} />))}
                 {[...Array(monthDaysNum)].map((_, idx) => {
                     return <DayTile date={new Date(year, month, idx + 1)} key={idx + 1} />
                 })}
-                {[...Array(35 - firstDayOfMonth - monthDaysNum)].map(idx => (<DayPlaceholder key={idx} />))}
+                {[...Array(35 - firstDayOfMonth - monthDaysNum)].map((_, idx) => (<DayPlaceholder key={idx} />))}
             </div>
         </div>
     )
