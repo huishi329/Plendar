@@ -10,7 +10,6 @@ export default function EventItem({ event }) {
     const currentEvent = useSelector(state => state.modals.event)
     const showEventDetail = currentEvent?.id === event.id &&
         currentEvent?.start_time.getTime() === event.start_time.getTime();
-    console.log(currentEvent?.start_time, event.start_time);
 
     const [x, setX] = useState();
     const [y, setY] = useState();
@@ -22,7 +21,7 @@ export default function EventItem({ event }) {
 
     useEffect(() => {
         setX(eventRef.current.offsetLeft - eventRef.current.offsetWidth);
-        setY(eventRef.current.offsetTop);
+        setY(eventRef.current.offsetTop + eventRef.current.offsetHeight);
     }, [])
 
     return (
