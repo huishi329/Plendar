@@ -7,17 +7,20 @@ export default function EventForm({ date, x, y }) {
     const dispatch = useDispatch();
     const dateStr = date.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }).split("/").reverse().join("-");
     const currentDate = new Date();
-    const timeStr = (currentDate.getMinutes() < 30) ? `${currentDate.getHours()}:30` : `${currentDate.getHours() + 1}:00`
+    const startTimeStr = (currentDate.getMinutes() < 30) ? `${currentDate.getHours()}:30` : `${currentDate.getHours() + 1}:00`
+    const endTimeStr = (currentDate.getMinutes() < 30) ? `${currentDate.getHours() + 1}:30` : `${currentDate.getHours() + 2}:00`
+
     const [expandTimeOptions, setExpandTimeOptions] = useState(false);
     const [expandMoreOptions, setExpanMoreOptions] = useState(false);
     const [title, setTitle] = useState(null);
     const [startDate, setStartDate] = useState(dateStr);
     const [endDate, setEndDate] = useState(dateStr);
-    const [startTime, setStartTime] = useState(timeStr);
-    const [endTime, setEndTime] = useState(null);
+    const [startTime, setStartTime] = useState(startTimeStr);
+    const [endTime, setEndTime] = useState(endTimeStr);
+    const [address, setAddress] = useState('')
     const [description, setDescription] = useState(null);
     const [errors, setErrors] = useState([]);
-
+    console.log(startTime);
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
@@ -38,7 +41,9 @@ export default function EventForm({ date, x, y }) {
             />
             <div className={styles.datetime}>
                 <i className="fa-regular fa-clock"></i>
-                <div className={styles.datePicker} onClick={() => setExpanMoreOptions(true)}>
+                <div
+                    className={`${styles.datePicker} ${expandMoreOptions || expandTimeOptions ? styles.afterExpand : ''}`}
+                    onClick={() => setExpanMoreOptions(true)}>
                     <div className={styles.datePickerInput}>
                         <input
                             type="date"
@@ -71,9 +76,8 @@ export default function EventForm({ date, x, y }) {
                                 />
                             </div>)}
                     </div>
-                    {!expandTimeOptions && <div className={styles.doNotRepeat}>Doesn't repeat</div>}
+                    {(!expandTimeOptions && !expandMoreOptions) && <div className={styles.doNotRepeat}>Doesn't repeat</div>}
                 </div>
-
 
                 {(!expandTimeOptions && !expandMoreOptions) &&
                     <div>
@@ -98,6 +102,17 @@ export default function EventForm({ date, x, y }) {
                         <option value={7}>Weekly</option>
                     </select>
                 </div>}
+            <div className={styles.address}>
+                <i className="fa-solid fa-location-dot"></i>
+                <input
+                    placeholder='Add location'
+                    className={styles.address}
+                    name="Add address"
+                    type="text"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                />
+            </div>
             <div className={styles.description}>
                 <i className="fa-solid fa-bars"></i>
                 <input
@@ -111,7 +126,7 @@ export default function EventForm({ date, x, y }) {
             </div>
             <button
                 type="submit"
-                className={styles.button}
+                className={styles.submitButton}
             >Save</button>
         </form >
     )
