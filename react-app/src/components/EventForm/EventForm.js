@@ -35,8 +35,51 @@ export default function EventForm({ date, x, y }) {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
             />
+            <div className={styles.datetime}>
+                <i className="fa-regular fa-clock"></i>
+                <div className={styles.datePicker} onClick={() => setExpanMoreOptions(true)}>
+                    <div className={styles.datePickerInput}>
+                        <input
+                            type="date"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                        />
+
+                        {expandTimeOptions ?
+                            (<div className={styles.timePicker}>
+                                <input
+                                    type="time"
+                                    value={startTime}
+                                    onChange={(e) => setStartTime(e.target.value)}
+                                />
+                                <span>-</span>
+                                <input
+                                    type="time"
+                                    value={endTime}
+                                    min={startTime}
+                                    onChange={(e) => setEndTime(e.target.value)}
+                                /></div>)
+                            :
+                            (<div>
+                                <span>-</span>
+                                <input
+                                    type="date"
+                                    value={endDate}
+                                    min={startDate}
+                                    onChange={(e) => setEndDate(e.target.value)}
+                                />
+                            </div>)}
+                    </div>
+                    {!expandTimeOptions && <div className={styles.doNotRepeat}>Doesn't repeat</div>}
+                </div>
 
 
+                {(!expandTimeOptions && !expandMoreOptions) &&
+                    <div>
+                        <button className={styles.addTimeBtn}
+                            onClick={() => setExpandTimeOptions(true)}>Add time</button>
+                    </div>}
+            </div>
             <button
                 type="submit"
                 className={styles.button}
