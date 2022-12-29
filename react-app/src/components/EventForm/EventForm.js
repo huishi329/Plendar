@@ -15,6 +15,7 @@ export default function EventForm({ date, x, y }) {
     const [endDate, setEndDate] = useState(dateStr);
     const [startTime, setStartTime] = useState(timeStr);
     const [endTime, setEndTime] = useState(null);
+    const [description, setDescription] = useState(null);
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = (e) => {
@@ -96,8 +97,18 @@ export default function EventForm({ date, x, y }) {
                         <option value={1}>Every day</option>
                         <option value={7}>Weekly</option>
                     </select>
-                </div>
-            }
+                </div>}
+            <div className={styles.description}>
+                <i className="fa-solid fa-bars"></i>
+                <input
+                    placeholder='Add description'
+                    className={styles.description}
+                    name="Add description"
+                    type="text"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                />
+            </div>
             <button
                 type="submit"
                 className={styles.button}
