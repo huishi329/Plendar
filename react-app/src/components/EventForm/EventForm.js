@@ -1,10 +1,13 @@
 import styles from './EventForm.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-
 
 export default function EventForm({ date, x, y }) {
     const dispatch = useDispatch();
+    const user = useSelector(state => state.session.user);
+    const calendars = useSelector(state => Object.values(state.calendars));
+    const calendars_owned = calendars?.filter(calendar => calendar.owner_id === user.id)
+
     const dateStr = date.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }).split("/").reverse().join("-");
     const currentDate = new Date();
     const startTimeStr = (currentDate.getMinutes() < 30) ? `${currentDate.getHours()}:30` : `${currentDate.getHours() + 1}:00`
@@ -12,15 +15,15 @@ export default function EventForm({ date, x, y }) {
 
     const [expandTimeOptions, setExpandTimeOptions] = useState(false);
     const [expandMoreOptions, setExpanMoreOptions] = useState(false);
-    const [title, setTitle] = useState(null);
+    const [title, setTitle] = useState("");
     const [startDate, setStartDate] = useState(dateStr);
     const [endDate, setEndDate] = useState(dateStr);
     const [startTime, setStartTime] = useState(startTimeStr);
     const [endTime, setEndTime] = useState(endTimeStr);
-    const [address, setAddress] = useState('')
-    const [description, setDescription] = useState(null);
+    const [address, setAddress] = useState("")
+    const [description, setDescription] = useState("");
     const [errors, setErrors] = useState([]);
-    console.log(startTime);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
@@ -123,6 +126,15 @@ export default function EventForm({ date, x, y }) {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                 />
+            </div>
+            <div className={styles.calendars}>
+                <i class="fa-regular fa-calendar"></i>
+                <select>
+                    {calendars_owned?.map(calendar =>
+                        (<option value={calendar.id} key={calendar.id}>{calendar.name}</option>))
+                    }
+                </select>
+
             </div>
             <button
                 type="submit"
