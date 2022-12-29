@@ -1,12 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCurrentDate, setSignUpModal } from '../../../store/modals';
+import EventForm from '../../EventForm/EventForm';
 import styles from './DayTile.module.css'
 import EventItem from './EventItem/EventItem';
 
 export default function DayTile({ date }) {
+    const user = useSelector(state => state.session.user);
+    const currentDateClicked = useSelector(state => state.modals.date)
+    const dispatch = useDispatch();
     const tileRef = useRef();
     const [x, setX] = useState();
     const [y, setY] = useState();
+    const isClicked = date.getDate() === currentDateClicked?.getDate();
+    const showAddEventForm = isClicked && user;
+    const handleClick = (e) => {
+        if (user) dispatch(setCurrentDate(date));
+        else dispatch(setSignUpModal(true));
+    }
 
     const events = useSelector(state => Object.values(state.events));
     // filter to get the events for the date
@@ -33,15 +44,18 @@ export default function DayTile({ date }) {
     })
 
     useEffect(() => {
-        setX(tileRef.current.offsetLeft);
+        setX(tileRef.current.offsetLeft + tileRef.current.offsetWidth);
         setY(tileRef.current.offsetTop);
     }, [])
 
     return (
-        <div className={styles.wrapper} ref={tileRef}>
-            <div className={styles.dayName}>{date.getDate()}</div>
-            {day_events_sorted && day_events_sorted.map(event =>
-                (<EventItem event={event} key={event.id} />))}
-        </div>
+        <>
+            <div className={styles.wrapper} ref={tileRef} onClick={handleClick}>
+                <div className={styles.dayName}>{date.getDate()}</div>
+                {day_events_sorted && day_events_sorted.map(event =>
+                    (<EventItem event={event} key={event.id} />))}
+            </div>
+            {showAddEventForm && <EventForm date={date} x={x} y={y} />}
+        </>
     )
 }
