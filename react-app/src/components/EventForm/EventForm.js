@@ -80,6 +80,24 @@ export default function EventForm({ date, x, y }) {
                             onClick={() => setExpandTimeOptions(true)}>Add time</button>
                     </div>}
             </div>
+            {(expandTimeOptions || expandMoreOptions) &&
+                <div className={styles.moreOptions}>
+                    <div className={styles.allDay}>
+                        <input
+                            type='checkbox'
+                            checked={!expandTimeOptions}
+                            name='allDay'
+                            onChange={() => setExpandTimeOptions(!expandTimeOptions)}
+                        ></input>
+                        <label htmlFor='allDay'>All day</label>
+                    </div>
+                    <select className={styles.recurrence}>
+                        <option value={0}>Doesn't repeat</option>
+                        <option value={1}>Every day</option>
+                        <option value={7}>Weekly</option>
+                    </select>
+                </div>
+            }
             <button
                 type="submit"
                 className={styles.button}
