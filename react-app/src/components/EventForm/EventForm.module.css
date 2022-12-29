@@ -29,6 +29,18 @@
     padding: 0.3rem;
 }
 
+.form select:hover {
+    background-color: #f7f7f7;
+}
+
+.form select:focus {
+    outline: none;
+}
+
+.form input:focus {
+    border-bottom: 1.5px solid rgba(107, 178, 156, 0.7);
+}
+
 .title {
     border: none;
     border-bottom: 1.5px solid rgba(34, 34, 34, 0.15);
@@ -38,11 +50,6 @@
     margin-left: 1rem;
 
     transition: border-bottom 0.5s, transform 3s;
-    transform-origin: center;
-}
-
-.title:focus {
-    border-bottom: 1.5px solid rgba(107, 178, 156, 0.7);
     transform-origin: center;
 }
 
@@ -130,17 +137,18 @@
     display: flex;
     align-items: center;
     border: none;
+    border-bottom: 1.5px solid white;
 }
 
 .address input:hover {
     background-color: #f7f7f7;
 }
 
-
 .description {
     display: flex;
     align-items: center;
     border: none;
+    border-bottom: 1.5px solid white;
 }
 
 .description input:hover {
@@ -155,4 +163,8 @@
     padding: 0.5rem 1rem;
     margin-left: 0.5rem;
     width: fit-content;
+}
+
+.calendars select {
+    border: none;
 }
