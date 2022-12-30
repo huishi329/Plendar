@@ -1,4 +1,5 @@
 from __future__ import with_statement
+from flask import current_app
 
 import logging
 from logging.config import fileConfig
@@ -26,7 +27,6 @@ logger = logging.getLogger('alembic.env')
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-from flask import current_app
 config.set_main_option(
     'sqlalchemy.url',
     str(current_app.extensions['migrate'].db.engine.url).replace('%', '%%'))
@@ -75,7 +75,7 @@ def run_migrations_online():
     connectable = engine_from_config(
         config.get_section(config.config_ini_section),
         prefix='sqlalchemy.',
-        poolclass=pool.NullPool,
+        poolclassName=pool.NullPool,
     )
 
     with connectable.connect() as connection:
@@ -94,6 +94,7 @@ def run_migrations_online():
             if environment == "production":
                 context.execute(f"SET search_path TO {SCHEMA}")
             context.run_migrations()
+
 
 if context.is_offline_mode():
     run_migrations_offline()

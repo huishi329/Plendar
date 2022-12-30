@@ -128,7 +128,7 @@ export default function EventForm({ date, x, y }) {
                 />
             </div>
             <div className={styles.calendars}>
-                <i class="fa-regular fa-calendar"></i>
+                <i className="fa-regular fa-calendar"></i>
                 <select>
                     {calendars_owned?.map(calendar =>
                         (<option value={calendar.id} key={calendar.id}>{calendar.name}</option>))

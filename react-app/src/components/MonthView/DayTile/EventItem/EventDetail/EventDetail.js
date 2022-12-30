@@ -32,7 +32,7 @@ export default function EventDetail({ event, x, y }) {
                 {event.start_time.toLocaleDateString('en-US',
                     { weekday: 'long', day: '2-digit', month: 'long' })
                 }
-                <i class="fa-solid fa-circle"></i>
+                <i className="fa-solid fa-circle"></i>
                 {event.start_time.toLocaleTimeString('en-US',
                     { hour: '2-digit', minute: '2-digit' }).toLowerCase().split(" ").join("")}
                 {` - `}
@@ -48,7 +48,7 @@ export default function EventDetail({ event, x, y }) {
                 {event.description}
             </div>}
             {calendars && <div>
-                <i class="fa-regular fa-calendar"></i>
+                <i className="fa-regular fa-calendar"></i>
                 {calendars[event.calendar_id].name}
             </div>}
         </div >
