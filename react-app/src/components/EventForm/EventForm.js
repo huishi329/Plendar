@@ -28,6 +28,7 @@ export default function EventForm({ date, x, y }) {
     const [description, setDescription] = useState("");
     const [calendarId, setCalendarId] = useState(calendars_owned[0].id);
     const [errors, setErrors] = useState([]);
+    console.log(x);
 
     const handleSubmit = (e) => {
         e.preventDefault();
