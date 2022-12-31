@@ -1,9 +1,11 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { deleteEvent } from "../../../../../../store/events";
+import { setCurrentEvent } from "../../../../../../store/modals";
 import styles from './EventNavbar.module.css'
 
 export default function EventNavbar({ event, calendar }) {
+    const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
-    console.log(calendar.owner_id);
 
     return (
         <div className={styles.wrapper}>
@@ -11,11 +13,12 @@ export default function EventNavbar({ event, calendar }) {
                 <button className={styles.button}>
                     <i className="fa-regular fa-pen-to-square"></i>
                 </button>
-                <button className={styles.button}>
+                <button className={styles.button} onClick={() => dispatch(deleteEvent(event.id))}>
                     <i className="fa-solid fa-trash-can"></i>
                 </button>
             </div>}
-            <button className={styles.button}>
+            <button className={styles.button}
+                onClick={() => dispatch(setCurrentEvent(null))}>
                 <i className="fa-regular fa-circle-xmark"></i>
             </button>
         </div >

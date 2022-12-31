@@ -7,15 +7,23 @@ import EventItem from './EventItem/EventItem';
 
 export default function DayTile({ date }) {
     const user = useSelector(state => state.session.user);
-    const currentDateClicked = useSelector(state => state.modals.date)
+    const modals = useSelector(state => state.modals)
     const dispatch = useDispatch();
     const tileRef = useRef();
     const [x, setX] = useState();
     const [y, setY] = useState();
-    const isClicked = date.getDate() === currentDateClicked?.getDate();
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+    const [tileWidth, setTileWidth] = useState(0)
+    const isClicked = date.getDate() === modals.date?.getDate();
     const showAddEventForm = isClicked && user;
+
     const handleClick = (e) => {
-        if (user) dispatch(setCurrentDate(date));
+        e.stopPropagation();
+        if (user) {
+            if (modals.date || modals.event || modals.showProfileDropdown) dispatch(setCurrentDate(null));
+            else dispatch(setCurrentDate(date));
+        }
         else dispatch(setSignUpModal(true));
     }
 
@@ -44,9 +52,18 @@ export default function DayTile({ date }) {
     })
 
     useEffect(() => {
-        setX(tileRef.current.offsetLeft + tileRef.current.offsetWidth);
-        setY(tileRef.current.offsetTop);
-    }, [])
+        if (tileRef.current.offsetLeft >= windowWidth - 500) setX(tileRef.current.offsetLeft - 450)
+        else setX(tileRef.current.offsetLeft + (tileWidth || tileRef.current.offsetWidth));
+        if (tileRef.current.offsetTop >= windowHeight - 323) setY(tileRef.current.offsetTop - 323);
+        else setY(tileRef.current.offsetTop);
+        const updateSize = () => {
+            setWindowWidth(window.innerWidth);
+            setWindowHeight(window.innerHeight);
+            setTileWidth(tileRef.current.offsetWidth);
+        }
+        window.addEventListener('resize', updateSize);
+        return () => window.removeEventListener('resize', updateSize)
+    }, [windowHeight, windowWidth, tileWidth])
 
     return (
         <>

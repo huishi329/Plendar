@@ -11,7 +11,7 @@
     font-size: 0.8rem;
     padding: 1rem 1.5rem;
     min-width: fit-content;
-    max-width: fit-content;
+    max-width: 450px;
 }
 
 .form i {
@@ -26,25 +26,36 @@
 .form input {
     width: 100%;
     outline: none;
-    padding: 0.5rem;
+    padding: 0.3rem;
 }
 
-.title {
+.form select:hover {
+    background-color: #f7f7f7;
+}
+
+.form select:focus {
+    outline: none;
+}
+
+.form input:focus {
+    border-bottom: 1.5px solid rgba(107, 178, 156, 0.7);
+}
+
+
+
+.title input {
     border: none;
     border-bottom: 1.5px solid rgba(34, 34, 34, 0.15);
     font-size: 1.3rem;
     font-weight: 500;
+    width: 94%;
     padding-bottom: 0;
-    margin-left: 1rem;
+    margin-left: 1.5rem;
 
     transition: border-bottom 0.5s, transform 3s;
     transform-origin: center;
 }
 
-.title:focus {
-    border-bottom: 1.5px solid rgba(107, 178, 156, 0.7);
-    transform-origin: center;
-}
 
 .datetime {
     display: flex;
@@ -53,7 +64,14 @@
 }
 
 .datetime input {
+    background-color: #f7f7f7;
+    border: none;
+    border-bottom: 1px solid rgba(247, 247, 247, 1);
     width: fit-content;
+}
+
+.datetime input:hover {
+    border-bottom: 1px solid rgba(34, 34, 34, 0.5);
 }
 
 .datetime button {
@@ -74,6 +92,10 @@
     background-color: #f7f7f7;
 }
 
+.afterExpand:hover {
+    background-color: transparent;
+}
+
 .datePickerInput {
     display: flex;
     align-items: center;
@@ -82,6 +104,7 @@
 
 .doNotRepeat {
     font-size: 0.7rem;
+    border: none;
 }
 
 .timePicker {
@@ -109,12 +132,43 @@
 }
 
 .recurrence {
-    outline: none;
+    border: none;
     margin-left: 1.5rem;
     margin-top: 0.5rem;
 }
 
+.address {
+    display: flex;
+    align-items: center;
+    border: none;
+    border-bottom: 1.5px solid white;
+}
+
+.address input:hover {
+    background-color: #f7f7f7;
+}
+
 .description {
     display: flex;
+    align-items: center;
+    border: none;
+    border-bottom: 1.5px solid white;
+}
+
+.description input:hover {
+    background-color: #f7f7f7;
+}
+
+.submitButton {
+    align-self: end;
+    color: white;
+    background-color: rgba(107, 178, 156, 1);
+    border-radius: 0.2rem;
+    padding: 0.5rem 1rem;
+    margin-left: 0.5rem;
+    width: fit-content;
+}
+
+.calendars select {
     border: none;
 }

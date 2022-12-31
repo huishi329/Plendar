@@ -7,22 +7,35 @@ import styles from './EventItem.module.css'
 export default function EventItem({ event }) {
     const eventRef = useRef();
     const dispatch = useDispatch();
-    const currentEvent = useSelector(state => state.modals.event)
-    const showEventDetail = currentEvent?.id === event.id &&
-        currentEvent?.start_time.getTime() === event.start_time.getTime();
+    const modals = useSelector(state => state.modals)
+    const showEventDetail = modals.event?.id === event.id &&
+        modals.event?.start_time.getTime() === event.start_time.getTime();
 
     const [x, setX] = useState();
     const [y, setY] = useState();
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+    const [eventItemWidth, setEventItemWidth] = useState(0);
 
     const handleEventClick = (e) => {
         e.stopPropagation();
-        dispatch(setCurrentEvent(event));
+        if (modals.date || modals.event || modals.showProfileDropdown) dispatch(setCurrentEvent(null));
+        else dispatch(setCurrentEvent(event));
     };
 
     useEffect(() => {
-        setX(eventRef.current.offsetLeft - eventRef.current.offsetWidth);
-        setY(eventRef.current.offsetTop + eventRef.current.offsetHeight);
-    }, [])
+        if (eventRef.current.offsetLeft >= windowWidth - 500) setX(eventRef.current.offsetLeft - 400)
+        else setX(eventRef.current.offsetLeft + (eventItemWidth || eventRef.current.offsetWidth));
+        if (eventRef.current.offsetTop >= windowHeight - 150) setY(eventRef.current.offsetTop - 150);
+        else setY(eventRef.current.offsetTop);
+        const updateSize = () => {
+            setWindowWidth(window.innerWidth);
+            setWindowHeight(window.innerHeight);
+            setEventItemWidth(eventRef.current.offsetWidth);
+        }
+        window.addEventListener('resize', updateSize);
+        return () => window.removeEventListener('resize', updateSize)
+    }, [windowHeight, windowWidth, eventItemWidth])
 
     return (
         <>
