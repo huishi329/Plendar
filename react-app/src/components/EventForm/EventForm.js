@@ -74,6 +74,7 @@ export default function EventForm({ date, x, y }) {
                     placeholder='Add title and time'
                     name="Add title"
                     type="text"
+                    autoComplete='off'
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
@@ -150,6 +151,7 @@ export default function EventForm({ date, x, y }) {
                     className={styles.address}
                     name="Add address"
                     type="text"
+                    autoComplete='off'
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                 />
@@ -161,6 +163,7 @@ export default function EventForm({ date, x, y }) {
                     className={styles.description}
                     name="Add description"
                     type="text"
+                    autoComplete='off'
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                 />
