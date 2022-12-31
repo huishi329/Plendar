@@ -49,7 +49,6 @@ export default function DayTile({ date }) {
     })
 
     useEffect(() => {
-        console.log(window.innerWidth);
         if (tileRef.current.offsetLeft > window.innerWidth / 2) setX(tileRef.current.offsetLeft - 450)
         else setX(tileRef.current.offsetLeft + tileRef.current.offsetWidth);
         if (tileRef.current.offsetTop > window.innerHeight / 2) setY(tileRef.current.offsetTop - 323);
