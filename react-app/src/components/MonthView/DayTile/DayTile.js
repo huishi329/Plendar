@@ -16,7 +16,7 @@ export default function DayTile({ date }) {
     const [windowHeight, setWindowHeight] = useState(window.innerHeight);
     const [tileWidth, setTileWidth] = useState(0)
     const isClicked = date.getDate() === modals.date?.getDate();
-    const showAddEventForm = isClicked && user;
+    const showEventForm = isClicked && user;
 
     const handleClick = (e) => {
         e.stopPropagation();
@@ -55,9 +55,11 @@ export default function DayTile({ date }) {
         if (windowWidth < 900) setX((windowWidth - 450) / 2);
         else if (tileRef.current.offsetLeft > windowWidth / 2) setX(tileRef.current.offsetLeft - 450)
         else setX(tileRef.current.offsetLeft + (tileWidth || tileRef.current.offsetWidth));
+
         if (windowHeight < 500) setY(20)
         else if (tileRef.current.offsetTop >= windowHeight - 323) setY(tileRef.current.offsetTop - 323);
         else setY(tileRef.current.offsetTop);
+
         const updateSize = () => {
             setWindowWidth(window.innerWidth);
             setWindowHeight(window.innerHeight);
@@ -74,7 +76,7 @@ export default function DayTile({ date }) {
                 {day_events_sorted && day_events_sorted.map(event =>
                     (<EventItem event={event} key={event.id} />))}
             </div>
-            {showAddEventForm && <EventForm date={date} x={x} y={y} />}
+            {showEventForm && <EventForm date={date} x={x} y={y} />}
         </>
     )
 }
