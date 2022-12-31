@@ -12,6 +12,9 @@ export default function DayTile({ date }) {
     const tileRef = useRef();
     const [x, setX] = useState();
     const [y, setY] = useState();
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+    const [tileWidth, setTileWidth] = useState(0)
     const isClicked = date.getDate() === modals.date?.getDate();
     const showAddEventForm = isClicked && user;
 
@@ -49,11 +52,19 @@ export default function DayTile({ date }) {
     })
 
     useEffect(() => {
-        if (tileRef.current.offsetLeft > window.innerWidth - 450) setX(tileRef.current.offsetLeft - 450)
-        else setX(tileRef.current.offsetLeft + tileRef.current.offsetWidth);
-        if (tileRef.current.offsetTop > window.innerHeight - 323) setY(tileRef.current.offsetTop - 323);
+
+        if (tileRef.current.offsetLeft > windowWidth - 450) setX(tileRef.current.offsetLeft - 450)
+        else setX(tileRef.current.offsetLeft + (tileWidth || tileRef.current.offsetWidth));
+        if (tileRef.current.offsetTop > windowHeight - 323) setY(tileRef.current.offsetTop - 323);
         else setY(tileRef.current.offsetTop);
-    }, [])
+        const updateSize = () => {
+            setWindowWidth(window.innerWidth);
+            setWindowHeight(window.innerHeight);
+            setTileWidth(tileRef.current.offsetWidth);
+        }
+        window.addEventListener('resize', updateSize);
+        return () => window.removeEventListener('resize', updateSize)
+    }, [windowHeight, windowWidth, tileWidth])
 
     return (
         <>
