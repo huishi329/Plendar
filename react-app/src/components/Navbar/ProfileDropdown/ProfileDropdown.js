@@ -1,12 +1,12 @@
 import styles from "./ProfileDropdown.module.css";
 import { useDispatch } from 'react-redux';
 import { signOut } from '../../../store/session';
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { clearEvents } from "../../../store/events";
 import { clearCalendars } from "../../../store/calendars";
+import { setProfileDropdown } from "../../../store/modals";
 
 export default function ProfileDropdown({ user, setShowDropdown }) {
-    const dropdownRef = useRef();
     const dispatch = useDispatch();
     const onClickSignOut = () => {
         dispatch(signOut())
@@ -14,20 +14,17 @@ export default function ProfileDropdown({ user, setShowDropdown }) {
                 dispatch(clearEvents());
                 dispatch(clearCalendars());
             })
-        setShowDropdown(false);
+        dispatch(setProfileDropdown(false));
     };
     useEffect(() => {
-        const closeDropdown = (e) => {
-            if (e.path.find(ele => ele === dropdownRef.current)) return;
-            setShowDropdown(false);
-        };
+        const closeDropdown = (e) => dispatch(setProfileDropdown(false));
         document.addEventListener('click', closeDropdown);
         return () => document.removeEventListener('click', closeDropdown)
-    }, [setShowDropdown])
+    }, [dispatch])
 
 
     return <>
-        <div className={styles.wrapper} ref={dropdownRef}>
+        <div className={styles.wrapper} onClick={(e) => e.stopPropagation()}>
             <div className={styles.profileImage}>
                 <img src={user.profile_picture_url} alt={user.name}></img>
             </div>
