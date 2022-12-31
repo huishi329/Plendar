@@ -2,6 +2,7 @@ import styles from './EventForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { createEvent } from '../../store/events';
+import { setCurrentDate } from '../../store/modals';
 
 export default function EventForm({ date, x, y }) {
     const dispatch = useDispatch();
@@ -42,10 +43,11 @@ export default function EventForm({ date, x, y }) {
             calendar_id: calendarId,
             recurrence,
             end_date
-        })).catch(e => {
-            const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
-            setErrors(errors);
-        });
+        })).then(() => dispatch(setCurrentDate(null)))
+            .catch(e => {
+                const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
+                setErrors(errors);
+            });
     };
 
     return (
