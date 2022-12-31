@@ -8,6 +8,7 @@ export default function EventItem({ event }) {
     const eventRef = useRef();
     const dispatch = useDispatch();
     const currentEvent = useSelector(state => state.modals.event)
+    const currentDate = useSelector(state => state.modals.date)
     const showEventDetail = currentEvent?.id === event.id &&
         currentEvent?.start_time.getTime() === event.start_time.getTime();
 
@@ -16,7 +17,8 @@ export default function EventItem({ event }) {
 
     const handleEventClick = (e) => {
         e.stopPropagation();
-        dispatch(setCurrentEvent(event));
+        if (currentDate || currentEvent) dispatch(setCurrentEvent(null));
+        else dispatch(setCurrentEvent(event));
     };
 
     useEffect(() => {

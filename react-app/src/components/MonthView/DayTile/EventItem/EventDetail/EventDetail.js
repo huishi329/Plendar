@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentEvent } from '../../../../../store/modals';
 import styles from './EventDetail.module.css'
@@ -9,9 +9,7 @@ export default function EventDetail({ event, x, y }) {
     const calendars = useSelector(state => state.calendars);
 
     useEffect(() => {
-        const closeEventDetail = () => {
-            dispatch(setCurrentEvent(null))
-        };
+        const closeEventDetail = () => dispatch(setCurrentEvent(null));
         document.addEventListener('click', closeEventDetail);
         return () => document.removeEventListener('click', closeEventDetail)
     }, [dispatch])
