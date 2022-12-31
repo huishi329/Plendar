@@ -5,14 +5,11 @@ import styles from './EventDetail.module.css'
 import EventNavbar from './EventNavbar/EventNavbar';
 
 export default function EventDetail({ event, x, y }) {
-    const eventRef = useRef();
     const dispatch = useDispatch();
     const calendars = useSelector(state => state.calendars);
 
     useEffect(() => {
-        const closeEventDetail = (e) => {
-            e.stopPropagation();
-            if (e.path.find(ele => ele === eventRef.current)) return;
+        const closeEventDetail = () => {
             dispatch(setCurrentEvent(null))
         };
         document.addEventListener('click', closeEventDetail);
@@ -22,9 +19,13 @@ export default function EventDetail({ event, x, y }) {
     if (!calendars) return null;
 
     return (
-        <div className={styles.wrapper} style={{ top: y }} ref={eventRef}>
+        <div
+            className={styles.wrapper}
+            style={{ top: y }}
+            onClick={(e) => e.stopPropagation()}
+        >
             <EventNavbar event={event} calendar={calendars[event.calendar_id]} />
-            <div className={styles.title}>
+            <div className={styles.title} >
                 <i className="fa-solid fa-square"></i>
                 {event.title}
             </div>
