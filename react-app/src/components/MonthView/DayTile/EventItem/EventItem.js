@@ -7,17 +7,16 @@ import styles from './EventItem.module.css'
 export default function EventItem({ event }) {
     const eventRef = useRef();
     const dispatch = useDispatch();
-    const currentEvent = useSelector(state => state.modals.event)
-    const currentDate = useSelector(state => state.modals.date)
-    const showEventDetail = currentEvent?.id === event.id &&
-        currentEvent?.start_time.getTime() === event.start_time.getTime();
+    const modals = useSelector(state => state.modals)
+    const showEventDetail = modals.event?.id === event.id &&
+        modals.event?.start_time.getTime() === event.start_time.getTime();
 
     const [x, setX] = useState();
     const [y, setY] = useState();
 
     const handleEventClick = (e) => {
         e.stopPropagation();
-        if (currentDate || currentEvent) dispatch(setCurrentEvent(null));
+        if (modals.date || modals.event || modals.showProfileDropdown) dispatch(setCurrentEvent(null));
         else dispatch(setCurrentEvent(event));
     };
 

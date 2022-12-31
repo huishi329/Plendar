@@ -7,19 +7,18 @@ import EventItem from './EventItem/EventItem';
 
 export default function DayTile({ date }) {
     const user = useSelector(state => state.session.user);
-    const currentEvent = useSelector(state => state.modals.event)
-    const currentDate = useSelector(state => state.modals.date)
+    const modals = useSelector(state => state.modals)
     const dispatch = useDispatch();
     const tileRef = useRef();
     const [x, setX] = useState();
     const [y, setY] = useState();
-    const isClicked = date.getDate() === currentDate?.getDate();
+    const isClicked = date.getDate() === modals.date?.getDate();
     const showAddEventForm = isClicked && user;
 
     const handleClick = (e) => {
         e.stopPropagation();
         if (user) {
-            if (currentDate || currentEvent) dispatch(setCurrentDate(null));
+            if (modals.date || modals.event || modals.showProfileDropdown) dispatch(setCurrentDate(null));
             else dispatch(setCurrentDate(date));
         }
         else dispatch(setSignUpModal(true));
