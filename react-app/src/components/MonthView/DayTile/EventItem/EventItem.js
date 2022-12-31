@@ -21,8 +21,10 @@ export default function EventItem({ event }) {
     };
 
     useEffect(() => {
-        setX(eventRef.current.offsetLeft - eventRef.current.offsetWidth);
-        setY(eventRef.current.offsetTop + eventRef.current.offsetHeight);
+        if (eventRef.current.offsetLeft > window.innerWidth - 400) setX(eventRef.current.offsetLeft - 400)
+        else setX(eventRef.current.offsetLeft + eventRef.current.offsetWidth);
+        if (eventRef.current.offsetTop > window.innerHeight - 150) setY(eventRef.current.offsetTop - 150);
+        else setY(eventRef.current.offsetTop);
     }, [])
 
     return (

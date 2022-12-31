@@ -19,7 +19,7 @@ export default function EventDetail({ event, x, y }) {
     return (
         <div
             className={styles.wrapper}
-            style={{ top: y }}
+            style={{ left: x, top: y }}
             onClick={(e) => e.stopPropagation()}
         >
             <EventNavbar event={event} calendar={calendars[event.calendar_id]} />
