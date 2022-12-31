@@ -11,6 +11,18 @@ export const getEvents = (calendar_id, year, month) => async dispatch => {
     dispatch({ type: GET_MONTH_EVENTS, events })
 }
 
+const CREATE_EVENT = 'events/createEvent';
+
+export const createEvent = (requestBody) => async dispatch => {
+    console.log('createEvent thunk action');
+    const response = await csrfFetch('api/events', {
+        method: 'POST',
+        body: JSON.stringify(requestBody)
+    });
+    const event = await response.json();
+    dispatch({ type: CREATE_EVENT, event });
+};
+
 const REMOVE_NONE_DISPLAY_EVENTS = 'events/removeNoneDisplayEvents'
 
 export const removeEvents = (calendar_id) => {
@@ -35,6 +47,9 @@ export default function eventsReducer(state = {}, action) {
             for (const event_id in newState) {
                 if (newState[event_id].calendar_id === action.calendar_id) delete newState[event_id]
             }
+            return newState;
+        case CREATE_EVENT:
+            newState[action.event.id] = action.event;
             return newState;
         case CLEAR_EVENTS:
             return {}
