@@ -14,7 +14,9 @@ export default function DayTile({ date }) {
     const [y, setY] = useState();
     const isClicked = date.getDate() === currentDateClicked?.getDate();
     const showAddEventForm = isClicked && user;
+
     const handleClick = (e) => {
+        e.stopPropagation();
         if (user) dispatch(setCurrentDate(date));
         else dispatch(setSignUpModal(true));
     }
