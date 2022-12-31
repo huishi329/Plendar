@@ -1,6 +1,7 @@
 import styles from './EventForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import { createEvent } from '../../store/events';
 
 export default function EventForm({ date, x, y }) {
     const dispatch = useDispatch();
@@ -20,13 +21,31 @@ export default function EventForm({ date, x, y }) {
     const [endDate, setEndDate] = useState(dateStr);
     const [startTime, setStartTime] = useState(startTimeStr);
     const [endTime, setEndTime] = useState(endTimeStr);
+    const [recurrence, setRecurrence] = useState(0);
     const [address, setAddress] = useState("")
     const [description, setDescription] = useState("");
+    const [calendarId, setCalendarId] = useState(calendars_owned[0].id);
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
+        const start_time = expandTimeOptions ? startDate + ' ' + startTime + ':00' : startDate + ' ' + '00:00:00';
+        const end_time = expandTimeOptions ? endDate + ' ' + endTime + ':00' : endDate + ' ' + '23:59:59'
+        const end_date = recurrence ? '9999-12-31 23:59:59' : end_time;
+        dispatch(createEvent({
+            title,
+            start_time,
+            end_time,
+            address,
+            description,
+            calendar_id: calendarId,
+            recurrence,
+            end_date
+        })).catch(e => {
+            const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
+            setErrors(errors);
+        });
     };
 
     return (
@@ -99,9 +118,11 @@ export default function EventForm({ date, x, y }) {
                         ></input>
                         <label htmlFor='allDay'>All day</label>
                     </div>
-                    <select className={styles.recurrence}>
+                    <select className={styles.recurrence}
+                        onChange={(e) => setRecurrence(e.target.value)}>
                         <option value={0}>Doesn't repeat</option>
                         <option value={1}>Every day</option>
+                        <option value={5}>Every weekday</option>
                         <option value={7}>Weekly</option>
                     </select>
                 </div>}
@@ -129,7 +150,7 @@ export default function EventForm({ date, x, y }) {
             </div>
             <div className={styles.calendars}>
                 <i className="fa-regular fa-calendar"></i>
-                <select>
+                <select onChange={(e) => setCalendarId(e.target.value)}>
                     {calendars_owned?.map(calendar =>
                         (<option value={calendar.id} key={calendar.id}>{calendar.name}</option>))
                     }
