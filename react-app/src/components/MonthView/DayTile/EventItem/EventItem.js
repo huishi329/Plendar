@@ -24,7 +24,6 @@ export default function EventItem({ event }) {
     };
 
     useEffect(() => {
-        console.log(eventItemWidth || eventRef.current.offsetWidth);
         if (eventRef.current.offsetLeft >= windowWidth - 500) setX(eventRef.current.offsetLeft - 400)
         else setX(eventRef.current.offsetLeft + (eventItemWidth || eventRef.current.offsetWidth));
         if (eventRef.current.offsetTop >= windowHeight - 150) setY(eventRef.current.offsetTop - 150);
