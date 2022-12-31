@@ -1,6 +1,16 @@
+.wrapper {
+    border-radius: 5px;
+    padding-left: 0.5rem;
+}
+
 .wrapper:hover {
     background-color: rgba(107, 178, 156, 0.15);
     cursor: pointer;
+
+}
+
+.clicked {
+    box-shadow: 0px 0px 0.5rem rgba(0, 0, 0, 0.3);
 }
 
 .title {

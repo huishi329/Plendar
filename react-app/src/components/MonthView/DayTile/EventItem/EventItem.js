@@ -40,7 +40,7 @@ export default function EventItem({ event }) {
 
     return (
         <>
-            <div className={styles.wrapper} ref={eventRef} onClick={handleEventClick}>
+            <div className={`${styles.wrapper} ${showEventDetail ? styles.clicked : ''}`} ref={eventRef} onClick={handleEventClick}>
                 <div className={styles.title}>
                     <div className={styles.dot}>
                         <i className="fa-solid fa-circle"></i>
