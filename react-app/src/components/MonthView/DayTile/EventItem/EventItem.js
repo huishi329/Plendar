@@ -19,12 +19,12 @@ export default function EventItem({ event }) {
 
     const handleEventClick = (e) => {
         e.stopPropagation();
-        if (modals.date || modals.event || modals.showProfileDropdown) dispatch(setCurrentEvent(null));
+        if (modals.date || modals.showProfileDropdown) dispatch(setCurrentEvent(null));
         else dispatch(setCurrentEvent(event));
     };
 
     useEffect(() => {
-        if (eventRef.current.offsetLeft >= windowWidth - 500) setX(eventRef.current.offsetLeft - 400)
+        if (eventRef.current.offsetLeft >= windowWidth - 550) setX(eventRef.current.offsetLeft - 400)
         else setX(eventRef.current.offsetLeft + (eventItemWidth || eventRef.current.offsetWidth));
         if (eventRef.current.offsetTop >= windowHeight - 150) setY(eventRef.current.offsetTop - 150);
         else setY(eventRef.current.offsetTop);
