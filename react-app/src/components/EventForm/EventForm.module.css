@@ -41,17 +41,21 @@
     border-bottom: 1.5px solid rgba(107, 178, 156, 0.7);
 }
 
-.title {
+
+
+.title input {
     border: none;
     border-bottom: 1.5px solid rgba(34, 34, 34, 0.15);
     font-size: 1.3rem;
     font-weight: 500;
+    width: 94%;
     padding-bottom: 0;
-    margin-left: 1rem;
+    margin-left: 1.5rem;
 
     transition: border-bottom 0.5s, transform 3s;
     transform-origin: center;
 }
+
 
 .datetime {
     display: flex;

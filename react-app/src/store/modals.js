@@ -23,9 +23,9 @@ export default function modalsReducer(state = {}, action) {
         case SET_SIGNIN_MODAL:
             return { ...state, showSignInModal: action.showSignInModal };
         case SET_CURRENT_EVENT:
-            return { ...state, event: action.event };
+            return { event: action.event };
         case SET_CURRENT_DATE:
-            return { ...state, date: action.date };
+            return { date: action.date };
         default:
             return state;
     }

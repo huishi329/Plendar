@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { createEvent } from '../../store/events';
 import { setCurrentDate } from '../../store/modals';
+import { EventFormNavbar } from './EventFormNavbar/EventFormNavbar';
 
 export default function EventForm({ date, x, y }) {
     const dispatch = useDispatch();
@@ -52,17 +53,19 @@ export default function EventForm({ date, x, y }) {
 
     return (
         <form className={styles.form} onSubmit={handleSubmit} style={{ left: x, top: y }}>
+            <EventFormNavbar />
             {errors.length > 0 && <ul className={styles.formErrors}>
                 {errors.map((error, i) => <li key={i}>{error}</li>)}
             </ul>}
-            <input
-                placeholder='Add title and time'
-                className={styles.title}
-                name="Add title"
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-            />
+            <div className={styles.title}>
+                <input
+                    placeholder='Add title and time'
+                    name="Add title"
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                />
+            </div>
             <div className={styles.datetime}>
                 <i className="fa-regular fa-clock"></i>
                 <div
