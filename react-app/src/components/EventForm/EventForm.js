@@ -28,7 +28,6 @@ export default function EventForm({ date, x, y }) {
     const [description, setDescription] = useState("");
     const [calendarId, setCalendarId] = useState(calendars_owned[0].id);
     const [errors, setErrors] = useState([]);
-    console.log(x);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -37,7 +36,7 @@ export default function EventForm({ date, x, y }) {
         const end_time = expandTimeOptions ? `${endDate} ${endTime}:00` : `${endDate} 23:59:59`;
         const end_date = recurrence ? '9999-12-31 23:59:59' : end_time;
         dispatch(createEvent({
-            title,
+            title: title === '' ? '(No title)' : title,
             start_time,
             end_time,
             address,
