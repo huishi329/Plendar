@@ -32,20 +32,24 @@ export default function DayTile({ date }) {
     const day_events = events?.filter(event => {
         // envents that doesn't repeat
         const eventDate = new Date(event.start_time);
-        return (eventDate.getDate() === date.getDate() ||
+        return (eventDate === date ||
             // events that repeat daily
-            (event.recurrence === 1 && date.getDate() >= eventDate.getDate()) ||
+            (event.recurrence === 1 && date >= eventDate) ||
             // events that repeat weekly
-            (event.recurrence === 7 && date.getDate() >= eventDate.getDate() && date.getDay() === eventDate.getDay()))
+            (event.recurrence === 7 && date >= eventDate && date.getDay() === eventDate.getDay()))
     })
     // Make a deep copy and then set date to the DayTile date
     const day_events_copy = JSON.parse(JSON.stringify(day_events))
     day_events_copy.forEach((event) => {
         event.start_time = new Date(event.start_time);
         event.start_time.setDate(date.getDate());
+        event.start_time.setMonth(date.getMonth());
+
         event.end_time = new Date(event.end_time);
         event.end_time.setDate(date.getDate());
+        event.end_time.setMonth(date.getMonth());
     })
+    console.log(date, day_events_copy);
 
     const day_events_sorted = day_events_copy.sort((a, b) => {
         return a.start_time - b.start_time
