@@ -23,7 +23,8 @@ export default function MonthView() {
     useEffect(() => {
         if (calendars) {
             Object.values(calendars).forEach((calendar) => {
-                if (calendar.is_displayed) dispatch(getEvents(calendar.id, year, month))
+                // month number must be 1-12 for python calendar
+                if (calendar.is_displayed) dispatch(getEvents(calendar.id, year, month + 1))
             })
         }
     }, [dispatch, month, year, calendars])
