@@ -14,8 +14,8 @@ export default function DayTile({ date }) {
     const [y, setY] = useState();
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [windowHeight, setWindowHeight] = useState(window.innerHeight);
-    const [tileWidth, setTileWidth] = useState(0)
-    const isClicked = date.getDate() === modals.date?.getDate();
+    const [tileWidth, setTileWidth] = useState(0);
+    const isClicked = date === modals.date;
     const showEventForm = isClicked && user;
 
     const handleClick = (e) => {
@@ -49,7 +49,6 @@ export default function DayTile({ date }) {
         event.end_time.setDate(date.getDate());
         event.end_time.setMonth(date.getMonth());
     })
-    console.log(date, day_events_copy);
 
     const day_events_sorted = day_events_copy.sort((a, b) => {
         return a.start_time - b.start_time
