@@ -4,6 +4,8 @@ import NavBar from './components/Navbar/NavBar';
 import Modals from "./components/Modals/Modals";
 import { restoreUser } from './store/session';
 import MainView from './components/MainView/MainView';
+import EditEventForm from './components/EditEventForm/EditEventForm';
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -22,9 +24,17 @@ function App() {
 
   return (
     <>
-      <NavBar />
-      <MainView />
-      <Modals />
+      <Routes>
+        <Route path='/' element={
+          <>
+            <NavBar />
+            <MainView />
+            <Modals />
+          </>
+        } />
+        <Route path='eventedit/:eventId' element={<EditEventForm />} />
+
+      </Routes>
     </>
   );
 }
