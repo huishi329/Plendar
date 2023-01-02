@@ -14,20 +14,20 @@ export default function EditEventForm() {
     const calendars_owned = calendars?.filter(calendar => calendar.owner_id === user.id)
 
     const dateStr = event.start_time.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }).split("/").reverse().join("-");
-    const currentDate = new Date();
-    const startTimeStr = (currentDate.getMinutes() < 30) ? `${currentDate.getHours()}:30` : `${currentDate.getHours() + 1}:00`
-    const endTimeStr = (currentDate.getMinutes() < 30) ? `${currentDate.getHours() + 1}:30` : `${currentDate.getHours() + 2}:00`
+    // use an empty array to show hour and minute only
+    const startTimeStr = event.start_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    const endTimeStr = event.end_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 
-    const [expandTimeOptions, setExpandTimeOptions] = useState(false);
+    const [expandTimeOptions, setExpandTimeOptions] = useState(startTimeStr !== "00:00" && endTimeStr !== "23:59");
     const [title, setTitle] = useState(event.title);
     const [startDate, setStartDate] = useState(dateStr);
     const [endDate, setEndDate] = useState(dateStr);
-    const [startTime, setStartTime] = useState(startTimeStr);
-    const [endTime, setEndTime] = useState(endTimeStr);
-    const [recurrence, setRecurrence] = useState(0);
-    const [address, setAddress] = useState("");
-    const [description, setDescription] = useState("");
-    const [calendarId, setCalendarId] = useState(calendars_owned[0].id);
+    const [startTime, setStartTime] = useState(startTimeStr === "00:00" && endTimeStr === "23:59" ? "10:00" : startTimeStr);
+    const [endTime, setEndTime] = useState(startTimeStr === "00:00" && endTimeStr === "23:59" ? "10:30" : endTimeStr);
+    const [recurrence, setRecurrence] = useState(event.recurrence || 0);
+    const [address, setAddress] = useState(event.address || "");
+    const [description, setDescription] = useState(event.description || "");
+    const [calendarId, setCalendarId] = useState(event.calendar_id || calendars_owned[0].id);
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = (e) => {
@@ -132,10 +132,10 @@ export default function EditEventForm() {
                 <div className={styles.recurrence}>
                     <select
                         onChange={(e) => setRecurrence(e.target.value)}>
-                        <option value={0}>Doesn't repeat</option>
-                        <option value={1}>Every day</option>
-                        <option value={7}>Weekly on {event.start_time.toLocaleDateString('en-US', { weekday: 'long' })}</option>
-                        <option value={5}>Every weekday</option>
+                        <option selected={recurrence === 0 ? 'selected' : ''} value={0}>Doesn't repeat</option>
+                        <option selected={recurrence === 1 ? 'selected' : ''} value={1}>Every day</option>
+                        <option selected={recurrence === 7 ? 'selected' : ''} value={7}>Weekly on {event.start_time.toLocaleDateString('en-US', { weekday: 'long' })}</option>
+                        <option selected={recurrence === 5 ? 'selected' : ''} value={5}>Every weekday</option>
                     </select>
                 </div>
             </div>
@@ -157,7 +157,7 @@ export default function EditEventForm() {
                     <i className="fa-regular fa-calendar"></i>
                     <select onChange={(e) => setCalendarId(e.target.value)}>
                         {calendars_owned?.map(calendar =>
-                            (<option value={calendar.id} key={calendar.id}>{calendar.name}</option>))
+                            (<option value={calendar.id} key={calendar.id} selected={calendar.id === calendarId ? 'selected' : ''}>{calendar.name}</option>))
                         }
                     </select>
                 </div>
