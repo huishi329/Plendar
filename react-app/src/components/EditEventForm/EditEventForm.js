@@ -2,7 +2,7 @@ import styles from './EditEventForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { createEvent } from '../../store/events';
+import { updateEvent } from '../../store/events';
 import { setCurrentDate, setCurrentEvent } from '../../store/modals';
 
 export default function EditEventForm() {
@@ -31,12 +31,13 @@ export default function EditEventForm() {
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = (e) => {
+        console.log('SUBMIT');
         e.preventDefault();
         setErrors([]);
         const start_time = expandTimeOptions ? `${startDate} ${startTime}:00` : `${startDate} 00:00:00`;
         const end_time = expandTimeOptions ? `${endDate} ${endTime}:00` : `${endDate} 23:59:59`;
         const end_date = recurrence ? '9999-12-31 23:59:59' : end_time;
-        dispatch(createEvent({
+        dispatch(updateEvent(event.id, {
             title: title === '' ? '(No title)' : title,
             start_time,
             end_time,
@@ -45,11 +46,14 @@ export default function EditEventForm() {
             calendar_id: calendarId,
             recurrence,
             end_date
-        })).then(() => dispatch(setCurrentDate(null)))
-            .catch(e => {
-                const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
-                setErrors(errors);
-            });
+        })).then(() => {
+            navigate('/');
+            dispatch(setCurrentEvent(null))
+        }).catch(e => {
+            const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
+            setErrors(errors);
+            console.log(e);
+        });
     };
 
     return (
@@ -130,12 +134,12 @@ export default function EditEventForm() {
                     <label htmlFor='allDay'>All day</label>
                 </div>
                 <div className={styles.recurrence}>
-                    <select
+                    <select defaultValue={recurrence}
                         onChange={(e) => setRecurrence(e.target.value)}>
-                        <option selected={recurrence === 0 ? 'selected' : ''} value={0}>Doesn't repeat</option>
-                        <option selected={recurrence === 1 ? 'selected' : ''} value={1}>Every day</option>
-                        <option selected={recurrence === 7 ? 'selected' : ''} value={7}>Weekly on {event.start_time.toLocaleDateString('en-US', { weekday: 'long' })}</option>
-                        <option selected={recurrence === 5 ? 'selected' : ''} value={5}>Every weekday</option>
+                        <option value={0}>Doesn't repeat</option>
+                        <option value={1}>Every day</option>
+                        <option value={7}>Weekly on {event.start_time.toLocaleDateString('en-US', { weekday: 'long' })}</option>
+                        <option value={5}>Every weekday</option>
                     </select>
                 </div>
             </div>
@@ -155,9 +159,9 @@ export default function EditEventForm() {
                 </div>
                 <div className={styles.calendars}>
                     <i className="fa-regular fa-calendar"></i>
-                    <select onChange={(e) => setCalendarId(e.target.value)}>
+                    <select defaultValue={calendarId} onChange={(e) => setCalendarId(e.target.value)}>
                         {calendars_owned?.map(calendar =>
-                            (<option value={calendar.id} key={calendar.id} selected={calendar.id === calendarId ? 'selected' : ''}>{calendar.name}</option>))
+                            (<option value={calendar.id} key={calendar.id} >{calendar.name}</option>))
                         }
                     </select>
                 </div>

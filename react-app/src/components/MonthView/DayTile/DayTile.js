@@ -52,7 +52,7 @@ export default function DayTile({ date }) {
     })
 
     const day_events_sorted = day_events_copy.sort((a, b) => {
-        return a.start_time - b.start_time
+        return a.start_time - b.start_time;
     })
 
     useEffect(() => {
