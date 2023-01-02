@@ -22,7 +22,7 @@ export default function EventDetail({ event, x, y }) {
             style={{ left: x, top: y }}
             onClick={(e) => e.stopPropagation()}
         >
-            <EventNavbar event={event} calendar={calendars[event.calendar_id]} />
+            <EventNavbar event={event} calendars={calendars} />
             <div className={styles.title} >
                 <i className="fa-solid fa-square"></i>
                 {event.title}

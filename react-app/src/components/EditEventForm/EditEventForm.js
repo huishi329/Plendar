@@ -1,18 +1,22 @@
 import styles from './EditEventForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { updateEvent } from '../../store/events';
-import { setCurrentDate, setCurrentEvent } from '../../store/modals';
+import { setCurrentEvent } from '../../store/modals';
 
 export default function EditEventForm() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const event = useSelector(state => state.modals.event);
     const user = useSelector(state => state.session.user);
-    const calendars = useSelector(state => Object.values(state.calendars));
+    const data = JSON.parse(window.localStorage.getItem('plendar'))
+    const event = data.event;
+    const calendars = Object.values(data.calendars);
     const calendars_owned = calendars?.filter(calendar => calendar.owner_id === user.id)
-    console.log(event);
+
+    event.start_time = new Date(event.start_time);
+    event.end_time = new Date(event.end_time);
+
     const dateStr = event.start_time.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }).split("/").reverse().join("-");
     // use an empty array to show hour and minute only
     const startTimeStr = event.start_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
@@ -27,11 +31,10 @@ export default function EditEventForm() {
     const [recurrence, setRecurrence] = useState(event.recurrence || 0);
     const [address, setAddress] = useState(event.address || "");
     const [description, setDescription] = useState(event.description || "");
-    const [calendarId, setCalendarId] = useState(event.calendar_id || calendars_owned[0].id);
+    const [calendarId, setCalendarId] = useState(event.calendar_id);
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = (e) => {
-        console.log('SUBMIT');
         e.preventDefault();
         setErrors([]);
         const start_time = expandTimeOptions ? `${startDate} ${startTime}:00` : `${startDate} 00:00:00`;
