@@ -13,6 +13,7 @@ export default function ProfileDropdown({ user, setShowDropdown }) {
             .then(() => {
                 dispatch(clearEvents());
                 dispatch(clearCalendars());
+                window.localStorage.removeItem('plendar');
             })
         dispatch(setProfileDropdown(false));
     };

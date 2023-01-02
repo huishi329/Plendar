@@ -13,7 +13,7 @@ export const getEvents = (calendar_id, year, month) => async dispatch => {
 
 const CREATE_EVENT = 'events/createEvent';
 
-export const createEvent = (requestBody) => async dispatch => {
+export const createEvent = requestBody => async dispatch => {
     const response = await csrfFetch('api/events', {
         method: 'POST',
         body: JSON.stringify(requestBody)
@@ -22,11 +22,22 @@ export const createEvent = (requestBody) => async dispatch => {
     dispatch({ type: CREATE_EVENT, event });
 };
 
-const DELETE_EVENTS = 'events/deleteEvent';
+const UPDATE_EVENT = 'events/updateEvent';
+
+export const updateEvent = (eventId, requestBody) => async dispatch => {
+    const response = await csrfFetch(`/api/events/${eventId}`, {
+        method: 'PUT',
+        body: JSON.stringify(requestBody)
+    });
+    const event = await response.json();
+    dispatch({ type: UPDATE_EVENT, event });
+};
+
+const DELETE_EVENT = 'events/deleteEvent';
 
 export const deleteEvent = (eventId) => async dispatch => {
     await csrfFetch(`api/events/${eventId}`, { method: 'DELETE' });
-    dispatch({ type: DELETE_EVENTS, eventId });
+    dispatch({ type: DELETE_EVENT, eventId });
 }
 
 const REMOVE_NONE_DISPLAY_EVENTS = 'events/removeNoneDisplayEvents'
@@ -57,7 +68,10 @@ export default function eventsReducer(state = {}, action) {
         case CREATE_EVENT:
             newState[action.event.id] = action.event;
             return newState;
-        case DELETE_EVENTS:
+        case UPDATE_EVENT:
+            newState[action.event.id] = action.event;
+            return newState;
+        case DELETE_EVENT:
             delete newState[action.eventId];
             return newState;
         case CLEAR_EVENTS:
