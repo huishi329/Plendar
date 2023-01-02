@@ -91,8 +91,8 @@ export default function EventForm({ date, x, y }) {
                             onChange={(e) => setStartDate(e.target.value)}
                         />
 
-                        {expandTimeOptions ?
-                            (<div className={styles.timePicker}>
+                        {expandTimeOptions &&
+                            <div className={styles.timePicker}>
                                 <input
                                     type="time"
                                     value={startTime}
@@ -102,19 +102,29 @@ export default function EventForm({ date, x, y }) {
                                 <input
                                     type="time"
                                     value={endTime}
-                                    min={startTime}
-                                    onChange={(e) => setEndTime(e.target.value)}
-                                /></div>)
-                            :
-                            (<div>
-                                <span>-</span>
-                                <input
-                                    type="date"
-                                    value={endDate}
-                                    min={startDate}
-                                    onChange={(e) => setEndDate(e.target.value)}
+                                    onChange={(e) => {
+                                        setEndTime(e.target.value)
+                                        // allow event runs across midnight
+                                        if (new Date().setHours(...startTime.split(":")) >
+                                            (new Date().setHours(...e.target.value.split(":")))) {
+                                            const tomorrow = new Date(date);
+                                            tomorrow.setDate(tomorrow.getDate() + 1);
+                                            const endDateStr = tomorrow.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }).split("/").reverse().join("-");
+                                            setEndDate(endDateStr);
+                                        }
+                                    }}
                                 />
-                            </div>)}
+                            </div>
+                        }
+                        {(startDate !== endDate || !expandTimeOptions) && <div>
+                            {/* <span>-</span> */}
+                            <input
+                                type="date"
+                                value={endDate}
+                                min={startDate}
+                                onChange={(e) => setEndDate(e.target.value)}
+                            />
+                        </div>}
                     </div>
                     {(!expandTimeOptions && !expandMoreOptions) && <div className={styles.doNotRepeat}>Doesn't repeat</div>}
                 </div>

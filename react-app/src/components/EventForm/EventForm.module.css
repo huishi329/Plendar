@@ -10,7 +10,7 @@
 
     font-size: 0.8rem;
     padding: 1rem 1.5rem;
-    min-width: fit-content;
+    min-width: 450px;
     max-width: 450px;
 }
 
@@ -67,7 +67,8 @@
     background-color: #f7f7f7;
     border: none;
     border-bottom: 1px solid rgba(247, 247, 247, 1);
-    width: fit-content;
+    min-width: fit-content;
+    max-width: fit-content;
 }
 
 .datetime input:hover {
@@ -98,6 +99,8 @@
 
 .datePickerInput {
     display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
     align-items: center;
     min-width: fit-content;
 }
@@ -108,7 +111,7 @@
 }
 
 .timePicker {
-    margin-left: 0.5rem;
+    margin: 0 0.5rem;
     min-width: fit-content;
 
 }

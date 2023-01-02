@@ -12,7 +12,7 @@ export default function EditEventForm() {
     const user = useSelector(state => state.session.user);
     const calendars = useSelector(state => Object.values(state.calendars));
     const calendars_owned = calendars?.filter(calendar => calendar.owner_id === user.id)
-
+    console.log(event);
     const dateStr = event.start_time.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }).split("/").reverse().join("-");
     // use an empty array to show hour and minute only
     const startTimeStr = event.start_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
@@ -106,8 +106,17 @@ export default function EditEventForm() {
                                 <input
                                     type="time"
                                     value={endTime}
-                                    min={startTime}
-                                    onChange={(e) => setEndTime(e.target.value)}
+                                    onChange={(e) => {
+                                        setEndTime(e.target.value)
+                                        // allow event runs across midnight
+                                        if (new Date().setHours(...startTime.split(":")) >
+                                            (new Date().setHours(...e.target.value.split(":")))) {
+                                            const tomorrow = new Date(event.start_time);
+                                            tomorrow.setDate(tomorrow.getDate() + 1);
+                                            const endDateStr = tomorrow.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }).split("/").reverse().join("-");
+                                            setEndDate(endDateStr);
+                                        }
+                                    }}
                                 /></div>}
 
                         <div>
