@@ -6,6 +6,7 @@ import styles from './DayTile.module.css'
 import EventItem from './EventItem/EventItem';
 
 export default function DayTile({ date }) {
+    date.setHours(23, 59, 59, 59);
     const user = useSelector(state => state.session.user);
     const modals = useSelector(state => state.modals)
     const dispatch = useDispatch();
@@ -30,9 +31,9 @@ export default function DayTile({ date }) {
     const events = useSelector(state => Object.values(state.events));
     // filter to get the events for the date
     const day_events = events?.filter(event => {
-        // envents that doesn't repeat
         const eventDate = new Date(event.start_time);
-        return (eventDate === date ||
+        // envents that doesn't repeat
+        return ((event.recurrence === 0 && eventDate.getDate() === date.getDate() && eventDate.getMonth() === date.getMonth()) ||
             // events that repeat daily
             (event.recurrence === 1 && date >= eventDate) ||
             // events that repeat weekly
