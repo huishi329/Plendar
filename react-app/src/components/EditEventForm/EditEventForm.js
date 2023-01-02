@@ -1,10 +1,12 @@
 import styles from './EditEventForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { createEvent } from '../../store/events';
-import { setCurrentDate } from '../../store/modals';
+import { setCurrentDate, setCurrentEvent } from '../../store/modals';
 
 export default function EditEventForm() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const event = useSelector(state => state.modals.event);
     const user = useSelector(state => state.session.user);
@@ -17,7 +19,6 @@ export default function EditEventForm() {
     const endTimeStr = (currentDate.getMinutes() < 30) ? `${currentDate.getHours() + 1}:30` : `${currentDate.getHours() + 2}:00`
 
     const [expandTimeOptions, setExpandTimeOptions] = useState(false);
-    const [expandMoreOptions, setExpanMoreOptions] = useState(false);
     const [title, setTitle] = useState(event.title);
     const [startDate, setStartDate] = useState(dateStr);
     const [endDate, setEndDate] = useState(dateStr);
@@ -59,6 +60,12 @@ export default function EditEventForm() {
             <div className={styles.topContainer}>
 
                 <div className={styles.title}>
+                    <button className={styles.button} onClick={() => {
+                        navigate('/');
+                        dispatch(setCurrentEvent(null))
+                    }}>
+                        <i className="fa-solid fa-x"></i>
+                    </button>
                     <input
                         placeholder='Add title and time'
                         name="Add title"
@@ -75,10 +82,8 @@ export default function EditEventForm() {
 
             </div>
             <div className={styles.datetime}>
-                <i className="fa-regular fa-clock"></i>
                 <div
-                    className={styles.datePicker}
-                    onClick={() => setExpanMoreOptions(true)}>
+                    className={styles.datePicker}>
                     <div className={styles.datePickerInput}>
                         <input
                             type="date"
