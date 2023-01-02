@@ -14,7 +14,8 @@
 
 
 .form i {
-    margin-right: 0.6rem;
+    margin-left: 0.8rem;
+    margin-right: 0.8rem;
     font-size: 1rem;
 }
 
@@ -26,10 +27,12 @@
     width: 100%;
     outline: none;
     padding: 0.5rem 0.3rem;
+    border-bottom: 2px solid white;
 }
 
 .form select {
     padding: 0.5rem 0.3rem;
+    cursor: pointer;
 }
 
 .form select:focus {
@@ -50,22 +53,40 @@
         ". .";
 }
 
+.button i {
+    border: none;
+    text-decoration: none;
+    font-size: 1rem;
+    border-radius: 60%;
+    padding: 0.7rem 0.8rem;
+    margin: 0;
+    background-color: #EDEDED;
+}
+
+
+
+.title {
+    display: flex;
+}
+
+.title i {
+    font-size: 1rem;
+}
+
 .title input {
     border: none;
     border-bottom: 2px solid rgba(34, 34, 34, 0.15);
     font-size: 1.5rem;
     font-weight: 500;
     width: 94%;
-    padding-bottom: 0;
-    margin-left: 1.5rem;
-
+    padding-bottom: 0.3rem;
 }
-
 
 .datetime {
     display: flex;
     align-items: center;
     min-width: fit-content;
+    margin-left: 2.2rem;
 }
 
 .datetime * {
@@ -79,21 +100,10 @@
     width: fit-content;
 }
 
-.datetime input:hover {
-    border-bottom: 1px solid rgba(34, 34, 34, 0.5);
-}
-
-.datetime button {
-    border: 1px solid rgba(34, 34, 34, 0.3);
-    border-radius: 0.2rem;
-    padding: 0.2rem 0.5rem;
-    margin-left: 0.5rem;
-}
 
 .datePicker {
     display: flex;
     flex-direction: column;
-    padding: 0.5rem;
     min-width: fit-content;
 }
 
@@ -117,11 +127,12 @@
 .allDay {
     display: flex;
     gap: 0.3rem;
-    margin-left: 1.5rem;
+    margin-left: 2.2rem;
 }
 
 .allDay input {
     width: 1.5rem;
+    cursor: pointer;
 }
 
 .recurrence select {
