@@ -117,7 +117,7 @@ export default function EventForm({ date, x, y }) {
                             </div>
                         }
                         {(startDate !== endDate || !expandTimeOptions) && <div>
-                            {/* <span>-</span> */}
+                            {!expandTimeOptions && <span>-</span>}
                             <input
                                 type="date"
                                 value={endDate}

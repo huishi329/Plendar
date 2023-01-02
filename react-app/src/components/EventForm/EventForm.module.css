@@ -100,7 +100,7 @@
 .datePickerInput {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    row-gap: 0.5rem;
     align-items: center;
     min-width: fit-content;
 }
@@ -114,6 +114,11 @@
     margin: 0 0.5rem;
     min-width: fit-content;
 
+}
+
+.addTimeBtn {
+    max-width: fit-content;
+    min-width: fit-content;
 }
 
 .addTimeBtn:hover {
