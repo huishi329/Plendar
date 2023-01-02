@@ -9,17 +9,15 @@ import { getEvents } from "../../store/events";
 export default function MonthView() {
     const dispatch = useDispatch();
     const calendars = useSelector(state => state.calendars);
-    const targetDate = new Date();
-    const year = targetDate.getFullYear();
-    const month = targetDate.getMonth();
-    targetDate.setDate(1);
-    const firstDayOfMonth = targetDate.getDay();
+    const year = useSelector(state => state.sessionData.year);
+    const month = useSelector(state => state.sessionData.month);
+    const firstDateOfMonth = new Date(year, month);
+    const firstDayOfMonth = firstDateOfMonth.getDay();
 
     useEffect(() => {
         if (calendars) {
             Object.values(calendars).forEach((calendar) => {
-                // month number must be 1-12 for python calendar
-                if (calendar.is_displayed) dispatch(getEvents(calendar.id, year, month + 1))
+                if (calendar.is_displayed) dispatch(getEvents(calendar.id, year, month))
             })
         }
     }, [dispatch, month, year, calendars])
