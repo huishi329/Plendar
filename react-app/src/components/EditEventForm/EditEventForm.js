@@ -17,15 +17,17 @@ export default function EditEventForm() {
     event.start_time = new Date(event.start_time);
     event.end_time = new Date(event.end_time);
 
-    const dateStr = event.start_time.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }).split("/").reverse().join("-");
+    const startDateStr = event.start_time.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }).split("/").reverse().join("-");
+    const endDateStr = event.end_time.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }).split("/").reverse().join("-");
+
     // use an empty array to show hour and minute only
     const startTimeStr = event.start_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     const endTimeStr = event.end_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 
     const [expandTimeOptions, setExpandTimeOptions] = useState(startTimeStr !== "00:00" && endTimeStr !== "23:59");
     const [title, setTitle] = useState(event.title);
-    const [startDate, setStartDate] = useState(dateStr);
-    const [endDate, setEndDate] = useState(dateStr);
+    const [startDate, setStartDate] = useState(startDateStr);
+    const [endDate, setEndDate] = useState(endDateStr);
     const [startTime, setStartTime] = useState(startTimeStr === "00:00" && endTimeStr === "23:59" ? "10:00" : startTimeStr);
     const [endTime, setEndTime] = useState(startTimeStr === "00:00" && endTimeStr === "23:59" ? "10:30" : endTimeStr);
     const [recurrence, setRecurrence] = useState(event.recurrence || 0);

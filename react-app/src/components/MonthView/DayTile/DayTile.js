@@ -43,12 +43,12 @@ export default function DayTile({ date }) {
     const day_events_copy = JSON.parse(JSON.stringify(day_events))
     day_events_copy.forEach((event) => {
         event.start_time = new Date(event.start_time);
+        event.end_time = new Date(event.end_time);
+        const duration = event.end_time.getTime() - event.start_time.getTime();
         event.start_time.setDate(date.getDate());
         event.start_time.setMonth(date.getMonth());
 
-        event.end_time = new Date(event.end_time);
-        event.end_time.setDate(date.getDate());
-        event.end_time.setMonth(date.getMonth());
+        event.end_time.setTime(event.start_time.getTime() + duration);
     })
 
     const day_events_sorted = day_events_copy.sort((a, b) => {

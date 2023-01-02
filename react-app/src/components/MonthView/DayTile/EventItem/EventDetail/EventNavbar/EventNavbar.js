@@ -8,7 +8,7 @@ export default function EventNavbar({ event, calendars }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector(state => state.session.user);
-    console.log(calendars);
+
     return (
         <div className={styles.wrapper}>
             {(user.id === calendars[event.calendar_id].owner_id) && <div>
