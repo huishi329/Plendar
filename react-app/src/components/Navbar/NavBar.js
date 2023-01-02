@@ -1,21 +1,19 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setProfileDropdown, setSignInModal } from '../../store/modals';
+import { LeftNavbar } from './LeftNavbar/LeftNavbar';
 import styles from './NavBar.module.css'
 import ProfileDropdown from './ProfileDropdown/ProfileDropdown';
-
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const showProfileDropdown = useSelector(state => state.modals.showProfileDropdown)
-  const user = useSelector(state => state.session.user)
+  const user = useSelector(state => state.session.user);
+
   return (
     <div className={styles.navbarWrapper}>
       <nav>
-        <div className={styles.leftNavbar}>
-          <img src='/plendar.png' alt='plendar logo'></img>
-          <div className={styles.logoText}>Plendar</div>
-        </div>
+        <LeftNavbar />
         <div className={styles.rightNavbar}>
           {user ?
             <button

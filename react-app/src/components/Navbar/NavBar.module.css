@@ -11,21 +11,6 @@ nav {
     max-width: 98%;
 }
 
-.logoText {
-    font-size: 1.3rem;
-    font-weight: 500;
-    margin-left: 0.5rem;
-}
-
-.leftNavbar {
-    display: flex;
-    align-items: center;
-}
-
-.leftNavbar img {
-    width: 2rem
-}
-
 .signInBtn button {
     font-size: 1rem;
     padding: 0.5rem 1rem;
