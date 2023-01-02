@@ -1,0 +1,18 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.wrapper img {
+    width: 2rem
+}
+
+.logo {
+    margin-right: 2rem;
+}
+
+.largeText {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-left: 0.5rem;
+}
