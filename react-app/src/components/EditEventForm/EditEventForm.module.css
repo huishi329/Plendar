@@ -7,7 +7,7 @@
 
     font-size: 0.8rem;
     font-weight: 500;
-    padding: 1rem 2rem;
+    padding: 1rem;
     min-width: fit-content;
     width: 100%;
 }
@@ -59,11 +59,10 @@
     font-size: 1rem;
     border-radius: 60%;
     padding: 0.7rem 0.8rem;
-    margin: 0;
+    margin-right: 0.5rem;
+    margin-left: 0;
     background-color: #EDEDED;
 }
-
-
 
 .title {
     display: flex;
@@ -86,7 +85,7 @@
     display: flex;
     align-items: center;
     min-width: fit-content;
-    margin-left: 2.2rem;
+    margin-left: 2.5rem;
 }
 
 .datetime * {
@@ -99,7 +98,6 @@
     border-bottom: 1px solid rgba(247, 247, 247, 1);
     width: fit-content;
 }
-
 
 .datePicker {
     display: flex;
@@ -127,7 +125,7 @@
 .allDay {
     display: flex;
     gap: 0.3rem;
-    margin-left: 2.2rem;
+    margin-left: 2.5rem;
 }
 
 .allDay input {
