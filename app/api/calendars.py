@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import User, Calendar
+from app.models import db, User, Calendar
+from app.forms.calendar_form import CalendarForm
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 import calendar as pycalendar
@@ -8,14 +9,34 @@ import calendar as pycalendar
 bp = Blueprint('calendars', __name__, url_prefix="/calendars")
 
 
-@bp.route("/current")
+@bp.route("/current", methods=["GET"])
 @login_required
 def get_calendar_of_current():
     user = User.query.filter(User.id == current_user.id).first()
     return [calendar.to_dict() for calendar in user.calendars]
 
 
-@bp.route("/<int:calendar_id>/events")
+@bp.route("", methods=["POST"])
+@login_required
+def post_calendar():
+    form = CalendarForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        data = form.data
+        calendar = Calendar(
+            owner_id=current_user.id,
+            name=data['name'],
+            description=data['description'],
+            timezone=data['timezone']
+        )
+        db.session.add(calendar)
+        db.session.commit()
+        return calendar.to_dict(), 201
+    else:
+        return {'errors': ['Unauthorized']}, 401
+
+
+@bp.route("/<int:calendar_id>/events", methods=["GET"])
 @login_required
 def get_events_by_calendar_id(calendar_id):
     calendar = Calendar.query.get(calendar_id)
