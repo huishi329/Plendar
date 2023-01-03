@@ -1,9 +1,22 @@
 .wrapper {
-    padding-left: 1rem;
+    padding: 1rem;
 }
 
 .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 0.8rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
+}
+
+.button {
+    cursor: pointer;
+    padding: 0.3rem 0.5rem;
+    border-radius: 50%;
+}
+
+.button:hover {
+    background-color: #EDEDED;
 }
