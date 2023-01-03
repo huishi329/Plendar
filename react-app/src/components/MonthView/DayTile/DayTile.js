@@ -6,7 +6,6 @@ import styles from './DayTile.module.css'
 import EventItem from './EventItem/EventItem';
 
 export default function DayTile({ date }) {
-    date.setHours(23, 59, 59, 59);
     const user = useSelector(state => state.session.user);
     const modals = useSelector(state => state.modals)
     const dispatch = useDispatch();
@@ -16,9 +15,15 @@ export default function DayTile({ date }) {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [windowHeight, setWindowHeight] = useState(window.innerHeight);
     const [tileWidth, setTileWidth] = useState(0);
+
+    date.setHours(23, 59, 59, 59);
+    const currentDate = new Date();
+    currentDate.setHours(23, 59, 59, 59);
+    const isCurrentDate = currentDate.getTime() === date.getTime();
+    console.log(currentDate, date, isCurrentDate);
+
     const isClicked = date === modals.date;
     const showEventForm = isClicked && user;
-
     const handleClick = (e) => {
         e.stopPropagation();
         if (user) {
@@ -76,8 +81,9 @@ export default function DayTile({ date }) {
     return (
         <>
             <div className={styles.wrapper} ref={tileRef} onClick={handleClick}>
-                <div className={styles.dayName}>
-                    {`${date.getDate()} `}{date.getDate() === 1 ? date.toLocaleDateString('en-US',
+                <div className={`${styles.dayName} ${isCurrentDate ? styles.currentDate : ''}`}>
+                    {`${date.getDate()} `}
+                    {date.getDate() === 1 ? date.toLocaleDateString('en-US',
                         { month: 'short' }) : ''}
                 </div>
                 {day_events_sorted && day_events_sorted.map(event =>
