@@ -12,9 +12,9 @@ export default function EventForm({ date, x, y }) {
     const calendars_owned = calendars?.filter(calendar => calendar.owner_id === user.id)
 
     const dateStr = date.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }).split("/").reverse().join("-");
-    const currentDate = new Date();
-    const startTimeStr = (currentDate.getMinutes() < 30) ? `${currentDate.getHours()}:30` : `${currentDate.getHours() + 1}:00`
-    const endTimeStr = (currentDate.getMinutes() < 30) ? `${currentDate.getHours() + 1}:30` : `${currentDate.getHours() + 2}:00`
+    const [currentHour, currentMinute] = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }).split(":");
+    const startTimeStr = (currentMinute < 30) ? `${currentHour}:30` : `${(Number(currentHour) + 1) % 24}:00`
+    const endTimeStr = (currentMinute < 30) ? `${(Number(currentHour) + 1) % 24}:30` : `${(Number(currentHour) + 2) % 24}:00`
 
     const [expandTimeOptions, setExpandTimeOptions] = useState(false);
     const [expandMoreOptions, setExpanMoreOptions] = useState(false);
