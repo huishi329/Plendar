@@ -20,7 +20,6 @@ export default function DayTile({ date }) {
     const currentDate = new Date();
     currentDate.setHours(23, 59, 59, 59);
     const isCurrentDate = currentDate.getTime() === date.getTime();
-    console.log(currentDate, date, isCurrentDate);
 
     const isClicked = date === modals.date;
     const showEventForm = isClicked && user;
@@ -65,7 +64,7 @@ export default function DayTile({ date }) {
         else if (tileRef.current.offsetLeft > windowWidth / 2) setX(tileRef.current.offsetLeft - 450)
         else setX(tileRef.current.offsetLeft + (tileWidth || tileRef.current.offsetWidth));
 
-        if (windowHeight < 500) setY(20)
+        if (tileRef.current.offsetTop < 500) setY(20)
         else if (tileRef.current.offsetTop >= windowHeight - 323) setY(tileRef.current.offsetTop - 323);
         else setY(tileRef.current.offsetTop);
 
