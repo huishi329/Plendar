@@ -61,10 +61,10 @@ export default function DayTile({ date }) {
 
     useEffect(() => {
         if (windowWidth < 900) setX((windowWidth - 450) / 2);
-        else if (tileRef.current.offsetLeft > windowWidth / 2) setX(tileRef.current.offsetLeft - 450)
+        else if (tileRef.current.offsetLeft > windowWidth / 2) setX(tileRef.current.offsetLeft - 450);
         else setX(tileRef.current.offsetLeft + (tileWidth || tileRef.current.offsetWidth));
 
-        if (tileRef.current.offsetTop < 500) setY(20)
+        if (tileRef.current.offsetTop < 500) setY(20);
         else if (tileRef.current.offsetTop >= windowHeight - 323) setY(tileRef.current.offsetTop - 323);
         else setY(tileRef.current.offsetTop);
 
