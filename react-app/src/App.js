@@ -6,14 +6,20 @@ import { restoreUser } from './store/session';
 import MainView from './components/MainView/MainView';
 import EditEventForm from './components/EditEventForm/EditEventForm';
 import { Route, Routes } from "react-router-dom";
+import { setMonth, setYear } from './store/sessionData';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
+  const targetDate = new Date();
+  const year = targetDate.getFullYear();
+  const month = targetDate.getMonth();
 
   useEffect(() => {
     (async () => {
       await dispatch(restoreUser());
+      dispatch(setYear(year));
+      dispatch(setMonth(month));
       setLoaded(true);
     })();
   }, [dispatch]);

@@ -5,7 +5,8 @@ const GET_MONTH_EVENTS = 'events/getMonthEvents';
 export const getEvents = (calendar_id, year, month) => async dispatch => {
     const response = await csrfFetch(`/api/calendars/${calendar_id}/events?${new URLSearchParams({
         year,
-        month
+        // month number must be 1-12 for python calendar
+        month: month + 1
     })}`);
     const events = await response.json();
     dispatch({ type: GET_MONTH_EVENTS, events })

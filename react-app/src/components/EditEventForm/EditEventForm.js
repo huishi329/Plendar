@@ -1,6 +1,6 @@
 import styles from './EditEventForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { updateEvent } from '../../store/events';
 import { setCurrentEvent } from '../../store/modals';
@@ -57,7 +57,6 @@ export default function EditEventForm() {
         }).catch(e => {
             const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
             setErrors(errors);
-            console.log(e);
         });
     };
 
