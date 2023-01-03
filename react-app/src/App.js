@@ -39,8 +39,8 @@ function App() {
             <Modals />
           </>
         } />
-        <Route path='eventedit/:eventId' element={<EditEventForm />} />
-        <Route path='settings' element={<Setting />} />
+        <Route path='/eventedit/:eventId' element={<EditEventForm />} />
+        <Route path='/settings' element={<Setting />} />
       </Routes>
     </>
   );
