@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import db, User, Calendar
+from app.forms import validation_errors_formatter
 from app.forms.calendar_form import CalendarForm
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
@@ -33,7 +34,27 @@ def post_calendar():
         db.session.commit()
         return calendar.to_dict(), 201
     else:
-        return {'errors': ['Unauthorized']}, 401
+        return {'errors': validation_errors_formatter(form, form.errors)}, 400
+
+
+@bp.route("/<int:calendar_id>", methods=["PUT"])
+@login_required
+def update_calendar(calendar_id):
+    form = CalendarForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        if calendar.owner.id == current_user.id:
+            data = form.data
+            calendar = Calendar.query.get(calendar_id)
+            calendar.name = data['name'],
+            calendar.description = data['description'],
+            calendar.timezone = data['timezone']
+            db.session.commit()
+            return calendar.to_dict(), 200
+        else:
+            return {'errors': ['Unauthorized']}, 401
+    else:
+        return {'errors': validation_errors_formatter(form, form.errors)}, 400
 
 
 @bp.route("/<int:calendar_id>/events", methods=["GET"])
