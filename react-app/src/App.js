@@ -22,7 +22,7 @@ function App() {
       dispatch(setMonth(month));
       setLoaded(true);
     })();
-  }, [dispatch]);
+  }, [dispatch, month, year]);
 
   if (!loaded) {
     return null;
