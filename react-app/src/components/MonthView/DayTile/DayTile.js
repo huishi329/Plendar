@@ -82,9 +82,10 @@ export default function DayTile({ date }) {
         <>
             <div className={styles.wrapper} ref={tileRef} onClick={handleClick}>
                 <div className={`${styles.dayName} ${isCurrentDate ? styles.currentDate : ''}`}>
-                    {`${date.getDate()} `}
-                    {date.getDate() === 1 ? date.toLocaleDateString('en-US',
-                        { month: 'short' }) : ''}
+                    <span className={isCurrentDate ? styles.currentDate : ''}>{`${date.getDate()} `}</span>
+                    {date.getDate() === 1 && <span>
+                        {date.toLocaleDateString('en-US',
+                            { month: 'short' })}</span>}
                 </div>
                 {day_events_sorted && day_events_sorted.map(event =>
                     (<EventItem event={event} key={event.id} />))}
