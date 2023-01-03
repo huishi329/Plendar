@@ -57,6 +57,18 @@ def update_calendar(calendar_id):
         return {'errors': validation_errors_formatter(form, form.errors)}, 400
 
 
+@bp.route("/<int:calendar_id>", methods=["DELETE"])
+@login_required
+def delete_calendar(calendar_id):
+    calendar = Calendar.query.get(calendar_id)
+    if calendar.owner.id == current_user.id:
+        db.session.delete(calendar)
+        db.session.commit()
+        return {"message": f"Deleted calendar with id {calendar_id}"}
+    else:
+        return {'errors': ['Unauthorized']}, 401
+
+
 @bp.route("/<int:calendar_id>/events", methods=["GET"])
 @login_required
 def get_events_by_calendar_id(calendar_id):
