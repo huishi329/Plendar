@@ -14,12 +14,14 @@ export function SettingNavbar() {
     return (
         <div className={styles.wrapper}>
             <nav>
-                <div className={styles.title}>
+                <div className={styles.leftNavbar}>
                     <button className={styles.backButton}
                         onClick={() => navigate('/')} >
                         <i className="fa-solid fa-arrow-left"></i>
                     </button>
-                    Settings
+                    <div className={styles.title}>
+                        Settings
+                    </div>
                 </div>
                 <div>
                     <button
