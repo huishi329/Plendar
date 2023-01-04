@@ -8,13 +8,12 @@ import styles from './MyCalendars.module.css'
 export default function MyCalendars() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const user = useSelector(state => state.session.user)
-    const calendars = useSelector(state => state.calendars)
+    const user = useSelector(state => state.session.user);
+    const calendars = useSelector(state => state.calendars);
 
     useEffect(() => {
-        if (user) dispatch(getCalendars())
-    }, [dispatch, user])
-
+        if (user) dispatch(getCalendars());
+    }, [dispatch, user]);
 
     return (
         <div className={styles.wrapper}>
