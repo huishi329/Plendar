@@ -1,0 +1,25 @@
+.wrapper {
+    max-width: 20rem;
+    padding: 1rem;
+    font-size: 0.8rem;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.buttons button {
+    margin-left: 0.5rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+}
+
+.buttons button:hover {
+    background-color: #f7f7f7;
+}
+
+.removeButton {
+    color: #6BB29C;
+}
