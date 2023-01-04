@@ -22,7 +22,7 @@ export default function MyCalendars() {
                 <div>My calendar</div>
                 <button className={styles.button}
                     onClick={() => {
-                        navigate('/settings');
+                        navigate('/settings/createcalendar');
                         window.localStorage.setItem('plendar', JSON.stringify(calendars));
                     }}>
                     <i className="fa-solid fa-plus"></i>
