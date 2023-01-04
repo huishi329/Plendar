@@ -13,8 +13,13 @@ export default function EventForm({ date, x, y }) {
 
     const dateStr = date.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }).split("/").reverse().join("-");
     const [currentHour, currentMinute] = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }).split(":");
-    const startTimeStr = (currentMinute < 30) ? `${currentHour}:30` : `${(Number(currentHour) + 1) % 24}:00`
-    const endTimeStr = (currentMinute < 30) ? `${(Number(currentHour) + 1) % 24}:30` : `${(Number(currentHour) + 2) % 24}:00`
+    console.log(currentHour, currentMinute);
+    const startTimeStr = (currentMinute < 30) ?
+        `${currentHour}:30`
+        : `${((Number(currentHour) + 1) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}:00`
+    const endTimeStr = (currentMinute < 30) ?
+        `${((Number(currentHour) + 1) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}: 30`
+        : `${((Number(currentHour) + 2) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}: 00`
 
     const [expandTimeOptions, setExpandTimeOptions] = useState(false);
     const [expandMoreOptions, setExpanMoreOptions] = useState(false);
@@ -32,8 +37,8 @@ export default function EventForm({ date, x, y }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
-        const start_time = expandTimeOptions ? `${startDate} ${startTime}:00` : `${startDate} 00:00:00`;
-        const end_time = expandTimeOptions ? `${endDate} ${endTime}:00` : `${endDate} 23:59:59`;
+        const start_time = expandTimeOptions ? `${startDate} ${startTime}: 00` : `${startDate} 00: 00: 00`;
+        const end_time = expandTimeOptions ? `${endDate} ${endTime}: 00` : `${endDate} 23: 59: 59`;
         const end_date = recurrence ? '9999-12-31 23:59:59' : end_time;
         dispatch(createEvent({
             title: title === '' ? '(No title)' : title,
@@ -46,7 +51,7 @@ export default function EventForm({ date, x, y }) {
             end_date
         })).then(() => dispatch(setCurrentDate(null)))
             .catch(e => {
-                const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
+                const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage} `);
                 setErrors(errors);
             });
     };
@@ -82,7 +87,7 @@ export default function EventForm({ date, x, y }) {
             <div className={styles.datetime}>
                 <i className="fa-regular fa-clock"></i>
                 <div
-                    className={`${styles.datePicker} ${expandMoreOptions || expandTimeOptions ? styles.afterExpand : ''}`}
+                    className={`${styles.datePicker} ${expandMoreOptions || expandTimeOptions ? styles.afterExpand : ''} `}
                     onClick={() => setExpanMoreOptions(true)}>
                     <div className={styles.datePickerInput}>
                         <input
