@@ -1,18 +1,33 @@
-import styles from './Settings.module.css'
 import { Route, Routes } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
-import { SettingNavbar } from "./SettingNavbar/SettingNavbar";
+import styles from './Settings.module.css'
 import SettingSidebar from './SettingSidebar/SettingSidebar';
+import { SettingNavbar } from "./SettingNavbar/SettingNavbar";
 import { CalendarForm } from './CalendarForm/CalendarForm';
+import { EditCalendarForm } from './EditCalendarForm/EditCalendarForm';
+import { getCalendars } from '../../store/calendars';
 
 export function Setting() {
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.session.user);
+    const calendars = useSelector(state => state.calendars);
+
+    useEffect(() => {
+        if (user) dispatch(getCalendars());
+    }, [dispatch, user]);
+
+    if (!calendars) return null;
+
     return (
         <div>
             <SettingNavbar />
             <div className={styles.main}>
-                <SettingSidebar />
+                <SettingSidebar calendars={Object.values(calendars)} />
                 <Routes>
                     <Route path='/createcalendar' element={<CalendarForm />} />
+                    <Route path='/calendar/:calendarId' element={<EditCalendarForm calendars={calendars} />} />
                 </Routes>
             </div>
         </div>
