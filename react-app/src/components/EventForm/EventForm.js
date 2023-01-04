@@ -37,9 +37,10 @@ export default function EventForm({ date, x, y }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
-        const start_time = expandTimeOptions ? `${startDate} ${startTime}: 00` : `${startDate} 00: 00: 00`;
-        const end_time = expandTimeOptions ? `${endDate} ${endTime}: 00` : `${endDate} 23: 59: 59`;
+        const start_time = expandTimeOptions ? `${startDate} ${startTime}:00` : `${startDate} 00:00:00`;
+        const end_time = expandTimeOptions ? `${endDate} ${endTime}:00` : `${endDate} 23:59:59`;
         const end_date = recurrence ? '9999-12-31 23:59:59' : end_time;
+
         dispatch(createEvent({
             title: title === '' ? '(No title)' : title,
             start_time,
@@ -60,7 +61,7 @@ export default function EventForm({ date, x, y }) {
         const closeEventForm = () => dispatch(setCurrentDate(null));
         document.addEventListener('click', closeEventForm);
         return () => document.removeEventListener('click', closeEventForm)
-    }, [dispatch])
+    }, [dispatch]);
 
     if (!calendars) return null;
 
