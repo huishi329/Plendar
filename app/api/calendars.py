@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import db, User, Calendar
+from app.models import db, User, Calendar, UserCalendar
 from app.forms import validation_errors_formatter
 from app.forms.calendar_form import CalendarForm
 from datetime import datetime, timedelta
@@ -30,7 +30,11 @@ def post_calendar():
             description=data['description'],
             timezone=data['timezone']
         )
-        db.session.add(calendar)
+        user_calendar = UserCalendar(
+            user_id=current_user.id,
+            calendar=calendar
+        )
+        db.session.add(calendar, user_calendar)
         db.session.commit()
         return calendar.to_dict(), 201
     else:
