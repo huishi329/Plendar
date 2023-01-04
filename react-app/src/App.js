@@ -40,7 +40,7 @@ function App() {
           </>
         } />
         <Route path='/eventedit/:eventId' element={<EditEventForm />} />
-        <Route path='/settings' element={<Setting />} />
+        <Route path='/settings/*' element={<Setting />} />
       </Routes>
     </>
   );
