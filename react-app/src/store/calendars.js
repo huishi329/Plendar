@@ -4,7 +4,7 @@ import { removeEvents } from './events';
 const GET_CALENDARS = 'calendars/getCalendars'
 
 export const getCalendars = () => async dispatch => {
-    const response = await csrfFetch('api/calendars/current');
+    const response = await csrfFetch('/api/calendars/current');
     const calendars = await response.json();
 
     dispatch({ type: GET_CALENDARS, calendars })
@@ -20,6 +20,18 @@ export const createCalendar = requestBody => async dispatch => {
 
     const calendar = await response.json();
     dispatch({ type: CREATE_CALENDAR, calendar });
+};
+
+const UPDATE_CALENDAR = 'calendars/updateCalendar';
+
+export const updateCalendar = (calendarId, requestBody) => async dispatch => {
+    const response = await csrfFetch(`/api/calendars/${calendarId}`, {
+        method: 'PUT',
+        body: JSON.stringify(requestBody)
+    });
+
+    const calendar = await response.json();
+    dispatch({ type: UPDATE_CALENDAR, calendar });
 };
 
 const DELETE_CALENDAR = 'calendars/deleteCalendar';
@@ -55,6 +67,9 @@ export default function calendarsReducer(state = null, action) {
                 return calendars;
             }, {})
         case CREATE_CALENDAR:
+            newState[action.calendar.id] = action.calendar;
+            return newState;
+        case UPDATE_CALENDAR:
             newState[action.calendar.id] = action.calendar;
             return newState;
         case DELETE_CALENDAR:
