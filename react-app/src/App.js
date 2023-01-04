@@ -7,6 +7,7 @@ import MainView from './components/MainView/MainView';
 import EditEventForm from './components/EditEventForm/EditEventForm';
 import { Route, Routes } from "react-router-dom";
 import { setMonth, setYear } from './store/sessionData';
+import { Setting } from './components/Settings/Settings';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -22,7 +23,7 @@ function App() {
       dispatch(setMonth(month));
       setLoaded(true);
     })();
-  }, [dispatch]);
+  }, [dispatch, month, year]);
 
   if (!loaded) {
     return null;
@@ -38,8 +39,8 @@ function App() {
             <Modals />
           </>
         } />
-        <Route path='eventedit/:eventId' element={<EditEventForm />} />
-
+        <Route path='/eventedit/:eventId' element={<EditEventForm />} />
+        <Route path='/settings/*' element={<Setting />} />
       </Routes>
     </>
   );

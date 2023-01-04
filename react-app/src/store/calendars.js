@@ -10,6 +10,20 @@ export const getCalendars = () => async dispatch => {
     dispatch({ type: GET_CALENDARS, calendars })
 }
 
+const CREATE_CALENDAR = 'calendars/createCalendar';
+
+export const createCalendar = requestBody => async dispatch => {
+    console.log('THUNK ACTION');
+    const response = await csrfFetch('/api/calendars', {
+        method: 'POST',
+        body: JSON.stringify(requestBody)
+    });
+
+    const calendar = await response.json();
+    console.log(calendar);
+    dispatch({ type: CREATE_CALENDAR, calendar })
+};
+
 const TOGGLE_CALENDAR = 'calendars/toggleCalendar'
 
 export const toggleCalendar = (calendar_id) => async dispatch => {
@@ -35,6 +49,9 @@ export default function calendarsReducer(state = null, action) {
                 calendars[calendar.id] = calendar;
                 return calendars;
             }, {})
+        case CREATE_CALENDAR:
+            newState[action.calendar.id] = action.calendar;
+            return newState;
         case TOGGLE_CALENDAR:
             newState[action.calendar.id] = action.calendar;
             return newState;

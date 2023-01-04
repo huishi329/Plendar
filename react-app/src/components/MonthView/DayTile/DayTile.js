@@ -20,7 +20,6 @@ export default function DayTile({ date }) {
     const currentDate = new Date();
     currentDate.setHours(23, 59, 59, 59);
     const isCurrentDate = currentDate.getTime() === date.getTime();
-    console.log(currentDate, date, isCurrentDate);
 
     const isClicked = date === modals.date;
     const showEventForm = isClicked && user;
@@ -62,10 +61,10 @@ export default function DayTile({ date }) {
 
     useEffect(() => {
         if (windowWidth < 900) setX((windowWidth - 450) / 2);
-        else if (tileRef.current.offsetLeft > windowWidth / 2) setX(tileRef.current.offsetLeft - 450)
+        else if (tileRef.current.offsetLeft > windowWidth / 2) setX(tileRef.current.offsetLeft - 450);
         else setX(tileRef.current.offsetLeft + (tileWidth || tileRef.current.offsetWidth));
 
-        if (windowHeight < 500) setY(20)
+        if (windowHeight < 500) setY(20);
         else if (tileRef.current.offsetTop >= windowHeight - 323) setY(tileRef.current.offsetTop - 323);
         else setY(tileRef.current.offsetTop);
 
@@ -82,9 +81,10 @@ export default function DayTile({ date }) {
         <>
             <div className={styles.wrapper} ref={tileRef} onClick={handleClick}>
                 <div className={`${styles.dayName} ${isCurrentDate ? styles.currentDate : ''}`}>
-                    {`${date.getDate()} `}
-                    {date.getDate() === 1 ? date.toLocaleDateString('en-US',
-                        { month: 'short' }) : ''}
+                    <span className={isCurrentDate ? styles.currentDate : ''}>{`${date.getDate()} `}</span>
+                    {date.getDate() === 1 && <span>
+                        {date.toLocaleDateString('en-US',
+                            { month: 'short' })}</span>}
                 </div>
                 {day_events_sorted && day_events_sorted.map(event =>
                     (<EventItem event={event} key={event.id} />))}

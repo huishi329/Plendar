@@ -1,0 +1,29 @@
+.wrapper {
+    max-width: 15rem;
+    min-width: 15rem;
+    padding-top: 1rem;
+}
+
+.button {
+    border-radius: 0 1rem 1rem 0;
+    padding: 0.5rem 2.5em;
+    font-weight: 400;
+    max-width: 13rem;
+    min-width: 13rem;
+    text-align: left;
+}
+
+.button:hover {
+    background-color: #f7f7f7;
+}
+
+.highlighted {
+    color: #6BB29C;
+    font-weight: 600;
+}
+
+.category {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 0.5rem 1.5rem;
+}
