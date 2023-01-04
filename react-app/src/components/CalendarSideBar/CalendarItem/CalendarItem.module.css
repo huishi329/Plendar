@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.2rem 0;
+    cursor: pointer;
 }
 
 .wrapper:hover {
@@ -18,6 +19,7 @@
 .left label {
     font-size: 0.85rem;
     margin-left: 0.5rem;
+    cursor: pointer;
 }
 
 .buttons {

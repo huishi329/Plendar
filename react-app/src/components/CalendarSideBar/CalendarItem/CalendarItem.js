@@ -9,12 +9,12 @@ export default function CalendarItem({ calendar }) {
     }
 
     return (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} onClick={handleCalendarVisibility}>
             <div className={styles.left}>
                 <input
                     type="checkbox"
                     checked={calendar.is_displayed}
-                    onChange={() => handleCalendarVisibility()}
+                    onChange={handleCalendarVisibility}
                 >
                 </input>
                 <label htmlFor={calendar.name}>{calendar.name}</label>
