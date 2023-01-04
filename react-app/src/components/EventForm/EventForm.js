@@ -16,10 +16,11 @@ export default function EventForm({ date, x, y }) {
     console.log(currentHour, currentMinute);
     const startTimeStr = (currentMinute < 30) ?
         `${currentHour}:30`
-        : `${((Number(currentHour) + 1) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}:00`
+        : `${((Number(currentHour) + 1) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false })}:00`
     const endTimeStr = (currentMinute < 30) ?
-        `${((Number(currentHour) + 1) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}: 30`
-        : `${((Number(currentHour) + 2) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}: 00`
+        `${((Number(currentHour) + 1) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false })}: 30`
+        : `${((Number(currentHour) + 2) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false })}:00`
+    console.log(startTimeStr, endTimeStr);
 
     const [expandTimeOptions, setExpandTimeOptions] = useState(false);
     const [expandMoreOptions, setExpanMoreOptions] = useState(false);
