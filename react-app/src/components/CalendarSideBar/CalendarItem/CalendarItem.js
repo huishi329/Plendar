@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { toggleCalendar } from '../../../store/calendars'
+import { setDeleteCalendarModal } from '../../../store/modals'
 import styles from './CalendarItem.module.css'
 
 export default function CalendarItem({ calendar }) {
@@ -20,7 +21,7 @@ export default function CalendarItem({ calendar }) {
                 <label htmlFor={calendar.name}>{calendar.name}</label>
             </div>
             <div className={styles.buttons}>
-                <button>
+                <button onClick={() => dispatch(setDeleteCalendarModal(true))}>
                     <i class="fa-solid fa-xmark"></i>
                 </button>
                 <button>
