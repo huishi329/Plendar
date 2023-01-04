@@ -27,10 +27,10 @@ export default function CalendarItem({ calendar }) {
             </div>
             <div className={styles.buttons}>
                 <button onClick={handleDelete}>
-                    <i class="fa-solid fa-xmark"></i>
+                    <i className="fa-solid fa-xmark"></i>
                 </button>
                 <button>
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                    <i className="fa-solid fa-ellipsis-vertical"></i>
                 </button>
             </div>
         </div>
