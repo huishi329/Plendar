@@ -1,10 +1,12 @@
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
 import { toggleCalendar } from '../../../store/calendars'
 import { setCurrentCalendar, setDeleteCalendarModal } from '../../../store/modals'
 import styles from './CalendarItem.module.css'
 
 export default function CalendarItem({ calendar }) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleVisibility = () => {
         dispatch(toggleCalendar(calendar.id))
     };
@@ -13,6 +15,11 @@ export default function CalendarItem({ calendar }) {
         dispatch(setCurrentCalendar(calendar));
         dispatch(setDeleteCalendarModal(true));
     };
+
+    const handleEdit = (e) => {
+        e.stopPropagation();
+        navigate(`settings/calendar/${calendar.id}`)
+    }
 
     return (
         <div className={styles.wrapper} onClick={handleVisibility}>
@@ -29,7 +36,7 @@ export default function CalendarItem({ calendar }) {
                 <button onClick={handleDelete}>
                     <i className="fa-solid fa-xmark"></i>
                 </button>
-                <button>
+                <button onClick={handleEdit}>
                     <i className="fa-solid fa-ellipsis-vertical"></i>
                 </button>
             </div>
