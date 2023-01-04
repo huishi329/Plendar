@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import DeleteCalendarModal from './DeleteCalendarModal/DeleteCalendarModal';
 import SignInFormModal from './SignInFormModal/SignInFormModal';
 import SignUpFormModal from './SignUpFormModal/SignUpFormModal';
 
@@ -7,6 +8,6 @@ export default function Modals() {
     return <>
         {modals.showSignInModal && <SignInFormModal />}
         {modals.showSignUpModal && <SignUpFormModal />}
-
+        {modals.showDeleteCalendarModal && <DeleteCalendarModal />}
     </>;
 }
