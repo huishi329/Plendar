@@ -21,7 +21,10 @@ export default function CalendarItem({ calendar }) {
                 <label htmlFor={calendar.name}>{calendar.name}</label>
             </div>
             <div className={styles.buttons}>
-                <button onClick={() => dispatch(setDeleteCalendarModal(true))}>
+                <button onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch(setDeleteCalendarModal(true))
+                }}>
                     <i class="fa-solid fa-xmark"></i>
                 </button>
                 <button>
