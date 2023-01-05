@@ -62,7 +62,7 @@ export default function EventDetail({ event, x, y }) {
                 <i className="fa-solid fa-bars"></i>
                 {event.description}
             </div>}
-            {calendars && <div>
+            {calendars && <div className={styles.calendar}>
                 <i className="fa-regular fa-calendar"></i>
                 {calendars[event.calendar_id].name}
             </div>}

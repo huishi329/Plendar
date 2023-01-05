@@ -19,6 +19,9 @@
     font-size: 1rem;
     font-weight: 500;
     margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .datetime {
@@ -35,8 +38,20 @@
 
 .address {
     margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .description {
     margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.calendar {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
