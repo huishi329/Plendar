@@ -53,6 +53,15 @@
     border-bottom: 2px solid rgba(107, 178, 156, 0.7);
 }
 
+.formErrors {
+    margin-bottom: 1rem;
+    margin-left: 3rem;
+}
+
+.formErrors li {
+    color: rgb(246, 18, 18);
+}
+
 .topContainer {
     display: grid;
     grid-auto-columns: 1fr;
