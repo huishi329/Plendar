@@ -57,8 +57,14 @@ export default function DayTile({ date }) {
     })
 
     const day_events_sorted = day_events_copy.sort((a, b) => {
-        return a.start_time - b.start_time;
-    })
+
+        if (a.start_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) > b.start_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })) {
+            return 1;
+        }
+        else {
+            return -1
+        }
+    });
 
     useEffect(() => {
         if (windowWidth < 900) setX((windowWidth - 450) / 2);
