@@ -20,6 +20,13 @@
     font-size: 0.85rem;
     margin-left: 0.5rem;
     cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 6rem;
+}
+
+.wrapper:hover label {
+    text-overflow: ellipsis;
 }
 
 .buttons {
