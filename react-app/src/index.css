@@ -25,6 +25,7 @@ button {
     padding: 0.3rem;
     color: white;
     font-size: 0.7rem;
+    z-index: -1000;
 }
 
 [data-tooltip]:hover:before {
@@ -34,5 +35,5 @@ button {
     /* customizable */
     background-color: rgb(60, 64, 67);
     margin-top: 1.2rem;
-    /* margin-left: 20px; */
+    z-index: 100;
 }
