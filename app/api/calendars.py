@@ -83,8 +83,10 @@ def get_events_by_calendar_id(calendar_id):
     month_start = datetime(year, month, 1, tzinfo=ZoneInfo(calendar.timezone))
     month_end = datetime(year, month, last_day_of_month, 23,
                          59, 59, 999999, tzinfo=ZoneInfo(calendar.timezone))
+    #  calculate the first day of the week that the first day of the month falls in
     start = month_start - timedelta(days=(month_start.weekday() + 1) % 7)
-    end = month_end + timedelta(days=5)
+    #  calculate the last day of the week that the last day of the month falls in
+    end = month_end + timedelta(days=6)
 
     all_events = calendar.events
     month_events = list(filter(lambda event: event.end_date >= start or
