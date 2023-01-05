@@ -26,6 +26,10 @@ button {
     color: white;
     font-size: 0.7rem;
     z-index: -1000;
+
+    max-width: 15rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 [data-tooltip]:hover:before {
