@@ -55,7 +55,7 @@ export default function SignInForm() {
             </label>
             <div className={styles.signInOrSignUpBtnDiv}>
 
-                <button className={styles.signUpButton} onClick={() => {
+                <button type="button" className={styles.signUpButton} onClick={() => {
                     dispatch(setSignUpModal(true));
                     dispatch(setSignInModal(false));
                 }}>Create account
@@ -63,7 +63,7 @@ export default function SignInForm() {
                 <button type="submit" className={styles.signInButton}>Sign in</button>
             </div>
 
-            <button type="submit" className={styles.demoButton} onClick={() => {
+            <button type="button" className={styles.demoButton} onClick={() => {
                 setEmail("demo@aa.io");
                 setPassword("password");
             }}>Log in as demo user</button>
