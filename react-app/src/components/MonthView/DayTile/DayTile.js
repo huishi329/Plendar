@@ -60,7 +60,6 @@ export default function DayTile({ date }) {
     })
 
     const day_events_sorted = day_events_copy.sort((a, b) => {
-
         if (a.start_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) > b.start_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })) {
             return 1;
         }

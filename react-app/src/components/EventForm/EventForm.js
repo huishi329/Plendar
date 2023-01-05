@@ -34,6 +34,7 @@ export default function EventForm({ date, x, y }) {
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = (e) => {
+        console.log('FIRING HANDLESUBMIT');
         e.preventDefault();
         setErrors([]);
         const start_time = expandTimeOptions ? `${startDate} ${startTime}:00` : `${startDate} 00:00:00`;
@@ -65,11 +66,9 @@ export default function EventForm({ date, x, y }) {
     if (!calendars) return null;
 
     return (
-        <form
-            className={styles.form}
-            onSubmit={handleSubmit}
-            style={{ left: x, top: y }}
-            onClick={(e) => e.stopPropagation()}>
+        <form className={styles.form} onSubmit={handleSubmit} style={{ left: x, top: y }}
+            onClick={(e) => e.stopPropagation()}
+        >
             <EventFormNavbar />
             {errors.length > 0 && <ul className={styles.formErrors}>
                 {errors.map((error, i) => <li key={i}>{error}</li>)}
@@ -136,7 +135,7 @@ export default function EventForm({ date, x, y }) {
 
                 {(!expandTimeOptions && !expandMoreOptions) &&
                     <div>
-                        <button className={styles.addTimeBtn}
+                        <button type="button" className={styles.addTimeBtn}
                             onClick={() => setExpandTimeOptions(true)}>Add time</button>
                     </div>}
             </div>
