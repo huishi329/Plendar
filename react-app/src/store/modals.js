@@ -1,6 +1,7 @@
 const SET_SIGNUP_MODAL = 'modals/setSignUpModal';
 const SET_SIGNIN_MODAL = 'modals/setSignInModal';
-const SET_DELETE_CALENDAR_MODAL = 'modals/setDeleteCalendarModal'
+const SET_DELETE_CALENDAR_MODAL = 'modals/setDeleteCalendarModal';
+const SET_SAVE_SETTING_MODAL = 'modals/setSaveSettingModal'
 const SET_PROFILE_DROPDOWN = 'modals/setProfileDropdown'
 const SET_CURRENT_EVENT = 'modals/setCurrentEvent';
 const SET_CURRENT_DATE = 'modals/setCurrentDate';
@@ -14,6 +15,9 @@ export const setSignInModal = showSignInModal => {
 };
 export const setDeleteCalendarModal = showDeleteCalendarModal => {
     return { type: SET_DELETE_CALENDAR_MODAL, showDeleteCalendarModal };
+};
+export const setSaveSettingModal = showSaveSettingModal => {
+    return { type: SET_SAVE_SETTING_MODAL, showSaveSettingModal };
 };
 export const setProfileDropdown = showProfileDropdown => {
     return { type: SET_PROFILE_DROPDOWN, showProfileDropdown };
@@ -38,6 +42,8 @@ export default function modalsReducer(state = {}, action) {
             return { ...state, showDeleteCalendarModal: action.showDeleteCalendarModal };
         case SET_PROFILE_DROPDOWN:
             return { showProfileDropdown: action.showProfileDropdown }
+        case SET_SAVE_SETTING_MODAL:
+            return { showSaveSettingModal: action.showSaveSettingModal }
         case SET_CURRENT_EVENT:
             return { event: action.event };
         case SET_CURRENT_DATE:
