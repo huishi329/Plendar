@@ -47,9 +47,9 @@ def update_calendar(calendar_id):
     form = CalendarForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        data = form.data
+        calendar = Calendar.query.get(calendar_id)
         if calendar.owner.id == current_user.id:
-            data = form.data
-            calendar = Calendar.query.get(calendar_id)
             calendar.name = data['name'],
             calendar.description = data['description'],
             calendar.timezone = data['timezone']
