@@ -27,31 +27,38 @@ export default function EventDetail({ event, x, y }) {
                 <i className="fa-solid fa-square"></i>
                 {event.title}
             </div>
-            {event.start_time.getDate() === event.end_time.getDate() && <div className={styles.datetime}>
-                {event.start_time.toLocaleDateString('en-US',
-                    { weekday: 'long', day: '2-digit', month: 'long' })
-                }
-                <i className="fa-solid fa-circle"></i>
-                {event.start_time.toLocaleTimeString('en-US',
-                    { hour: '2-digit', minute: '2-digit' }).toLowerCase().split(" ").join("")}
-                {` - `}
-                {event.end_time.toLocaleTimeString('en-US',
-                    { hour: '2-digit', minute: '2-digit' }).toLowerCase().split(" ").join("")}
-            </div>}
-            {event.start_time.getDate() !== event.end_time.getDate() && <div className={styles.datetime}>
-                {event.start_time.toLocaleDateString('en-US',
-                    { day: '2-digit', month: 'long', year: 'numeric' })
-                }
-                {`, `}
-                {event.start_time.toLocaleTimeString('en-US',
-                    { hour: '2-digit', minute: '2-digit' }).toLowerCase().split(" ").join("")}
-                {` - `}
-                {event.end_time.toLocaleDateString('en-US',
-                    { day: '2-digit', month: 'long', year: 'numeric' })
-                }
-                {`, `}
-                {event.end_time.toLocaleTimeString('en-US',
-                    { hour: '2-digit', minute: '2-digit' }).toLowerCase().split(" ").join("")}
+            {event.start_time.getDate() === event.end_time.getDate() &&
+                <div className={styles.datetime}>
+                    {event.start_time.toLocaleDateString('en-US',
+                        { weekday: 'long', day: '2-digit', month: 'long' })
+                    }
+                    <i className="fa-solid fa-circle"></i>
+                    {event.start_time.toLocaleTimeString('en-US',
+                        { hour: '2-digit', minute: '2-digit' }).toLowerCase().split(" ").join("")}
+                    {` - `}
+                    {event.end_time.toLocaleTimeString('en-US',
+                        { hour: '2-digit', minute: '2-digit' }).toLowerCase().split(" ").join("")}
+                </div>}
+            {event.start_time.getDate() !== event.end_time.getDate() &&
+                <div className={styles.datetime}>
+                    {event.start_time.toLocaleDateString('en-US',
+                        { day: '2-digit', month: 'long', year: 'numeric' })
+                    }
+                    {`, `}
+                    {event.start_time.toLocaleTimeString('en-US',
+                        { hour: '2-digit', minute: '2-digit' }).toLowerCase().split(" ").join("")}
+                    {` - `}
+                    {event.end_time.toLocaleDateString('en-US',
+                        { day: '2-digit', month: 'long', year: 'numeric' })
+                    }
+                    {`, `}
+                    {event.end_time.toLocaleTimeString('en-US',
+                        { hour: '2-digit', minute: '2-digit' }).toLowerCase().split(" ").join("")}
+                </div>}
+            {event.recurrence && <div className={styles.recurrence}>
+                {event.recurrence === 5 && 'Every weekday'}
+                {event.recurrence === 7 && `Every ${event.start_time.toLocaleDateString('en-US',
+                    { weekday: 'long' })}`}
             </div>}
 
             {event.address && <div className={styles.address}>
