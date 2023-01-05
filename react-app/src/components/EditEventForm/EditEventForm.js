@@ -62,9 +62,6 @@ export default function EditEventForm() {
 
     return (
         <form className={styles.form} onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
-            {errors.length > 0 && <ul className={styles.formErrors}>
-                {errors.map((error, i) => <li key={i}>{error}</li>)}
-            </ul>}
             <div className={styles.topContainer}>
 
                 <div className={styles.title}>
@@ -89,6 +86,9 @@ export default function EditEventForm() {
                 >Save</button>
 
             </div>
+            {errors.length > 0 && <ul className={styles.formErrors}>
+                {errors.map((error, i) => <li key={i}>{error}</li>)}
+            </ul>}
             <div className={styles.datetime}>
                 <div
                     className={styles.datePicker}>

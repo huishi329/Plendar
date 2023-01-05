@@ -1,7 +1,44 @@
 .wrapper {
     margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.2rem 0;
+    cursor: pointer;
 }
 
-.wrapper label {
-    font-size: 0.9rem;
+.wrapper:hover {
+    background-color: rgba(107, 178, 156, 0.15);
+}
+
+.left {
+    display: flex;
+    align-items: center;
+}
+
+.left label {
+    font-size: 0.85rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 6rem;
+}
+
+.wrapper:hover label {
+    text-overflow: ellipsis;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+}
+
+.wrapper:hover i {
+    color: #3c4043;
+}
+
+.buttons i {
+    margin: 0 0.6rem;
+    color: white;
 }

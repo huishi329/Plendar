@@ -58,11 +58,13 @@ export default function EventDetail({ event, x, y }) {
                 <i className="fa-solid fa-location-dot"></i>
                 {event.address}
             </div>}
-            {event.description && <div className={styles.description}>
-                <i className="fa-solid fa-bars"></i>
-                {event.description}
-            </div>}
-            {calendars && <div>
+
+            {event.description &&
+                <div className={styles.description}>
+                    <i className="fa-solid fa-bars"></i>
+                    <div className={styles.descriptionText}>{event.description}</div>
+                </div>}
+            {calendars && <div className={styles.calendar}>
                 <i className="fa-regular fa-calendar"></i>
                 {calendars[event.calendar_id].name}
             </div>}

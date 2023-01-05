@@ -8,28 +8,24 @@ import styles from './MyCalendars.module.css'
 export default function MyCalendars() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const user = useSelector(state => state.session.user)
-    const calendars = useSelector(state => state.calendars)
+    const user = useSelector(state => state.session.user);
+    const calendars = useSelector(state => state.calendars);
 
     useEffect(() => {
-        if (user) dispatch(getCalendars())
-    }, [dispatch, user])
-
+        if (user) dispatch(getCalendars());
+    }, [dispatch, user]);
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.title}>
                 <div>My calendar</div>
-                <button className={styles.button}
-                    onClick={() => {
-                        navigate('/settings/createcalendar');
-                        window.localStorage.setItem('plendar', JSON.stringify(calendars));
-                    }}>
+                {user && <button className={styles.button}
+                    onClick={() => navigate('/settings/createcalendar')}>
                     <i className="fa-solid fa-plus"></i>
-                </button>
+                </button>}
             </div>
             {calendars && Object.values(calendars).map(calendar =>
-                (<CalendarItem calendar={calendar} key={calendar.name} />))}
-        </div>
+                (<CalendarItem calendar={calendar} key={calendar.id} />))}
+        </div >
     )
 }

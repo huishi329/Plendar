@@ -1,3 +1,19 @@
 .main {
     display: flex;
 }
+
+.modal {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+.modalText {
+    width: 120px;
+    padding: 0.5rem;
+    margin: 0 auto;
+    background-color: rgb(60, 64, 67);
+    color: white;
+    font-size: 0.8rem;
+    text-align: center;
+}

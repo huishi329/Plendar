@@ -10,8 +10,18 @@
     padding: 1rem;
     min-width: fit-content;
     width: 100%;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
+.form option {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 .form i {
     margin-left: 0.8rem;
@@ -33,6 +43,8 @@
 .form select {
     padding: 0.5rem 0.3rem;
     cursor: pointer;
+    width: 100%;
+    max-width: 95%;
 }
 
 .form select:focus {
@@ -41,6 +53,15 @@
 
 .form input:focus {
     border-bottom: 2px solid rgba(107, 178, 156, 0.7);
+}
+
+.formErrors {
+    margin-bottom: 1rem;
+    margin-left: 3rem;
+}
+
+.formErrors li {
+    color: rgb(246, 18, 18);
 }
 
 .topContainer {

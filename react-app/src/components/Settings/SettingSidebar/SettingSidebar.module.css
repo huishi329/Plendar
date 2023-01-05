@@ -11,6 +11,9 @@
     max-width: 13rem;
     min-width: 13rem;
     text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .button:hover {

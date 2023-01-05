@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { setCurrentDate, setSignUpModal } from '../../../store/modals';
+import { setCurrentDate, setSignInModal } from '../../../store/modals';
 import EventForm from '../../EventForm/EventForm';
 import styles from './DayTile.module.css'
 import EventItem from './EventItem/EventItem';
@@ -23,13 +23,14 @@ export default function DayTile({ date }) {
 
     const isClicked = date === modals.date;
     const showEventForm = isClicked && user;
+
     const handleClick = (e) => {
         e.stopPropagation();
         if (user) {
             if (modals.date || modals.event || modals.showProfileDropdown) dispatch(setCurrentDate(null));
             else dispatch(setCurrentDate(date));
         }
-        else dispatch(setSignUpModal(true));
+        else dispatch(setSignInModal(true));
     }
 
     const events = useSelector(state => Object.values(state.events));
