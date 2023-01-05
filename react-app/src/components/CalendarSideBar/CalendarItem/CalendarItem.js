@@ -33,10 +33,10 @@ export default function CalendarItem({ calendar }) {
                 <label htmlFor={calendar.name}>{calendar.name}</label>
             </div>
             <div className={styles.buttons}>
-                <button onClick={handleDelete}>
+                <button data-tooltip={`Unsubscribe from ${calendar.name}`} onClick={handleDelete}>
                     <i className="fa-solid fa-xmark"></i>
                 </button>
-                <button onClick={handleEdit}>
+                <button data-tooltip={`options for ${calendar.name}`} onClick={handleEdit}>
                     <i className="fa-solid fa-ellipsis-vertical"></i>
                 </button>
             </div>

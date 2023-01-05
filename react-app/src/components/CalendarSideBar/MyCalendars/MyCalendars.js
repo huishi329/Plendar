@@ -20,6 +20,7 @@ export default function MyCalendars() {
             <div className={styles.title}>
                 <div>My calendar</div>
                 {user && <button className={styles.button}
+                    data-tooltip={`Add a calendar`}
                     onClick={() => navigate('/settings/createcalendar')}>
                     <i className="fa-solid fa-plus"></i>
                 </button>}
