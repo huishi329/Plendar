@@ -10,8 +10,18 @@
     padding: 1rem;
     min-width: fit-content;
     width: 100%;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
+.form option {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 .form i {
     margin-left: 0.8rem;

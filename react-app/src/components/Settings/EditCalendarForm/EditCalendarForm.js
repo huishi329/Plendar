@@ -24,6 +24,7 @@ export function EditCalendarForm({ calendars }) {
     }, [calendar.id]);
 
     useEffect(() => {
+        setErrors([])
         if (name !== calendar.name || description !== calendar.description || timezone !== calendar.timezone) {
             dispatch(updateCalendar(calendar.id, { name, description, timezone }))
                 .then(() => {
