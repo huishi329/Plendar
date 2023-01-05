@@ -20,6 +20,15 @@
 
 }
 
+.formErrors {
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
+
+.formErrors li {
+    color: rgb(246, 18, 18);
+}
+
 .form select {
     padding: 0.5rem 0.3rem;
     cursor: pointer;
