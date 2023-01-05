@@ -36,7 +36,10 @@ def post_calendar():
         )
         db.session.add(calendar, user_calendar)
         db.session.commit()
-        return calendar.to_dict(), 201
+        # Add is_displayed property
+        response = calendar.to_dict()
+        response['is_displayed'] = user_calendar.is_displayed
+        return response, 201
     else:
         return {'errors': validation_errors_formatter(form, form.errors)}, 400
 
