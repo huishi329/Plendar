@@ -42,7 +42,10 @@ export default function DayTile({ date }) {
             // events that repeat daily
             (event.recurrence === 1 && date >= eventDate) ||
             // events that repeat weekly
-            (event.recurrence === 7 && date >= eventDate && date.getDay() === eventDate.getDay()))
+            (event.recurrence === 7 && date >= eventDate && date.getDay() === eventDate.getDay())) ||
+            // events that repeat every weekday
+            (event.recurrence === 5 && date >= eventDate
+                && date.getDay() !== 0 && date.getDay() !== 6)
     })
     // Make a deep copy and then set date to the DayTile date
     const day_events_copy = JSON.parse(JSON.stringify(day_events))
