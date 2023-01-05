@@ -2,6 +2,12 @@
     max-width: 20rem;
     padding: 1rem;
     font-size: 0.8rem;
+
+}
+
+.warning {
+    overflow-y: hidden;
+    overflow-x: auto;
 }
 
 .buttons {

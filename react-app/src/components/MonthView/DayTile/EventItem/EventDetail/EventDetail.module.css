@@ -30,14 +30,19 @@
 .datetime {
     display: flex;
     align-items: center;
-    margin: 0 0 0.5rem 1.5rem;
+    margin-left: 1.5rem;
 }
 
 .datetime i {
     font-size: 0.2rem;
     margin: 0 0.5rem;
-
 }
+
+.recurrence {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
 
 .address {
     margin-bottom: 0.5rem;

@@ -19,7 +19,6 @@ export function CalendarForm() {
         dispatch(createCalendar({ name, description, timezone }))
             .then(() => navigate('/'))
             .catch(e => {
-                console.log(e);
                 const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
                 setErrors(errors);
             });

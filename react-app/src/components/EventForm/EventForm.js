@@ -17,7 +17,7 @@ export default function EventForm({ date, x, y }) {
         `${currentHour}:30`
         : `${((Number(currentHour) + 1) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false })}:00`
     const endTimeStr = (currentMinute < 30) ?
-        `${((Number(currentHour) + 1) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false })}: 30`
+        `${((Number(currentHour) + 1) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false })}:30`
         : `${((Number(currentHour) + 2) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false })}:00`
 
     const [expandTimeOptions, setExpandTimeOptions] = useState(false);

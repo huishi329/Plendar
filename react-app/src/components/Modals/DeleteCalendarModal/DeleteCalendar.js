@@ -17,7 +17,7 @@ export default function DeleteCalendar() {
 
     return (
         <div className={styles.wrapper}>
-            <div >
+            <div className={styles.warning}>
                 {`Are you sure you want to remove ${calendar.name}? You'll no longer have access to this calendar and its events. Other people with access to the calendar can continue to use it.`}
             </div>
             <div className={styles.buttons}>

@@ -36,7 +36,7 @@ export default function CalendarItem({ calendar }) {
                 <button onClick={handleDelete}>
                     <i className="fa-solid fa-xmark"></i>
                 </button>
-                <button onClick={handleEdit}>
+                <button onClick={handleEdit} data-tooltip={`options for ${calendar.name}`} className={styles.option}>
                     <i className="fa-solid fa-ellipsis-vertical"></i>
                 </button>
             </div>

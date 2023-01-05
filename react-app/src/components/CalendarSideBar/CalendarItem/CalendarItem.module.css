@@ -32,6 +32,7 @@
 .buttons {
     display: flex;
     align-items: center;
+    margin-right: 0.5rem;
 }
 
 .wrapper:hover i {
@@ -39,6 +40,11 @@
 }
 
 .buttons i {
-    margin: 0 0.6rem;
+    padding: 0 0.5rem;
+    font-size: 1rem;
     color: white;
+}
+
+.option i {
+    padding: 0 1rem;
 }

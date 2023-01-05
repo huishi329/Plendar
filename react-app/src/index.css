@@ -12,3 +12,30 @@ button {
     outline: none;
     cursor: pointer;
 }
+
+[data-tooltip]:before {
+    /* needed - do not touch */
+    content: attr(data-tooltip);
+    position: absolute;
+    opacity: 0;
+
+    /* customizable */
+    padding: 0.3rem;
+    color: white;
+    font-size: 0.7rem;
+    z-index: -1000;
+
+    max-width: 15rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+[data-tooltip]:hover:before {
+    /* needed - do not touch */
+    opacity: 1;
+
+    /* customizable */
+    background-color: rgb(60, 64, 67);
+    margin-top: 1.2rem;
+    z-index: 100;
+}
