@@ -5,6 +5,7 @@ from wtforms.validators import DataRequired, ValidationError, Email, URL, Number
 from app.models import User
 from datetime import datetime
 
+
 def check_end_time(form, field):
     # check if end time is set after the start time
     end_time = field.data
@@ -14,11 +15,12 @@ def check_end_time(form, field):
 
 
 class EventForm(FlaskForm):
-    title = StringField('title')
-    address = StringField('address')
-    description = StringField('description')
-    start_time = DateTimeField('start time', validators=[DataRequired()])
-    end_time = DateTimeField('end time', validators=[DataRequired(), check_end_time])
-    end_date = DateTimeField('end date', validators=[DataRequired()])
-    recurrence = IntegerField('recurrence', default=0)
-    calendar_id = IntegerField('calendar', validators=[DataRequired()])
+    title = StringField('Title')
+    address = StringField('Address')
+    description = StringField('Description')
+    start_time = DateTimeField('Start time', validators=[DataRequired()])
+    end_time = DateTimeField('End time', validators=[
+                             DataRequired(), check_end_time])
+    end_date = DateTimeField('End date', validators=[DataRequired()])
+    recurrence = IntegerField('Recurrence', default=0)
+    calendar_id = IntegerField('Calendar', validators=[DataRequired()])

@@ -6,6 +6,6 @@ from datetime import datetime
 
 
 class CalendarForm(FlaskForm):
-    name = StringField('name', validators=[DataRequired(), Length(max=254)])
-    description = StringField('description')
-    timezone = StringField('timezone', validators=[DataRequired()])
+    name = StringField('Name', validators=[DataRequired(), Length(max=254)])
+    description = StringField('Description', validators=[Length(max=200)])
+    timezone = StringField('Timezone', validators=[DataRequired()])

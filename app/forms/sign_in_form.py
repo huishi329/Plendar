@@ -6,6 +6,6 @@ from app.models import User
 
 
 class SignInForm(FlaskForm):
-    email = EmailField('email', validators=[DataRequired(), Email()])
-    password = StringField('password', validators=[
+    email = EmailField('Email', validators=[DataRequired(), Email()])
+    password = StringField('Password', validators=[
                            DataRequired()])
