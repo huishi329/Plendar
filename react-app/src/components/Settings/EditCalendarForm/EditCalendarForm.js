@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux"
 import { useParams } from "react-router-dom";
 import { updateCalendar } from "../../../store/calendars";
+import { setSaveSettingModal } from "../../../store/modals";
 import styles from './EditCalendarForm.module.css'
 
 export function EditCalendarForm({ calendars }) {
@@ -12,7 +13,6 @@ export function EditCalendarForm({ calendars }) {
     const [description, setDescription] = useState(calendar.description || '');
     const [timezone, setTimezone] = useState(calendar.timezone)
     const [errors, setErrors] = useState([]);
-    const [showModal, setShowModal] = useState(false);
     const timezoneOptions = new Intl.Locale(window.navigator.language).timeZones;
 
     useEffect(() => {
@@ -24,15 +24,17 @@ export function EditCalendarForm({ calendars }) {
     }, [calendar.id]);
 
     useEffect(() => {
-        dispatch(updateCalendar(calendar.id, { name, description, timezone }))
-            .then(() => {
-                setShowModal(true);
-                setTimeout(setShowModal(false), 3000)
-            })
-            .catch(e => {
-                const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
-                setErrors(errors);
-            });
+        if (name !== calendar.name || description !== calendar.description || timezone !== calendar.timezone) {
+            dispatch(updateCalendar(calendar.id, { name, description, timezone }))
+                .then(() => {
+                    dispatch(setSaveSettingModal(true));
+                    setTimeout(() => dispatch(setSaveSettingModal(false)), 3000);
+                })
+                .catch(e => {
+                    const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
+                    setErrors(errors);
+                });
+        }
         // eslint-disable-next-line
     }, [name, description, timezone])
 
@@ -71,7 +73,6 @@ export function EditCalendarForm({ calendars }) {
                     {timezoneOptions.map(timezone => (<option value={timezone} key={timezone}>{timezone}</option>))}
                 </select>
             </div>
-            {showModal && <div className={styles.modal}>Setting saved</div>}
         </form>
     )
 }
