@@ -9,6 +9,9 @@
     padding: 1rem 1.5rem;
     min-width: 25rem;
     max-width: 25rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 50vh;
 }
 
 .wrapper i {
@@ -44,10 +47,17 @@
 }
 
 .description {
+    display: flex;
+    text-align: center;
+}
+
+.descriptionText {
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
     margin-bottom: 0.5rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .calendar {
