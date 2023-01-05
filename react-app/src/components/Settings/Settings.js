@@ -13,6 +13,7 @@ export function Setting() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
     const calendars = useSelector(state => state.calendars);
+    const showSaveSettingModal = useSelector(state => state.modals.showSaveSettingModal)
 
     useEffect(() => {
         if (user) dispatch(getCalendars());
@@ -30,6 +31,11 @@ export function Setting() {
                     <Route path='/calendar/:calendarId' element={<EditCalendarForm calendars={calendars} />} />
                 </Routes>
             </div>
+            {showSaveSettingModal &&
+                <div className={styles.modal}>
+                    <div className={styles.modalText} style={{ right: `${window.innerWidth / 2}` }}>Setting saved</div>
+                </div>
+            }
         </div>
     )
 }
