@@ -6,7 +6,7 @@
     height: calc(90vh/5);
     padding-right: 0.5rem;
     white-space: nowrap;
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 .dayName {

@@ -43,6 +43,8 @@
 .form select {
     padding: 0.5rem 0.3rem;
     cursor: pointer;
+    width: 100%;
+    max-width: 95%;
 }
 
 .form select:focus {
