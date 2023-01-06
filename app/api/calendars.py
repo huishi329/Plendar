@@ -105,4 +105,4 @@ def delete_events_by_calendar_id(calendar_id):
     for event in calendar.events:
         db.session.delete(event)
     db.session.commit()
-    return {"message": f"Deleted all events of the defaultcalendar with id {calendar_id}"}
+    return {"message": f"Deleted all events of the default calendar with id {calendar_id}"}
