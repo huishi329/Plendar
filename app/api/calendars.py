@@ -28,7 +28,8 @@ def post_calendar():
             owner_id=current_user.id,
             name=data['name'],
             description=data['description'],
-            timezone=data['timezone']
+            timezone=data['timezone'],
+            is_default=data['is_default'] if data.get('is_default') else False
         )
         user_calendar = UserCalendar(
             user_id=current_user.id,
@@ -36,7 +37,10 @@ def post_calendar():
         )
         db.session.add(calendar, user_calendar)
         db.session.commit()
-        return calendar.to_dict(), 201
+        # Add is_displayed property
+        response = calendar.to_dict()
+        response['is_displayed'] = user_calendar.is_displayed
+        return response, 201
     else:
         return {'errors': validation_errors_formatter(form, form.errors)}, 400
 
@@ -83,10 +87,22 @@ def get_events_by_calendar_id(calendar_id):
     month_start = datetime(year, month, 1, tzinfo=ZoneInfo(calendar.timezone))
     month_end = datetime(year, month, last_day_of_month, 23,
                          59, 59, 999999, tzinfo=ZoneInfo(calendar.timezone))
+    #  calculate the first day of the week that the first day of the month falls in
     start = month_start - timedelta(days=(month_start.weekday() + 1) % 7)
-    end = month_end + timedelta(days=5)
+    #  calculate the last day of the week that the last day of the month falls in
+    end = month_end + timedelta(days=6)
 
     all_events = calendar.events
     month_events = list(filter(lambda event: event.end_date >= start or
                                (event.start_time >= start and event.start_time <= end), all_events))
     return [event.to_dict() for event in month_events]
+
+
+@bp.route("/<int:calendar_id>/events", methods=["DELETE"])
+@login_required
+def delete_events_by_calendar_id(calendar_id):
+    calendar = Calendar.query.get(calendar_id)
+    for event in calendar.events:
+        db.session.delete(event)
+    db.session.commit()
+    return {"message": f"Deleted all events of the default calendar with id {calendar_id}"}

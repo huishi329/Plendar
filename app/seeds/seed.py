@@ -2,6 +2,8 @@ from app.models import db, User, Calendar, Event, UserCalendar, environment, SCH
 from datetime import time, datetime
 
 # Adds a demo user, you can add other users here if you want
+
+
 def seed_all():
     demo = User(
         name='Demo', email='demo@aa.io', password='password')
@@ -10,13 +12,14 @@ def seed_all():
     bobbie = User(
         name='bobbie', email='bobbie@aa.io', password='password')
 
-    demo_calendar = Calendar(owner=demo, name=demo.name, timezone='Canada/Pacific')
-    demo_work_calendar = Calendar(owner=demo,name='Demo - work', timezone='Canada/Pacific')
-    marnie_calendar = Calendar(owner=marnie, name=marnie.name, timezone='Canada/Pacific')
-    bobbie_calendar = Calendar(owner=bobbie, name=bobbie.name, timezone='Canada/Pacific')
-
-
-
+    demo_calendar = Calendar(owner=demo, name=demo.name,
+                             timezone='Canada/Pacific', is_default=True)
+    demo_work_calendar = Calendar(
+        owner=demo, name='Demo - work', timezone='Canada/Pacific')
+    marnie_calendar = Calendar(
+        owner=marnie, name=marnie.name, timezone='Canada/Pacific', is_default=True)
+    bobbie_calendar = Calendar(
+        owner=bobbie, name=bobbie.name, timezone='Canada/Pacific', is_default=True)
 
     db.session.add_all([
         UserCalendar(calendar=demo_work_calendar, user=demo),
@@ -32,7 +35,7 @@ def seed_all():
             start_time=datetime(2022, 12, 19, 8, 0),
             end_time=datetime(2022, 12, 19, 8, 15),
             end_date=datetime.max,
-            recurrence=1,
+            recurrence=5,
         ),
         Event(
             calendar=demo_work_calendar,
@@ -40,7 +43,7 @@ def seed_all():
             start_time=datetime(2022, 12, 19, 8, 15),
             end_time=datetime(2022, 12, 19, 11, 15),
             end_date=datetime.max,
-            recurrence=1,
+            recurrence=5,
         ),
         Event(
             calendar=demo_work_calendar,
@@ -48,7 +51,7 @@ def seed_all():
             start_time=datetime(2022, 12, 19, 11, 15),
             end_time=datetime(2022, 12, 19, 12, 30),
             end_date=datetime.max,
-            recurrence=1,
+            recurrence=5,
         ),
         Event(
             calendar=demo_work_calendar,
@@ -56,7 +59,7 @@ def seed_all():
             start_time=datetime(2022, 12, 19, 12, 30),
             end_time=datetime(2022, 12, 19, 13, 30),
             end_date=datetime.max,
-            recurrence=1,
+            recurrence=5,
         ),
         Event(
             calendar=demo_work_calendar,
@@ -64,7 +67,7 @@ def seed_all():
             start_time=datetime(2022, 12, 19, 13, 30),
             end_time=datetime(2022, 12, 19, 17, 00),
             end_date=datetime.max,
-            recurrence=1,
+            recurrence=5,
         ),
         Event(
             calendar=demo_calendar,
@@ -75,7 +78,6 @@ def seed_all():
             recurrence=7,
         ),
     ])
-
 
     db.session.add(demo)
     db.session.add(marnie)
@@ -91,10 +93,14 @@ def seed_all():
 # it will reset the primary keys for you as well.
 def undo_all():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.events RESTART IDENTITY CASCADE;")
-        db.session.execute(f"TRUNCATE table {SCHEMA}.users_calendars RESTART IDENTITY CASCADE;")
-        db.session.execute(f"TRUNCATE table {SCHEMA}.calendars RESTART IDENTITY CASCADE;")
-        db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.events RESTART IDENTITY CASCADE;")
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.users_calendars RESTART IDENTITY CASCADE;")
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.calendars RESTART IDENTITY CASCADE;")
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
     else:
         db.session.execute("DELETE FROM events")
         db.session.execute("DELETE FROM users_calendars")

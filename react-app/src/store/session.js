@@ -1,3 +1,4 @@
+import { createCalendar } from './calendars';
 import { csrfFetch } from './csrf';
 
 const SET_USER = 'session/setUser';
@@ -41,8 +42,15 @@ export const signUp = body => async (dispatch) => {
     method: "POST",
     body: JSON.stringify(body)
   });
+
   const user = await response.json();
   dispatch(setUser(user));
+
+  dispatch(createCalendar({
+    name: `${user.name}`,
+    timezone: `${Intl.DateTimeFormat().resolvedOptions().timeZone}`,
+    is_default: true
+  }));
 };
 
 const initialState = { user: null };

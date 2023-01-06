@@ -1,12 +1,15 @@
+.wrapper {
+    margin-left: 5rem;
+}
+
 .form {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    margin-left: 5rem;
     font-size: 0.8rem;
     font-weight: 500;
-    padding: 1rem;
     min-width: 20rem;
+    margin-bottom: 2rem;
 }
 
 
@@ -17,7 +20,6 @@
     padding: 0.5rem 0.3rem;
     background-color: #f7f7f7;
     border-bottom: 2px solid white;
-
 }
 
 .formErrors {
@@ -61,4 +63,21 @@
 .timezone {
     display: flex;
     flex-direction: column;
+}
+
+
+.deleteButton {
+    align-self: start;
+    color: rgba(107, 178, 156, 1);
+    background-color: white;
+    border: 1px solid rgba(34, 34, 34, 0.15);
+    border-radius: 0.2rem;
+    padding: 0.5rem 1rem;
+    width: fit-content;
+    font-weight: 600;
+    margin: 0.5rem 0;
+}
+
+.remove p {
+    font-size: 0.7rem;
 }

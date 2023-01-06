@@ -41,6 +41,11 @@ export const deleteEvent = (eventId) => async dispatch => {
     dispatch({ type: DELETE_EVENT, eventId });
 }
 
+export const deleteEventsByCalendar = (calendarId) => async dispatch => {
+    await csrfFetch(`/api/calendars/${calendarId}/events`, { method: 'DELETE' });
+    dispatch(removeEvents(calendarId));
+};
+
 const REMOVE_EVENTS = 'events/removeEvents'
 
 export const removeEvents = (calendar_id) => {

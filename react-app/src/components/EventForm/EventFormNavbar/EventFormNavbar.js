@@ -6,7 +6,7 @@ export function EventFormNavbar() {
     const dispatch = useDispatch();
     return (
         <div className={styles.wrapper}>
-            <button
+            <button type='button'
                 className={styles.button}
                 onClick={(e) => {
                     e.stopPropagation();

@@ -36,12 +36,12 @@ function App() {
           <>
             <NavBar />
             <MainView />
-            <Modals />
           </>
         } />
         <Route path='/eventedit/:eventId' element={<EditEventForm />} />
         <Route path='/settings/*' element={<Setting />} />
       </Routes>
+      <Modals />
     </>
   );
 }

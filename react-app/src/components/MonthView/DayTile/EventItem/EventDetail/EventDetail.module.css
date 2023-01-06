@@ -27,20 +27,19 @@
     text-overflow: ellipsis;
 }
 
+.dataContainer {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
 .datetime {
     display: flex;
     align-items: center;
-    margin-left: 1.5rem;
 }
 
 .datetime i {
     font-size: 0.2rem;
     margin: 0 0.5rem;
-}
-
-.recurrence {
-    margin-left: 1.5rem;
-    margin-bottom: 1rem;
 }
 
 
