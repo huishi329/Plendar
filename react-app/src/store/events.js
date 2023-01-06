@@ -21,6 +21,7 @@ export const createEvent = requestBody => async dispatch => {
     });
     const event = await response.json();
     dispatch({ type: CREATE_EVENT, event });
+    return event;
 };
 
 const UPDATE_EVENT = 'events/updateEvent';
@@ -32,6 +33,7 @@ export const updateEvent = (eventId, requestBody) => async dispatch => {
     });
     const event = await response.json();
     dispatch({ type: UPDATE_EVENT, event });
+    return event;
 };
 
 const DELETE_EVENT = 'events/deleteEvent';
