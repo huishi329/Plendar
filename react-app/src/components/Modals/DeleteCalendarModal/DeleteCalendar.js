@@ -2,17 +2,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import styles from './DeleteCalendar.module.css'
 import { setDeleteCalendarModal } from '../../../store/modals'
 import { deleteCalendar } from '../../../store/calendars';
-import { removeEvents } from '../../../store/events';
+import { deleteEventsByCalendar } from '../../../store/events';
 
 export default function DeleteCalendar() {
     const dispatch = useDispatch();
     const calendar = useSelector(state => state.modals.calendar);
+
     const handleDelete = () => {
-        dispatch(deleteCalendar(calendar.id))
-            .then(() => {
-                dispatch(removeEvents(calendar.id));
-                dispatch(setDeleteCalendarModal(false));
-            });
+        if (calendar.is_default) {
+            dispatch(deleteEventsByCalendar(calendar.id))
+                .then(() => dispatch(setDeleteCalendarModal(false)));
+        } else {
+            dispatch(deleteCalendar(calendar.id))
+                .then(() => dispatch(setDeleteCalendarModal(false)));
+        }
     };
 
     return (
