@@ -7,7 +7,7 @@ export const getCalendars = () => async dispatch => {
     const response = await csrfFetch('/api/calendars/current');
     const calendars = await response.json();
 
-    dispatch({ type: GET_CALENDARS, calendars })
+    dispatch({ type: GET_CALENDARS, calendars });
 }
 
 const CREATE_CALENDAR = 'calendars/createCalendar';
@@ -37,8 +37,9 @@ export const updateCalendar = (calendarId, requestBody) => async dispatch => {
 const DELETE_CALENDAR = 'calendars/deleteCalendar';
 
 export const deleteCalendar = calendarId => async dispatch => {
-    await csrfFetch(`api/calendars/${calendarId}`, { method: 'DELETE' });
+    await csrfFetch(`/api/calendars/${calendarId}`, { method: 'DELETE' });
     dispatch({ type: DELETE_CALENDAR, calendarId });
+    dispatch(removeEvents(calendarId));
 }
 
 const TOGGLE_CALENDAR = 'calendars/toggleCalendar'
