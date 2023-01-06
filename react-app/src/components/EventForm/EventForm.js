@@ -155,7 +155,7 @@ export default function EventForm({ date, x, y }) {
                         <option value={0}>Doesn't repeat</option>
                         <option value={1}>Every day</option>
                         <option value={5}>Every weekday</option>
-                        <option value={7}>Weekly</option>
+                        <option value={7}>Weekly on {date.toLocaleDateString('en-US', { weekday: 'long' })}</option>
                     </select>
                 </div>}
             <div className={styles.address}>
