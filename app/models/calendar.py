@@ -20,6 +20,7 @@ class Calendar(db.Model):
     name = Column(VARCHAR(254), nullable=False)
     description = Column(VARCHAR(200))
     timezone = Column(VARCHAR(254), nullable=False)
+    is_default = Column(BOOLEAN, nullable=False, server_default="False")
 
     created_at = Column(DateTime(timezone=True),
                         server_default=func.now(), nullable=False)
