@@ -18,14 +18,15 @@ export default function DeleteCalendar() {
     return (
         <div className={styles.wrapper}>
             <div className={styles.warning}>
-                {`Are you sure you want to remove ${calendar.name}? You'll no longer have access to this calendar and its events. Other people with access to the calendar can continue to use it.`}
+                {calendar.is_default && `You are about to permanently delete all the events in ${calendar.name}. This action cannot be undone. Do you wish to continue?`}
+                {!calendar.is_default && `You are about to permanently delete ${calendar.name} for everyone who uses it. Do you wish to continue?`}
             </div>
             <div className={styles.buttons}>
                 <button onClick={() => dispatch(setDeleteCalendarModal(false))}>
                     Cancel
                 </button>
                 <button className={styles.removeButton} onClick={handleDelete}>
-                    Remove Calendar
+                    Permanently delete
                 </button>
             </div>
         </div>
