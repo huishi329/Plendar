@@ -65,7 +65,7 @@ export default function EditEventForm() {
             <div className={styles.topContainer}>
 
                 <div className={styles.title}>
-                    <button className={styles.button} onClick={() => {
+                    <button type='button' className={styles.button} onClick={() => {
                         navigate('/');
                         dispatch(setCurrentEvent(null))
                     }}>
