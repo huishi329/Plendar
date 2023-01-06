@@ -88,7 +88,7 @@ export default function DayTile({ date }) {
 
     return (
         <>
-            <div className={styles.wrapper} ref={tileRef} onClick={handleClick}>
+            <div className={`${styles.wrapper} ${isClicked ? styles.clicked : ''}`} ref={tileRef} onClick={handleClick}>
                 <div className={`${styles.dayName} ${isCurrentDate ? styles.currentDate : ''}`}>
                     <span className={isCurrentDate ? styles.currentDate : ''}>{`${date.getDate()} `}</span>
                     {date.getDate() === 1 && <span>
