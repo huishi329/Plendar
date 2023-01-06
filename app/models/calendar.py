@@ -37,6 +37,7 @@ class Calendar(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
+            "is_default": self.is_default,
             "owner_id": self.owner_id,
             "name": self.name,
             "description": self.description,

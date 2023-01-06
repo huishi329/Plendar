@@ -28,7 +28,8 @@ def post_calendar():
             owner_id=current_user.id,
             name=data['name'],
             description=data['description'],
-            timezone=data['timezone']
+            timezone=data['timezone'],
+            is_default=data['is_default'] if data.get('is_default') else False
         )
         user_calendar = UserCalendar(
             user_id=current_user.id,
@@ -95,3 +96,13 @@ def get_events_by_calendar_id(calendar_id):
     month_events = list(filter(lambda event: event.end_date >= start or
                                (event.start_time >= start and event.start_time <= end), all_events))
     return [event.to_dict() for event in month_events]
+
+
+@bp.route("/<int:calendar_id>/events", methods=["DELETE"])
+@login_required
+def delete_events_by_calendar_id(calendar_id):
+    calendar = Calendar.query.get(calendar_id)
+    for event in calendar.events:
+        db.session.delete(event)
+    db.session.commit()
+    return {"message": f"Deleted all events of the defaultcalendar with id {calendar_id}"}
