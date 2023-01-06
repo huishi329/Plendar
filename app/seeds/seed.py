@@ -13,13 +13,13 @@ def seed_all():
         name='bobbie', email='bobbie@aa.io', password='password')
 
     demo_calendar = Calendar(owner=demo, name=demo.name,
-                             timezone='Canada/Pacific')
+                             timezone='Canada/Pacific', is_default=True)
     demo_work_calendar = Calendar(
         owner=demo, name='Demo - work', timezone='Canada/Pacific')
     marnie_calendar = Calendar(
-        owner=marnie, name=marnie.name, timezone='Canada/Pacific')
+        owner=marnie, name=marnie.name, timezone='Canada/Pacific', is_default=True)
     bobbie_calendar = Calendar(
-        owner=bobbie, name=bobbie.name, timezone='Canada/Pacific')
+        owner=bobbie, name=bobbie.name, timezone='Canada/Pacific', is_default=True)
 
     db.session.add_all([
         UserCalendar(calendar=demo_work_calendar, user=demo),
