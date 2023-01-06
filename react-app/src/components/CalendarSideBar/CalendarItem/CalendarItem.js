@@ -27,7 +27,6 @@ export default function CalendarItem({ calendar }) {
                 <input
                     type="checkbox"
                     checked={calendar.is_displayed}
-                    onChange={handleVisibility}
                 >
                 </input>
                 <label htmlFor={calendar.name}>{calendar.name}</label>
