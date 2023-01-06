@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
 import styles from './DeleteCalendar.module.css'
 import { setDeleteCalendarModal } from '../../../store/modals'
 import { deleteCalendar } from '../../../store/calendars';
@@ -6,16 +7,17 @@ import { deleteEventsByCalendar } from '../../../store/events';
 
 export default function DeleteCalendar() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const calendar = useSelector(state => state.modals.calendar);
 
     const handleDelete = () => {
         if (calendar.is_default) {
             dispatch(deleteEventsByCalendar(calendar.id))
-                .then(() => dispatch(setDeleteCalendarModal(false)));
         } else {
             dispatch(deleteCalendar(calendar.id))
-                .then(() => dispatch(setDeleteCalendarModal(false)));
         }
+        dispatch(setDeleteCalendarModal(false))
+        navigate('/')
     };
 
     return (
