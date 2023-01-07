@@ -3,11 +3,11 @@
     width: 100vw;
     position: relative;
     display: flex;
-    align-items: center;
     justify-content: center;
 }
 
 .text {
+    margin-top: 10rem;
     position: absolute;
     text-align: center;
 }

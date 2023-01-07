@@ -24,7 +24,7 @@ export default function PageNotFound() {
                 </h1>
                 <NavLink className={styles.link} to='/'>You will be redirected to oasis in {count} seconds...</NavLink>
             </div>
-            <img src="https://media.tenor.com/rrMGOAL6NLMAAAAC/desert-carry.gif" alt='page not found'></img>
+            <img src="/desert-carry.gif" alt='page not found'></img>
         </div>
     )
 }
