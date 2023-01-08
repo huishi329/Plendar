@@ -1,6 +1,7 @@
 
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setProfileDropdown, setSignInModal } from '../../store/modals';
+import { setLandingModal, setProfileDropdown, setSignInModal } from '../../store/modals';
 import { LeftNavbar } from './LeftNavbar/LeftNavbar';
 import styles from './NavBar.module.css'
 import ProfileDropdown from './ProfileDropdown/ProfileDropdown';
@@ -9,6 +10,10 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const showProfileDropdown = useSelector(state => state.modals.showProfileDropdown)
   const user = useSelector(state => state.session.user);
+
+  useEffect(() => {
+    if (!user) dispatch(setLandingModal(true))
+  }, [])
 
   return (
     <div className={styles.navbarWrapper}>
