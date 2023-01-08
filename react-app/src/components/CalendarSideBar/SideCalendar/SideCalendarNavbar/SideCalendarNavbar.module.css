@@ -1,12 +1,18 @@
 .navbar {
     display: flex;
     align-items: center;
+    font-size: 0.8rem;
+    justify-content: space-between;
+}
+
+.date {
+    font-weight: 600;
+    padding-left: 0.5rem;
 }
 
 .monthButton i {
     border: none;
     text-decoration: none;
-    font-size: 1rem;
     border-radius: 50%;
     padding: 0.5rem 0.65rem;
 }

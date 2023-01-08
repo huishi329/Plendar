@@ -24,14 +24,15 @@ export default function SideCalendarNavbar({ year, month }) {
             <div className={styles.navbar}>
                 <div className={styles.date}>{new Date(year, month).toLocaleDateString('en-US',
                     { month: 'long', year: 'numeric' })}</div>
-                <button className={styles.monthButton} onClick={previousMonth}>
-                    <i className="fa-solid fa-angle-left"></i>
-                </button>
-                <button className={styles.monthButton} onClick={nextMonth}>
-                    <i className="fa-solid fa-angle-right"></i>
-                </button>
+                <div className={styles.monthButton}>
+                    <button onClick={previousMonth}>
+                        <i className="fa-solid fa-angle-left"></i>
+                    </button>
+                    <button onClick={nextMonth}>
+                        <i className="fa-solid fa-angle-right"></i>
+                    </button>
+                </div>
             </div>
-
         </div>
     )
 }
