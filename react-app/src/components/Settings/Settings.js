@@ -9,7 +9,7 @@ import { CalendarForm } from './CalendarForm/CalendarForm';
 import { EditCalendarForm } from './EditCalendarForm/EditCalendarForm';
 import { getCalendars } from '../../store/calendars';
 
-export function Setting() {
+export function Settings() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
     const calendars = useSelector(state => state.calendars);

@@ -21,7 +21,7 @@ export default function DayTile({ date }) {
     currentDate.setHours(23, 59, 59, 59);
     const isCurrentDate = currentDate.getTime() === date.getTime();
 
-    const isClicked = date === modals.date;
+    const isClicked = date.getTime() === modals.date?.getTime();
     const showEventForm = isClicked && user;
 
     const handleClick = (e) => {

@@ -1,0 +1,16 @@
+.monthGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 0.5rem 0px;
+    grid-template-areas:
+        ". . . . . . ."
+        ". . . . . . ."
+        ". . . . . . ."
+        ". . . . . . ."
+        ". . . . . . ."
+        ". . . . . . .";
+    justify-items: center;
+    margin-top: 0.5rem;
+    padding-bottom: 0;
+}

@@ -7,13 +7,14 @@ import Modals from "./components/Modals/Modals";
 import EditEventForm from './components/EditEventForm/EditEventForm';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import { restoreUser } from './store/session';
-import { setMonth, setYear } from './store/sessionData';
-import { Setting } from './components/Settings/Settings';
+import { setMonth, setYear, setSideCalendarMonth, setSideCalendarYear, setSideCalendarDate } from './store/sessionData';
+import { Settings } from './components/Settings/Settings';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
   const targetDate = new Date();
+  targetDate.setHours(23, 59, 59, 59);
   const year = targetDate.getFullYear();
   const month = targetDate.getMonth();
 
@@ -22,6 +23,9 @@ function App() {
       await dispatch(restoreUser());
       dispatch(setYear(year));
       dispatch(setMonth(month));
+      dispatch(setSideCalendarYear(year));
+      dispatch(setSideCalendarMonth(month));
+      dispatch(setSideCalendarDate(targetDate));
       setLoaded(true);
     })();
   }, [dispatch, month, year]);
@@ -38,7 +42,7 @@ function App() {
           </>
         } />
         <Route path='/eventedit/:eventId' element={<EditEventForm />} />
-        <Route path='/settings/*' element={<Setting />} />
+        <Route path='/settings/*' element={<Settings />} />
         <Route path='*' element={
           <>
             <NavBar />
