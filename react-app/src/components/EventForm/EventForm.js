@@ -4,12 +4,14 @@ import { useEffect, useState } from 'react';
 import { createEvent } from '../../store/events';
 import { setCurrentDate } from '../../store/modals';
 import { EventFormNavbar } from './EventFormNavbar/EventFormNavbar';
+import { toggleCalendar } from '../../store/calendars';
 
 export default function EventForm({ date, x, y }) {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
-    const calendars = useSelector(state => Object.values(state.calendars));
-    const calendars_owned = calendars?.filter(calendar => calendar.owner_id === user.id)
+    const calendars = useSelector(state => state.calendars);
+    const calendarsArr = Object.values(calendars);
+    const calendarsOwned = calendarsArr?.filter(calendar => calendar.owner_id === user.id)
 
     const dateStr = date.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }).split("/").reverse().join("-");
     const [currentHour, currentMinute] = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }).split(":");
@@ -30,11 +32,10 @@ export default function EventForm({ date, x, y }) {
     const [recurrence, setRecurrence] = useState(0);
     const [address, setAddress] = useState("")
     const [description, setDescription] = useState("");
-    const [calendarId, setCalendarId] = useState(calendars_owned[0].id);
+    const [calendarId, setCalendarId] = useState(calendarsOwned[0].id);
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = (e) => {
-        console.log('FIRING HANDLESUBMIT');
         e.preventDefault();
         setErrors([]);
         const start_time = expandTimeOptions ? `${startDate} ${startTime}:00` : `${startDate} 00:00:00`;
@@ -50,11 +51,13 @@ export default function EventForm({ date, x, y }) {
             calendar_id: calendarId,
             recurrence,
             end_date
-        })).then(() => dispatch(setCurrentDate(null)))
-            .catch(e => {
-                const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage} `);
-                setErrors(errors);
-            });
+        })).then((event) => {
+            dispatch(setCurrentDate(null));
+            if (!calendars[event.calendar_id].is_displayed) dispatch(toggleCalendar(event.calendar_id));
+        }).catch(e => {
+            const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage} `);
+            setErrors(errors);
+        });
     };
 
     useEffect(() => {
@@ -63,7 +66,7 @@ export default function EventForm({ date, x, y }) {
         return () => document.removeEventListener('click', closeEventForm)
     }, [dispatch]);
 
-    if (!calendars) return null;
+    if (!calendarsArr) return null;
 
     return (
         <form className={styles.form} onSubmit={handleSubmit} style={{ left: x, top: y }}
@@ -155,7 +158,7 @@ export default function EventForm({ date, x, y }) {
                         <option value={0}>Doesn't repeat</option>
                         <option value={1}>Every day</option>
                         <option value={5}>Every weekday</option>
-                        <option value={7}>Weekly</option>
+                        <option value={7}>Weekly on {date.toLocaleDateString('en-US', { weekday: 'long' })}</option>
                     </select>
                 </div>}
             <div className={styles.address}>
@@ -185,7 +188,7 @@ export default function EventForm({ date, x, y }) {
             <div className={styles.calendars}>
                 <i className="fa-regular fa-calendar"></i>
                 <select onChange={(e) => setCalendarId(e.target.value)}>
-                    {calendars_owned?.map(calendar =>
+                    {calendarsOwned?.map(calendar =>
                         (<option value={calendar.id} key={calendar.id}>{calendar.name}</option>))
                     }
                 </select>

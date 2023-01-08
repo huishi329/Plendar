@@ -7,7 +7,8 @@ import styles from './CalendarItem.module.css'
 export default function CalendarItem({ calendar }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const handleVisibility = () => {
+    const handleVisibility = (e) => {
+        e.stopPropagation();
         dispatch(toggleCalendar(calendar.id))
     };
     const handleDelete = (e) => {
@@ -27,7 +28,7 @@ export default function CalendarItem({ calendar }) {
                 <input
                     type="checkbox"
                     checked={calendar.is_displayed}
-                    onChange={handleVisibility}
+                    readOnly
                 >
                 </input>
                 <label htmlFor={calendar.name}>{calendar.name}</label>

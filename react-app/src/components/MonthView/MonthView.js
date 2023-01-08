@@ -13,6 +13,10 @@ export default function MonthView() {
     const month = useSelector(state => state.sessionData.month);
     const firstDateOfMonth = new Date(year, month);
     const firstDayOfMonth = firstDateOfMonth.getDay();
+    const handleWheel = (e) => {
+        console.log(e.currentTarget);
+        console.log(e.deltaY);
+    }
 
     useEffect(() => {
         if (calendars) {
@@ -23,7 +27,7 @@ export default function MonthView() {
     }, [dispatch, month, year, calendars])
 
     return (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} onWheel={handleWheel}>
             <DayOfWeek />
             <div className={styles.monthGrid}>
                 {[...Array(35)].map((_, idx) => {

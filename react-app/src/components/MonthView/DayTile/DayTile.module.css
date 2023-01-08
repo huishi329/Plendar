@@ -9,6 +9,10 @@
     overflow-y: auto;
 }
 
+.clicked {
+    border: 0.2rem solid #6BB29C
+}
+
 .dayName {
     align-self: center;
     font-size: 0.8rem;

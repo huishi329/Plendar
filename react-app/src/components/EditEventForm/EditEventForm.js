@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { updateEvent } from '../../store/events';
 import { setCurrentEvent } from '../../store/modals';
+import { toggleCalendar } from '../../store/calendars';
 
 export default function EditEventForm() {
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function EditEventForm() {
     const data = JSON.parse(window.localStorage.getItem('plendar'))
     const event = data.event;
     const calendars = Object.values(data.calendars);
-    const calendars_owned = calendars?.filter(calendar => calendar.owner_id === user.id)
+    const calendarsOwned = calendars?.filter(calendar => calendar.owner_id === user.id)
 
     event.start_time = new Date(event.start_time);
     event.end_time = new Date(event.end_time);
@@ -51,9 +52,10 @@ export default function EditEventForm() {
             calendar_id: calendarId,
             recurrence,
             end_date
-        })).then(() => {
+        })).then((event) => {
             navigate('/');
-            dispatch(setCurrentEvent(null))
+            dispatch(setCurrentEvent(null));
+            if (!data.calendars[event.calendar_id].is_displayed) dispatch(toggleCalendar(event.calendar_id));
         }).catch(e => {
             const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
             setErrors(errors);
@@ -65,7 +67,7 @@ export default function EditEventForm() {
             <div className={styles.topContainer}>
 
                 <div className={styles.title}>
-                    <button className={styles.button} onClick={() => {
+                    <button type='button' className={styles.button} onClick={() => {
                         navigate('/');
                         dispatch(setCurrentEvent(null))
                     }}>
@@ -173,7 +175,7 @@ export default function EditEventForm() {
                 <div className={styles.calendars}>
                     <i className="fa-regular fa-calendar"></i>
                     <select defaultValue={calendarId} onChange={(e) => setCalendarId(e.target.value)}>
-                        {calendars_owned?.map(calendar =>
+                        {calendarsOwned?.map(calendar =>
                             (<option value={calendar.id} key={calendar.id} >{calendar.name}</option>))
                         }
                     </select>

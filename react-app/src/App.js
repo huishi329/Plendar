@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import NavBar from './components/Navbar/NavBar';
-import Modals from "./components/Modals/Modals";
-import { restoreUser } from './store/session';
-import MainView from './components/MainView/MainView';
-import EditEventForm from './components/EditEventForm/EditEventForm';
 import { Route, Routes } from "react-router-dom";
+import NavBar from './components/Navbar/NavBar';
+import MainView from './components/MainView/MainView';
+import Modals from "./components/Modals/Modals";
+import EditEventForm from './components/EditEventForm/EditEventForm';
+import PageNotFound from './components/PageNotFound/PageNotFound';
+import { restoreUser } from './store/session';
 import { setMonth, setYear } from './store/sessionData';
 import { Setting } from './components/Settings/Settings';
 
@@ -25,9 +26,7 @@ function App() {
     })();
   }, [dispatch, month, year]);
 
-  if (!loaded) {
-    return null;
-  }
+  if (!loaded) return null;
 
   return (
     <>
@@ -40,6 +39,12 @@ function App() {
         } />
         <Route path='/eventedit/:eventId' element={<EditEventForm />} />
         <Route path='/settings/*' element={<Setting />} />
+        <Route path='*' element={
+          <>
+            <NavBar />
+            <PageNotFound />
+          </>
+        } />
       </Routes>
       <Modals />
     </>

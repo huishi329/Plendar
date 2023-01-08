@@ -1,0 +1,24 @@
+.container {
+    height: 80vh;
+    width: 100vw;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.text {
+    margin-top: 10rem;
+    position: absolute;
+    text-align: center;
+}
+
+.link {
+    color: #3c4043;
+
+}
+
+.container img {
+    width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
