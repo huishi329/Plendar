@@ -7,10 +7,11 @@ export default function MonthDay({ date, sideCalendarYear, sideCalendarMonth }) 
     const sideCalendarDate = useSelector(state => state.sessionData.sideCalendarDate);
     const isCurrentMonth = date.getFullYear() === sideCalendarYear && date.getMonth() === sideCalendarMonth;
     const currentDate = new Date();
-    date.setHours(0, 0, 0, 0);
-    currentDate.setHours(0, 0, 0, 0);
+    date.setHours(23, 59, 59, 59);
+    currentDate.setHours(23, 59, 59, 59);
     const isCurrentDate = currentDate.getTime() === date.getTime();
-    const isClicked = sideCalendarDate === date;
+    const isClicked = sideCalendarDate?.getTime() === date.getTime();
+
     const handleClick = () => {
         dispatch(setSideCalendarDate(date));
         if (!isCurrentMonth) {
