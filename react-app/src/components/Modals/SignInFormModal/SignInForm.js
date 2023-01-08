@@ -63,9 +63,10 @@ export default function SignInForm() {
                 <button type="submit" className={styles.signInButton}>Sign in</button>
             </div>
 
-            <button type="button" className={styles.demoButton} onClick={() => {
+            <button type="button" className={styles.demoButton} onClick={(e) => {
                 setEmail("demo@aa.io");
                 setPassword("password");
+                handleSubmit(e);
             }}>Log in as demo user</button>
         </form>
     );
