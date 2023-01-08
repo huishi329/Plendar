@@ -13,27 +13,41 @@ export default function Landing() {
             <div className={styles.right}>
                 <div className={styles.content}>
                     {page === 0 &&
-                        <h1>Use Plendar to start planting your future self!</h1>
+                        <div className={styles.aboutPage}>
+                            <h1>Use Plendar to start planting your future self!</h1>
+                            <div className={styles.aboutLink}>
+                                <img src='/landing/LinkedIn.png'></img>
+                                <a href='https://www.linkedin.com/in/huishi-an-8397311b1/'>Huishi An</a>
+                            </div>
+                            <div className={styles.aboutLink}>
+                                <img src='/landing/Github.png'></img>
+                                <a href='https://github.com/huishi329'>Huishi An</a>
+                            </div>
+                            <div className={styles.aboutLink}>
+                                <i className="fa-solid fa-tree"></i>
+                                <a href='https://github.com/huishi329/Plendar'>Plendar repo</a>
+                            </div>
+
+                        </div>
                     }
                     {page === 1 &&
-                        <div>
+                        <div className={styles.feature}>
                             <h2><i className="fa-solid fa-tree"></i>
                                 Click anywhere to create a new event</h2>
                             <img src='/landing/create_event.png'></img>
                         </div>}
                     {page === 2 &&
-                        <div>
+                        <div className={styles.feature}>
                             <h2><i className="fa-solid fa-tree"></i>
                                 Create calendars to seperate different parts of your life</h2>
                             <img src='/landing/add_calendar.png'></img>
                         </div>}
                     {page === 3 && <div className={styles.signIn} >
-                        <h2>You are one step away from building your oasis</h2>
+                        <h2>You are one step away from building your own oasis ...</h2>
                         <SignInForm />
                     </div>}
-
-
                 </div>
+
                 <div className={styles.buttons}>
                     {page > 0 && page <= 3 && <button className={styles.pageButton} onClick={() => setPage(page - 1)}>
                         <i className="fa-solid fa-angle-left"></i>
