@@ -9,7 +9,7 @@ export default function SideCalendar() {
     const month = useSelector(state => state.sessionData.sideCalendarMonth);
 
     return (
-        <div>
+        <div className={styles.wrapper}>
             <SideCalendarNavbar year={year} month={month} />
             <ShortDayOfWeek />
             <SideCalendarMonthGrid year={year} month={month} />
