@@ -15,10 +15,9 @@
 
 .dayName {
     align-self: center;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     font-weight: 600;
-    min-height: 1.3rem;
-    max-height: 1.3rem;
+    margin: 0.2rem 0;
 }
 
 .currentDate {
