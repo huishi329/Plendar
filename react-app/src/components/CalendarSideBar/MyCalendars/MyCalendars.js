@@ -19,11 +19,11 @@ export default function MyCalendars() {
         <div className={styles.wrapper}>
             <div className={styles.title}>
                 <div>My calendar</div>
-                {user && <button className={styles.button}
+                <button className={styles.button}
                     data-tooltip={`Add a calendar`}
                     onClick={() => navigate('/settings/createcalendar')}>
                     <i className="fa-solid fa-plus"></i>
-                </button>}
+                </button>
             </div>
             {calendars && Object.values(calendars).map(calendar =>
                 (<CalendarItem calendar={calendar} key={calendar.id} />))}
