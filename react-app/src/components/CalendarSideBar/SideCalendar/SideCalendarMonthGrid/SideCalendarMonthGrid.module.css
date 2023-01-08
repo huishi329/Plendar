@@ -2,12 +2,15 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 0px 0px;
+    gap: 0.2rem 0px;
     grid-template-areas:
         ". . . . . . ."
         ". . . . . . ."
         ". . . . . . ."
         ". . . . . . ."
         ". . . . . . ."
-        ". . . . . . ."
+        ". . . . . . .";
+    justify-items: center;
+    margin-top: 0.5rem;
+    padding-bottom: 0;
 }

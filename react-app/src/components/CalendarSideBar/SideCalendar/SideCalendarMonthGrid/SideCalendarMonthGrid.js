@@ -8,7 +8,11 @@ export default function SideCalendarMonthView({ year, month }) {
         <div className={styles.wrapper}>
             <div className={styles.monthGrid}>
                 {[...Array(42)].map((_, idx) => {
-                    return <MonthDay date={new Date(year, month, idx - firstDayOfMonth + 1)} key={idx + 1} />
+                    return <MonthDay
+                        date={new Date(year, month, idx - firstDayOfMonth + 1)}
+                        sideCalendarYear={year}
+                        sideCalendarMonth={month}
+                        key={idx + 1} />
                 })}
             </div>
         </div>
