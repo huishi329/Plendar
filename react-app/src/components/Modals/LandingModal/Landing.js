@@ -16,11 +16,11 @@ export default function Landing() {
                         <div className={styles.aboutPage}>
                             <h1>Use Plendar to start planting your future self!</h1>
                             <div className={styles.aboutLink}>
-                                <img src='/landing/LinkedIn.png'></img>
+                                <img src='/landing/LinkedIn.png' alt='LinkedIn'></img>
                                 <a href='https://www.linkedin.com/in/huishi-an-8397311b1/'>Huishi An</a>
                             </div>
                             <div className={styles.aboutLink}>
-                                <img src='/landing/Github.png'></img>
+                                <img src='/landing/Github.png' alt='Github'></img>
                                 <a href='https://github.com/huishi329'>Huishi An</a>
                             </div>
                             <div className={styles.aboutLink}>
@@ -34,13 +34,13 @@ export default function Landing() {
                         <div className={styles.feature}>
                             <h2><i className="fa-solid fa-tree"></i>
                                 Click anywhere to create a new event</h2>
-                            <img src='/landing/create_event.png'></img>
+                            <img src='/landing/create_event.png' alt='create event'></img>
                         </div>}
                     {page === 2 &&
                         <div className={styles.feature}>
                             <h2><i className="fa-solid fa-tree"></i>
                                 Create calendars to seperate different parts of your life</h2>
-                            <img src='/landing/add_calendar.png'></img>
+                            <img src='/landing/add_calendar.png' alt='add calendar'></img>
                         </div>}
                     {page === 3 && <div className={styles.signIn} >
                         <h2>You are one step away from building your own oasis ...</h2>
