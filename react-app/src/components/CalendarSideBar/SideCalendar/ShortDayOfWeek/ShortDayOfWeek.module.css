@@ -1,0 +1,13 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        ". . . . . . ."
+}
+
+.wrapper div {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
