@@ -13,7 +13,7 @@ const NavBar = () => {
 
   useEffect(() => {
     if (!user) dispatch(setLandingModal(true))
-  }, [])
+  }, [dispatch, user])
 
   return (
     <div className={styles.navbarWrapper}>
