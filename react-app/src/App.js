@@ -7,7 +7,7 @@ import Modals from "./components/Modals/Modals";
 import EditEventForm from './components/EditEventForm/EditEventForm';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import { restoreUser } from './store/session';
-import { setMonth, setYear } from './store/sessionData';
+import { setMonth, setYear, setSideCalendarMonth, setSideCalendarYear } from './store/sessionData';
 import { Setting } from './components/Settings/Settings';
 
 function App() {
@@ -22,6 +22,8 @@ function App() {
       await dispatch(restoreUser());
       dispatch(setYear(year));
       dispatch(setMonth(month));
+      dispatch(setSideCalendarYear(year));
+      dispatch(setSideCalendarMonth(month));
       setLoaded(true);
     })();
   }, [dispatch, month, year]);
