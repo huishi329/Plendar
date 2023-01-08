@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setMonth, setYear } from "../../../store/sessionData";
+import { setMonth, setSideCalendarMonth, setSideCalendarYear, setYear } from "../../../store/sessionData";
 import styles from './LeftNavbar.module.css';
 
 export function LeftNavbar() {
@@ -9,14 +9,22 @@ export function LeftNavbar() {
 
     const backToToday = () => {
         const targetDate = new Date();
-        dispatch(setYear(targetDate.getFullYear()));
-        dispatch(setMonth(targetDate.getMonth()));
+        const targetYear = targetDate.getFullYear();
+        const targetMonth = targetDate.getMonth();
+        dispatch(setMonth(targetMonth));
+        dispatch(setYear(targetYear));
+        dispatch(setSideCalendarMonth(targetMonth));
+        dispatch(setSideCalendarYear(targetYear));
     }
 
     const nextMonth = () => {
         const date = new Date(year, month + 1)
-        dispatch(setYear(date.getFullYear()));
-        dispatch(setMonth(date.getMonth()));
+        const newMonth = date.getMonth();
+        const newYear = date.getFullYear();
+        dispatch(setMonth(newMonth));
+        dispatch(setYear(newYear));
+        dispatch(setSideCalendarMonth(newMonth));
+        dispatch(setSideCalendarYear(newYear));
     };
 
     const previousMonth = () => {
