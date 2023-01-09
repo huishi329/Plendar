@@ -23,8 +23,9 @@ export default function EditEventForm() {
     const endDateStr = event.end_time.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
 
     // use an empty array to show hour and minute only
-    const startTimeStr = event.start_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', timeZone: timezone })
-    const endTimeStr = event.end_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', timeZone: timezone })
+    const startTimeStr = event.start_time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: timezone })
+    console.log(startTimeStr);
+    const endTimeStr = event.end_time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: timezone })
 
     const [expandTimeOptions, setExpandTimeOptions] = useState(startTimeStr !== "00:00" && endTimeStr !== "23:59");
     const [title, setTitle] = useState(event.title);

@@ -15,7 +15,7 @@ export default function EventForm({ date, x, y }) {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     const dateStr = date.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
-    const [currentHour, currentMinute] = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", timeZone: timezone }).split(":");
+    const [currentHour, currentMinute] = new Date().toLocaleTimeString('en-GB', { hour: "2-digit", minute: "2-digit", timeZone: timezone }).split(":");
     const startTimeStr = (currentMinute < 30) ?
         `${currentHour}:30`
         : `${((Number(currentHour) + 1) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}:00`
