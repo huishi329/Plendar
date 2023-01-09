@@ -27,20 +27,27 @@ It was built using this stack:
 
 The most common user flow is this:
 
-A user lands on the homepage, uses the search bar, sees a list of products, inspects a product, adds it to their cart, registers for an account, purchases the product, and eventually leaves a review.
-
 The following are screenshots of this user flow:
 
-#### A user lands on the homepage
+#### Land on the homepage
 
 <img src="https://user-images.githubusercontent.com/98060462/211226532-5551612e-811f-4389-beba-e9bd9d302ed8.png" width="500px">
 
-#### Registers for an account
+#### Register for an account
 
 <img src="https://user-images.githubusercontent.com/98060462/211226596-9ea51261-fd92-4b77-8ee6-cfd8ec35b554.png" width="500px">
 
-#### A user can click anywhere on the Calendar or click the Create button to create a new event
+#### Click anywhere on the Calendar or click the Create button to create a new event
 <img src="https://user-images.githubusercontent.com/98060462/211226690-18e7e5fc-926e-4e31-8e3c-9dde34eeaeb2.png" width="500px">
+
+#### View the event details
+<img src="https://user-images.githubusercontent.com/98060462/211228247-ffaa2d46-4ea3-4eca-94e8-f37488019f8b.png" width="500px">
+
+#### Edit the event details
+<img src="https://user-images.githubusercontent.com/98060462/211228299-449501d7-5f5c-4f3a-99eb-afa75c1e8dbd.png" width="500px">
+
+#### Add a new calendar
+<img src="https://user-images.githubusercontent.com/98060462/211228350-8ffb1faa-0a4f-4889-913b-a83f944f1e0f.png" width="500px">
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
