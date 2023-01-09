@@ -33,7 +33,7 @@ export default function EventForm({ date, x, y }) {
     const [recurrence, setRecurrence] = useState(0);
     const [address, setAddress] = useState("")
     const [description, setDescription] = useState("");
-    const [calendarId, setCalendarId] = useState(calendarsOwned[0].id);
+    const [calendarId, setCalendarId] = useState(calendarsOwned.find(calendar => calendar.is_displayed).id);
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = (e) => {
@@ -188,7 +188,7 @@ export default function EventForm({ date, x, y }) {
             </div>
             <div className={styles.calendars}>
                 <i className="fa-regular fa-calendar"></i>
-                <select onChange={(e) => setCalendarId(e.target.value)}>
+                <select defaultValue={calendarId} onChange={(e) => setCalendarId(e.target.value)}>
                     {calendarsOwned?.map(calendar =>
                         (<option value={calendar.id} key={calendar.id}>{calendar.name}</option>))
                     }
