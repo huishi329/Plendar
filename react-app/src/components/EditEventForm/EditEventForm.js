@@ -18,12 +18,12 @@ export default function EditEventForm() {
     event.start_time = new Date(event.start_time);
     event.end_time = new Date(event.end_time);
 
-    const startDateStr = event.start_time.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }).split("/").reverse().join("-");
-    const endDateStr = event.end_time.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }).split("/").reverse().join("-");
+    const startDateStr = event.start_time.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit", timezone: timezone }).split("/").reverse().join("-");
+    const endDateStr = event.end_time.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit", timezone: timezone }).split("/").reverse().join("-");
 
     // use an empty array to show hour and minute only
-    const startTimeStr = event.start_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    const endTimeStr = event.end_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    const startTimeStr = event.start_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', timezone: timezone })
+    const endTimeStr = event.end_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', timezone: timezone })
 
     const [expandTimeOptions, setExpandTimeOptions] = useState(startTimeStr !== "00:00" && endTimeStr !== "23:59");
     const [title, setTitle] = useState(event.title);
@@ -119,7 +119,7 @@ export default function EditEventForm() {
                                             (new Date().setHours(...e.target.value.split(":")))) {
                                             const tomorrow = new Date(event.start_time);
                                             tomorrow.setDate(tomorrow.getDate() + 1);
-                                            const endDateStr = tomorrow.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }).split("/").reverse().join("-");
+                                            const endDateStr = tomorrow.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit", timezone: timezone }).split("/").reverse().join("-");
                                             setEndDate(endDateStr);
                                         }
                                     }}
@@ -153,7 +153,7 @@ export default function EditEventForm() {
                         onChange={(e) => setRecurrence(e.target.value)}>
                         <option value={0}>Doesn't repeat</option>
                         <option value={1}>Every day</option>
-                        <option value={7}>Weekly on {event.start_time.toLocaleDateString('en-US', { weekday: 'long' })}</option>
+                        <option value={7}>Weekly on {event.start_time.toLocaleDateString('en-US', { weekday: 'long', timezone: timezone })}</option>
                         <option value={5}>Every weekday</option>
                     </select>
                 </div>

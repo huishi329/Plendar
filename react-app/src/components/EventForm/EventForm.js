@@ -117,7 +117,7 @@ export default function EventForm({ date, x, y }) {
                                             (new Date().setHours(...e.target.value.split(":")))) {
                                             const tomorrow = new Date(date);
                                             tomorrow.setDate(tomorrow.getDate() + 1);
-                                            const endDateStr = tomorrow.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }).split("/").reverse().join("-");
+                                            const endDateStr = tomorrow.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit", timezone: timezone }).split("/").reverse().join("-");
                                             setEndDate(endDateStr);
                                         }
                                     }}
@@ -159,7 +159,7 @@ export default function EventForm({ date, x, y }) {
                         <option value={0}>Doesn't repeat</option>
                         <option value={1}>Every day</option>
                         <option value={5}>Every weekday</option>
-                        <option value={7}>Weekly on {date.toLocaleDateString('en-US', { weekday: 'long' })}</option>
+                        <option value={7}>Weekly on {date.toLocaleDateString('en-US', { weekday: 'long', timezone: timezone })}</option>
                     </select>
                 </div>}
             <div className={styles.address}>
