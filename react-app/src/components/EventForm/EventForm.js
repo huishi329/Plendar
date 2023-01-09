@@ -35,7 +35,7 @@ export default function EventForm({ date, x, y }) {
     const [recurrence, setRecurrence] = useState(0);
     const [address, setAddress] = useState("")
     const [description, setDescription] = useState("");
-    const [calendarId, setCalendarId] = useState(calendarsOwned.find(calendar => calendar.is_displayed).id);
+    const [calendarId, setCalendarId] = useState(calendarsOwned.find(calendar => calendar.is_displayed)?.id);
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = (e) => {
