@@ -4,6 +4,8 @@ import styles from './MonthDay.module.css'
 
 export default function MonthDay({ date, sideCalendarYear, sideCalendarMonth }) {
     const dispatch = useDispatch();
+    const mainCalendarMonth = useSelector(state => state.sessionData.month);
+    const mainCalendarYear = useSelector(state => state.sessionData.year);
     const sideCalendarDate = useSelector(state => state.sessionData.sideCalendarDate);
     const isCurrentMonth = date.getFullYear() === sideCalendarYear && date.getMonth() === sideCalendarMonth;
     const currentDate = new Date();
@@ -14,13 +16,15 @@ export default function MonthDay({ date, sideCalendarYear, sideCalendarMonth }) 
 
     const handleClick = () => {
         dispatch(setSideCalendarDate(date));
-        if (!isCurrentMonth) {
-            const newMonth = date.getMonth();
-            const newYear = date.getFullYear();
-            dispatch(setMonth(newMonth));
-            dispatch(setYear(newYear));
-            dispatch(setSideCalendarMonth(newMonth));
-            dispatch(setSideCalendarYear(newYear));
+        const clickedMonth = date.getMonth();
+        const clickedYear = date.getFullYear();
+        const isSyncWithMainCalendar = clickedYear === mainCalendarYear && clickedYear === mainCalendarMonth;
+
+        if (!isSyncWithMainCalendar) {
+            dispatch(setMonth(clickedMonth));
+            dispatch(setYear(clickedYear));
+            dispatch(setSideCalendarMonth(clickedMonth));
+            dispatch(setSideCalendarYear(clickedYear));
         }
     };
 
