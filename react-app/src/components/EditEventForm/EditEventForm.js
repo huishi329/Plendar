@@ -14,6 +14,7 @@ export default function EditEventForm() {
     const event = data.event;
     const calendars = Object.values(data.calendars);
     const calendarsOwned = calendars?.filter(calendar => calendar.owner_id === user.id)
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     event.start_time = new Date(event.start_time);
     event.end_time = new Date(event.end_time);
