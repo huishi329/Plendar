@@ -14,14 +14,14 @@ export default function EventForm({ date, x, y }) {
     const calendarsOwned = calendarsArr?.filter(calendar => calendar.owner_id === user.id);
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    const dateStr = date.toLocaleDateString([], { year: "numeric", month: "2-digit", day: "2-digit" }, { timeZone: timezone }).split("/").reverse().join("-");
+    const dateStr = date.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
     const [currentHour, currentMinute] = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", timeZone: timezone }).split(":");
     const startTimeStr = (currentMinute < 30) ?
         `${currentHour}:30`
-        : `${((Number(currentHour) + 1) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false, timeZone: timezone })}:00`
+        : `${((Number(currentHour) + 1) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}:00`
     const endTimeStr = (currentMinute < 30) ?
-        `${((Number(currentHour) + 1) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false, timeZone: timezone })}:30`
-        : `${((Number(currentHour) + 2) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false, timeZone: timezone })}:00`
+        `${((Number(currentHour) + 1) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}:30`
+        : `${((Number(currentHour) + 2) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}:00`
 
     const [expandTimeOptions, setExpandTimeOptions] = useState(false);
     const [expandMoreOptions, setExpanMoreOptions] = useState(false);
@@ -117,7 +117,7 @@ export default function EventForm({ date, x, y }) {
                                             (new Date().setHours(...e.target.value.split(":")))) {
                                             const tomorrow = new Date(date);
                                             tomorrow.setDate(tomorrow.getDate() + 1);
-                                            const endDateStr = tomorrow.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
+                                            const endDateStr = tomorrow.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
                                             setEndDate(endDateStr);
                                         }
                                     }}
