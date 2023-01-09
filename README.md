@@ -1,148 +1,80 @@
-# Flask React Project
+<a name="readme-top"></a>
 
-This is the starter for the Flask React project.
+## Plendar
 
-## Getting started
-1. Clone this repository (only this branch)
+Plendar is a clone of Google calendar, which provides a light-weight scheduling web application for users to organize their daily life.
 
-2. Install dependencies
+Live demo: https://plendar.onrender.com/
 
-      ```bash
-      pipenv install -r requirements.txt
-      ```
+It was built using this stack:
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
+#### Frontend
 
-4. Make sure the SQLite3 database connection URL is in the **.env** file
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention**.
+#### Backend
 
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
+![SQLAlchemy](https://img.shields.io/badge/sqlalchemy⠀⠀⠀⠀-424242?style=for-the-badge&logo=academia&logoColor=d71f00)
+![Flask](https://img.shields.io/badge/flask⠀⠀⠀⠀⠀-%23000000.svg?style=for-the-badge&logo=flask&logoColor=%23FFFFFF)
+<br/>
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Python](https://img.shields.io/badge/python⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀-376c99?style=for-the-badge&logo=python&logoColor=f7d34b)
+<br/>
+![Render](https://img.shields.io/badge/render⠀⠀⠀⠀⠀⠀⠀⠀-%23242a55.svg?style=for-the-badge&logo=render&logoColor=45e1b6)
 
-   ```bash
-   pipenv shell
-   ```
+## Features
 
-   ```bash
-   flask db upgrade
-   ```
+The most common user flow of Plendar is as follows:
 
-   ```bash
-   flask seed all
-   ```
+#### Land on the homepage
 
-   ```bash
-   flask run
-   ```
+<img src="https://user-images.githubusercontent.com/98060462/211226532-5551612e-811f-4389-beba-e9bd9d302ed8.png" width="500px">
 
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+#### Register for an account
+
+<img src="https://user-images.githubusercontent.com/98060462/211226596-9ea51261-fd92-4b77-8ee6-cfd8ec35b554.png" width="500px">
+
+#### Click anywhere on the Calendar or click the Create button to create a new event
+<img src="https://user-images.githubusercontent.com/98060462/211226690-18e7e5fc-926e-4e31-8e3c-9dde34eeaeb2.png" width="500px">
+
+#### View the event details
+<img src="https://user-images.githubusercontent.com/98060462/211228247-ffaa2d46-4ea3-4eca-94e8-f37488019f8b.png" width="500px">
+
+#### Edit the event details
+<img src="https://user-images.githubusercontent.com/98060462/211228299-449501d7-5f5c-4f3a-99eb-afa75c1e8dbd.png" width="500px">
+
+#### Add a new calendar
+<img src="https://user-images.githubusercontent.com/98060462/211228350-8ffb1faa-0a4f-4889-913b-a83f944f1e0f.png" width="500px">
+<img src="https://user-images.githubusercontent.com/98060462/211228438-fa8640cf-a77c-49b6-84ea-0ca229e51f6e.png" width="500px">
+
+#### Edit/delete calendars (auto-save)
+<img src="https://user-images.githubusercontent.com/98060462/211228478-c5b23efe-3f4e-4be6-9de2-02b2065caf3e.png" width="500px">
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Getting started
+
+1. Start the backend server: From a terminal within the project directory, run:
+
+    ```javascript
+    sh ./setup.sh
+    ```
+
+2. Start the frontend server: From a second terminal within the `react-app` directory, run:
+
+    ```javascript
+    npm start
+    ```
+
+3. Experience the app: From a browser, go to:
+    > http://localhost:3000
 
 
-## Deployment through Render.com
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-First, refer to your Render.com deployment articles for more detailed
-instructions about getting started with [Render.com], creating a production
-database, and deployment debugging tips.
+### Contact
 
-From the [Dashboard], click on the "New +" button in the navigation bar, and
-click on "Web Service" to create the application that will be deployed.
+This is a solo project created by [Huishi An](https://www.linkedin.com/in/huishi-an-8397311b1/)
 
-Look for the name of the application you want to deploy, and click the "Connect"
-button to the right of the name.
-
-Now, fill out the form to configure the build and start commands, as well as add
-the environment variables to properly deploy the application.
-
-### Part A: Configure the Start and Build Commands
-
-Start by giving your application a name.
-
-Leave the root directory field blank. By default, Render will run commands from
-the root directory.
-
-Make sure the Environment field is set set to "Python 3", the Region is set to
-the location closest to you, and the Branch is set to "main".
-
-Next, add your Build command. This is a script that should include everything
-that needs to happen _before_ starting the server.
-
-For your Flask project, enter the following command into the Build field, all in
-one line:
-
-```shell
-# build command - enter all in one line
-npm install --prefix react-app &&
-npm run build --prefix react-app &&
-pip install -r requirements.txt &&
-pip install psycopg2 &&
-flask db upgrade &&
-flask seed all
-```
-
-This script will install dependencies for the frontend, and run the build
-command in the __package.json__ file for the frontend, which builds the React
-application. Then, it will install the dependencies needed for the Python
-backend, and run the migration and seed files.
-
-Now, add your start command in the Start field:
-
-```shell
-# start script
-gunicorn app:app
-```
-
-_If you are using websockets, use the following start command instead for increased performance:_
-
-`gunicorn --worker-class eventlet -w 1 app:app`
-
-### Part B: Add the Environment Variables
-
-Click on the "Advanced" button at the bottom of the form to configure the
-environment variables your application needs to access to run properly. In the
-development environment, you have been securing these variables in the __.env__
-file, which has been removed from source control. In this step, you will need to
-input the keys and values for the environment variables you need for production
-into the Render GUI.
-
-Click on "Add Environment Variable" to start adding all of the variables you
-need for the production environment.
-
-Add the following keys and values in the Render GUI form:
-
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-- REACT_APP_BASE_URL (use render.com url, located at top of page, similar to
-  https://this-application-name.onrender.com)
-
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
-
-Add the following keys and values:
-
-- DATABASE_URL (copy value from Internal Database URL field)
-
-_Note: Add any other keys and values that may be present in your local __.env__
-file. As you work to further develop your project, you may need to add more
-environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment._
-
-Next, choose "Yes" for the Auto-Deploy field. This will re-deploy your
-application every time you push to main.
-
-Now, you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your build and
-start commands being executed, and see any errors in the build process.
-
-When deployment is complete, open your deployed site and check to see if you
-successfully deployed your Flask application to Render! You can find the URL for
-your site just below the name of the Web Service at the top of the page.
-
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/# Plendar
+<p align="right">(<a href="#readme-top">back to top</a>)</p>

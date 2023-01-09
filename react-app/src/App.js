@@ -13,13 +13,13 @@ import { Settings } from './components/Settings/Settings';
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
-  const targetDate = new Date();
-  targetDate.setHours(23, 59, 59, 59);
-  const year = targetDate.getFullYear();
-  const month = targetDate.getMonth();
 
   useEffect(() => {
     (async () => {
+      const targetDate = new Date();
+      targetDate.setHours(23, 59, 59, 59);
+      const year = targetDate.getFullYear();
+      const month = targetDate.getMonth();
       await dispatch(restoreUser());
       dispatch(setYear(year));
       dispatch(setMonth(month));
@@ -28,7 +28,7 @@ function App() {
       dispatch(setSideCalendarDate(targetDate));
       setLoaded(true);
     })();
-  }, [dispatch, month, year]);
+  }, [dispatch]);
 
   if (!loaded) return null;
 

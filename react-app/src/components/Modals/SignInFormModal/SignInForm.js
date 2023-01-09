@@ -57,7 +57,6 @@ export default function SignInForm() {
 
                 <button type="button" className={styles.signUpButton} onClick={() => {
                     dispatch(setSignUpModal(true));
-                    dispatch(setSignInModal(false));
                 }}>Create account
                 </button>
                 <button type="submit" className={styles.signInButton}>Sign in</button>
