@@ -8,5 +8,6 @@ class Config:
     # (only 'postgresql') but heroku's postgres add-on automatically sets the
     # url in the hidden config vars to start with postgres.
     # so the connection uri must be updated here (for production)
-    SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/plendar_db?user=ahsjing&password=password'
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        'DATABASE_URL').replace('postgres://', 'postgresql://')
     SQLALCHEMY_ECHO = True
