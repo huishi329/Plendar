@@ -23,13 +23,13 @@ export default function EventForm({ date, x, y }) {
         `${((Number(currentHour) + 1) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}:30`
         : `${((Number(currentHour) + 2) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}:00`
     const tomorrow = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
-    const endDateStr = startTimeStr > endTimeStr ? tomorrow.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-") : startDateStr;
+    const tomorrowStr = tomorrow.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
 
     const [expandTimeOptions, setExpandTimeOptions] = useState(false);
     const [expandMoreOptions, setExpanMoreOptions] = useState(false);
     const [title, setTitle] = useState("");
     const [startDate, setStartDate] = useState(startDateStr);
-    const [endDate, setEndDate] = useState(endDateStr);
+    const [endDate, setEndDate] = useState(startDateStr);
     const [startTime, setStartTime] = useState(startTimeStr);
     const [endTime, setEndTime] = useState(endTimeStr);
     const [recurrence, setRecurrence] = useState(0);
@@ -115,16 +115,14 @@ export default function EventForm({ date, x, y }) {
                                     onChange={(e) => {
                                         setEndTime(e.target.value)
                                         // allow event runs across midnight
-                                        if (startTime > e.target.value) {
-                                            const tomorrow = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
-                                            const endDateStr = tomorrow.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
-                                            setEndDate(endDateStr);
+                                        if (startTime > e.target.value && startDate === endDate) {
+                                            setEndDate(tomorrowStr);
                                         }
                                     }}
                                 />
                             </div>
                         }
-                        {(startDate !== endDate || !expandTimeOptions) && <div>
+                        {(startDate !== endDate || !expandTimeOptions || startTimeStr > endTimeStr) && <div>
                             {!expandTimeOptions && <span>-</span>}
                             <input
                                 type="date"
@@ -140,7 +138,11 @@ export default function EventForm({ date, x, y }) {
                 {(!expandTimeOptions && !expandMoreOptions) &&
                     <div>
                         <button type="button" className={styles.addTimeBtn}
-                            onClick={() => setExpandTimeOptions(true)}>Add time</button>
+                            onClick={() => {
+                                setExpandTimeOptions(true);
+                                if (startTimeStr > endTimeStr && startDate === endDate) setEndDate(tomorrowStr);
+                            }}
+                        >Add time</button>
                     </div>}
             </div>
             {(expandTimeOptions || expandMoreOptions) &&
@@ -150,7 +152,10 @@ export default function EventForm({ date, x, y }) {
                             type='checkbox'
                             checked={!expandTimeOptions}
                             name='allDay'
-                            onChange={() => setExpandTimeOptions(!expandTimeOptions)}
+                            onChange={() => {
+                                setExpandTimeOptions(!expandTimeOptions);
+                                if (startTimeStr > endTimeStr && startDate === endDate) setEndDate(tomorrowStr);
+                            }}
                         ></input>
                         <label htmlFor='allDay'>All day</label>
                     </div>

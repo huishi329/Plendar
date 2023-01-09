@@ -31,6 +31,7 @@
 
 .form select:hover {
     background-color: #f7f7f7;
+    cursor: pointer;
 }
 
 .form select:focus {
@@ -184,8 +185,10 @@
     width: fit-content;
 }
 
+
 .calendars select {
     border: none;
-    width: 100%;
+    width: fit-content;
     max-width: 90%;
+    text-overflow: ellipsis;
 }
