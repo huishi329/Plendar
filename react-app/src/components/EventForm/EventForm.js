@@ -35,7 +35,7 @@ export default function EventForm({ date, x, y }) {
     const [recurrence, setRecurrence] = useState(0);
     const [address, setAddress] = useState("")
     const [description, setDescription] = useState("");
-    const [calendarId, setCalendarId] = useState(calendarsOwned.find(calendar => calendar.is_displayed)?.id);
+    const [calendarId, setCalendarId] = useState(calendarsOwned.find(calendar => calendar.is_displayed)?.id || calendarsOwned[0].id);
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = (e) => {
@@ -106,7 +106,10 @@ export default function EventForm({ date, x, y }) {
                                 <input
                                     type="time"
                                     value={startTime}
-                                    onChange={(e) => setStartTime(e.target.value)}
+                                    onChange={(e) => {
+                                        setStartTime(e.target.value);
+                                        if (e.target.value > endTime && startDate === endDate) setEndDate(tomorrowStr);
+                                    }}
                                 />
                                 <span>-</span>
                                 <input
@@ -115,14 +118,13 @@ export default function EventForm({ date, x, y }) {
                                     onChange={(e) => {
                                         setEndTime(e.target.value)
                                         // allow event runs across midnight
-                                        if (startTime > e.target.value && startDate === endDate) {
-                                            setEndDate(tomorrowStr);
-                                        }
+                                        if (startTime > e.target.value && startDate === endDate) setEndDate(tomorrowStr);
+
                                     }}
                                 />
                             </div>
                         }
-                        {(startDate !== endDate || !expandTimeOptions || startTimeStr > endTimeStr) && <div>
+                        {(startDate !== endDate || !expandTimeOptions || startTime > endTime) && <div>
                             {!expandTimeOptions && <span>-</span>}
                             <input
                                 type="date"
