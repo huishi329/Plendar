@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA
+from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
@@ -14,15 +14,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 class User(db.Model, UserMixin):
     __tablename__ = "users"
 
-    if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
-
     id = Column(Integer, primary_key=True)
 
     name = Column(VARCHAR(100), nullable=False)
     email = Column(VARCHAR(100), nullable=False, unique=True)
     hashed_password = Column(TEXT, nullable=False)
-    profile_picture_url = Column(TEXT, server_default="https://github.com/huishi329/Plendar/blob/main/react-app/public/plendar.png?raw=true")
+    profile_picture_url = Column(
+        TEXT, server_default="https://github.com/huishi329/Plendar/blob/main/react-app/public/plendar.png?raw=true")
 
     created_at = Column(DateTime(timezone=True),
                         server_default=func.now(), nullable=False)
@@ -30,7 +28,8 @@ class User(db.Model, UserMixin):
                         server_default=func.now(), onupdate=func.now(),
                         nullable=False)
 
-    calendars = relationship("UserCalendar", back_populates="user", cascade="all, delete-orphan")
+    calendars = relationship(
+        "UserCalendar", back_populates="user", cascade="all, delete-orphan")
 
     @property
     def password(self):

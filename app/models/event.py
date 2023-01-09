@@ -1,5 +1,4 @@
-from .db import db, environment, SCHEMA, add_prefix_for_prod
-import json
+from .db import db
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.types import Integer, DateTime, VARCHAR, TIME, DATE
@@ -9,14 +8,10 @@ from sqlalchemy.sql import func
 class Event(db.Model):
     __tablename__ = "events"
 
-    if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
-
     id = Column(Integer, primary_key=True)
 
-    calendar_id = Column(Integer, ForeignKey(
-        add_prefix_for_prod('calendars.id'), name='fk_event_calendar_id'),
-        nullable=False)
+    calendar_id = Column(Integer, ForeignKey('calendars.id', name='fk_event_calendar_id'),
+                         nullable=False)
     title = Column(VARCHAR, server_default='(No title)')
     address = Column(VARCHAR)
     description = Column(VARCHAR)

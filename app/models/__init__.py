@@ -3,4 +3,3 @@ from .user import User
 from .calendar import Calendar
 from .user_calendar import UserCalendar
 from .event import Event
-from .db import environment, SCHEMA
