@@ -15,7 +15,6 @@ export default function EventForm({ date, x, y }) {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     const dateStr = date.toLocaleDateString([], { year: "numeric", month: "2-digit", day: "2-digit" }, { timeZone: timezone }).split("/").reverse().join("-");
-    console.log(date.toLocaleDateString([], { year: "numeric", month: "2-digit", day: "2-digit" }));
     const [currentHour, currentMinute] = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", timeZone: timezone }).split(":");
     const startTimeStr = (currentMinute < 30) ?
         `${currentHour}:30`

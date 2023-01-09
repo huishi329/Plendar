@@ -14,8 +14,8 @@ export default function MonthView() {
     const firstDateOfMonth = new Date(year, month);
     const firstDayOfMonth = firstDateOfMonth.getDay();
     const handleWheel = (e) => {
-        console.log(e.currentTarget);
-        console.log(e.deltaY);
+        // console.log(e.currentTarget);
+        // console.log(e.deltaY);
     }
 
     useEffect(() => {
