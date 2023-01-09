@@ -24,7 +24,6 @@ export default function EditEventForm() {
 
     // use an empty array to show hour and minute only
     const startTimeStr = event.start_time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: timezone })
-    console.log(startTimeStr);
     const endTimeStr = event.end_time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: timezone })
 
     const [expandTimeOptions, setExpandTimeOptions] = useState(startTimeStr !== "00:00" && endTimeStr !== "23:59");
@@ -117,8 +116,8 @@ export default function EditEventForm() {
                                     onChange={(e) => {
                                         setEndTime(e.target.value)
                                         // allow event runs across midnight
-                                        if (new Date().setHours(...startTime.split(":")) >
-                                            (new Date().setHours(...e.target.value.split(":")))) {
+                                        if (startTime > e.target.value) {
+                                            console.log(startTime, e.target.value);
                                             const tomorrow = new Date(event.start_time);
                                             tomorrow.setDate(tomorrow.getDate() + 1);
                                             const endDateStr = tomorrow.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");

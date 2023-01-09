@@ -14,7 +14,7 @@ export default function EventForm({ date, x, y }) {
     const calendarsOwned = calendarsArr?.filter(calendar => calendar.owner_id === user.id);
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    const dateStr = date.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
+    const startDateStr = date.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
     const [currentHour, currentMinute] = new Date().toLocaleTimeString('en-GB', { hour: "2-digit", minute: "2-digit", timeZone: timezone }).split(":");
     const startTimeStr = (currentMinute < 30) ?
         `${currentHour}:30`
@@ -22,12 +22,14 @@ export default function EventForm({ date, x, y }) {
     const endTimeStr = (currentMinute < 30) ?
         `${((Number(currentHour) + 1) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}:30`
         : `${((Number(currentHour) + 2) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}:00`
+    const tomorrow = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
+    const endDateStr = startTimeStr > endTimeStr ? tomorrow.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-") : startDateStr;
 
     const [expandTimeOptions, setExpandTimeOptions] = useState(false);
     const [expandMoreOptions, setExpanMoreOptions] = useState(false);
     const [title, setTitle] = useState("");
-    const [startDate, setStartDate] = useState(dateStr);
-    const [endDate, setEndDate] = useState(dateStr);
+    const [startDate, setStartDate] = useState(startDateStr);
+    const [endDate, setEndDate] = useState(endDateStr);
     const [startTime, setStartTime] = useState(startTimeStr);
     const [endTime, setEndTime] = useState(endTimeStr);
     const [recurrence, setRecurrence] = useState(0);
@@ -113,10 +115,8 @@ export default function EventForm({ date, x, y }) {
                                     onChange={(e) => {
                                         setEndTime(e.target.value)
                                         // allow event runs across midnight
-                                        if (new Date().setHours(...startTime.split(":")) >
-                                            (new Date().setHours(...e.target.value.split(":")))) {
-                                            const tomorrow = new Date(date);
-                                            tomorrow.setDate(tomorrow.getDate() + 1);
+                                        if (startTime > e.target.value) {
+                                            const tomorrow = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
                                             const endDateStr = tomorrow.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
                                             setEndDate(endDateStr);
                                         }
