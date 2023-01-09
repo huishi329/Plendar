@@ -19,8 +19,8 @@ export default function EditEventForm() {
     event.start_time = new Date(event.start_time);
     event.end_time = new Date(event.end_time);
 
-    const startDateStr = event.start_time.toLocaleDateString([], { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
-    const endDateStr = event.end_time.toLocaleDateString([], { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
+    const startDateStr = event.start_time.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
+    const endDateStr = event.end_time.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
 
     // use an empty array to show hour and minute only
     const startTimeStr = event.start_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', timeZone: timezone })
@@ -120,7 +120,7 @@ export default function EditEventForm() {
                                             (new Date().setHours(...e.target.value.split(":")))) {
                                             const tomorrow = new Date(event.start_time);
                                             tomorrow.setDate(tomorrow.getDate() + 1);
-                                            const endDateStr = tomorrow.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
+                                            const endDateStr = tomorrow.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
                                             setEndDate(endDateStr);
                                         }
                                     }}
