@@ -186,6 +186,6 @@
 
 .calendars select {
     border: none;
-    width: 100%;
-    max-width: 90%;
+    width: 50%;
+    max-width: 45%;
 }
