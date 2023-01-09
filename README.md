@@ -48,7 +48,10 @@ The following are screenshots of this user flow:
 
 #### Add a new calendar
 <img src="https://user-images.githubusercontent.com/98060462/211228350-8ffb1faa-0a4f-4889-913b-a83f944f1e0f.png" width="500px">
+<img src="https://user-images.githubusercontent.com/98060462/211228438-fa8640cf-a77c-49b6-84ea-0ca229e51f6e.png" width="500px">
 
+#### Edit/delete calendars (auto-save)
+<img src="https://user-images.githubusercontent.com/98060462/211228478-c5b23efe-3f4e-4be6-9de2-02b2065caf3e.png" width="500px">
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
