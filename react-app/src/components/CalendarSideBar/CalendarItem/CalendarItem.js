@@ -7,9 +7,8 @@ import styles from './CalendarItem.module.css'
 export default function CalendarItem({ calendar }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const handleVisibility = (e) => {
-        e.stopPropagation();
-        dispatch(toggleCalendar(calendar.id))
+    const handleVisibility = () => {
+        dispatch(toggleCalendar(calendar.id));
     };
     const handleDelete = (e) => {
         e.stopPropagation();
