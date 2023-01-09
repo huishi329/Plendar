@@ -52,7 +52,8 @@
 
 .description {
     display: flex;
-    text-align: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
 }
 
 .descriptionText {
@@ -61,7 +62,7 @@
     overflow-y: auto;
     white-space: pre-wrap;
     word-wrap: break-word;
-    margin-bottom: 0.5rem;
+    align-self: center;
 }
 
 .calendar {
