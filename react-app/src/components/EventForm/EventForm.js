@@ -14,14 +14,14 @@ export default function EventForm({ date, x, y }) {
     const calendarsOwned = calendarsArr?.filter(calendar => calendar.owner_id === user.id);
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    const dateStr = date.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }, { timezone: timezone }).split("/").reverse().join("-");
-    const [currentHour, currentMinute] = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", timezone: timezone }).split(":");
+    const dateStr = date.toLocaleDateString([], { year: "numeric", month: "2-digit", day: "2-digit" }, { timeZone: timezone }).split("/").reverse().join("-");
+    const [currentHour, currentMinute] = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", timeZone: timezone }).split(":");
     const startTimeStr = (currentMinute < 30) ?
         `${currentHour}:30`
-        : `${((Number(currentHour) + 1) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false, timezone: timezone })}:00`
+        : `${((Number(currentHour) + 1) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false, timeZone: timezone })}:00`
     const endTimeStr = (currentMinute < 30) ?
-        `${((Number(currentHour) + 1) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false, timezone: timezone })}:30`
-        : `${((Number(currentHour) + 2) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false, timezone: timezone })}:00`
+        `${((Number(currentHour) + 1) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false, timeZone: timezone })}:30`
+        : `${((Number(currentHour) + 2) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false, timeZone: timezone })}:00`
 
     const [expandTimeOptions, setExpandTimeOptions] = useState(false);
     const [expandMoreOptions, setExpanMoreOptions] = useState(false);
@@ -33,7 +33,7 @@ export default function EventForm({ date, x, y }) {
     const [recurrence, setRecurrence] = useState(0);
     const [address, setAddress] = useState("")
     const [description, setDescription] = useState("");
-    const [calendarId, setCalendarId] = useState(calendarsOwned[0].id);
+    const [calendarId, setCalendarId] = useState(calendarsOwned.find(calendar => calendar.is_displayed).id);
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = (e) => {
@@ -117,7 +117,7 @@ export default function EventForm({ date, x, y }) {
                                             (new Date().setHours(...e.target.value.split(":")))) {
                                             const tomorrow = new Date(date);
                                             tomorrow.setDate(tomorrow.getDate() + 1);
-                                            const endDateStr = tomorrow.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit", timezone: timezone }).split("/").reverse().join("-");
+                                            const endDateStr = tomorrow.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
                                             setEndDate(endDateStr);
                                         }
                                     }}
@@ -159,7 +159,7 @@ export default function EventForm({ date, x, y }) {
                         <option value={0}>Doesn't repeat</option>
                         <option value={1}>Every day</option>
                         <option value={5}>Every weekday</option>
-                        <option value={7}>Weekly on {date.toLocaleDateString('en-US', { weekday: 'long', timezone: timezone })}</option>
+                        <option value={7}>Weekly on {date.toLocaleDateString('en-US', { weekday: 'long', timeZone: timezone })}</option>
                     </select>
                 </div>}
             <div className={styles.address}>
@@ -188,7 +188,7 @@ export default function EventForm({ date, x, y }) {
             </div>
             <div className={styles.calendars}>
                 <i className="fa-regular fa-calendar"></i>
-                <select onChange={(e) => setCalendarId(e.target.value)}>
+                <select defaultValue={calendarId} onChange={(e) => setCalendarId(e.target.value)}>
                     {calendarsOwned?.map(calendar =>
                         (<option value={calendar.id} key={calendar.id}>{calendar.name}</option>))
                     }
