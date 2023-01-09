@@ -41,7 +41,14 @@
     border-bottom: 1.5px solid rgba(107, 178, 156, 0.7);
 }
 
+.formErrors {
+    margin-bottom: 1rem;
+    margin-left: 3rem;
+}
 
+.formErrors li {
+    color: rgb(246, 18, 18);
+}
 
 .title input {
     border: none;
