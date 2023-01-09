@@ -25,9 +25,7 @@ It was built using this stack:
 
 ## Features
 
-The most common user flow is this:
-
-The following are screenshots of this user flow:
+The most common user flow of Plendar is as follows:
 
 #### Land on the homepage
 
