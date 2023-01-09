@@ -11,16 +11,17 @@ export default function EventForm({ date, x, y }) {
     const user = useSelector(state => state.session.user);
     const calendars = useSelector(state => state.calendars);
     const calendarsArr = Object.values(calendars);
-    const calendarsOwned = calendarsArr?.filter(calendar => calendar.owner_id === user.id)
+    const calendarsOwned = calendarsArr?.filter(calendar => calendar.owner_id === user.id);
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    const dateStr = date.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }).split("/").reverse().join("-");
-    const [currentHour, currentMinute] = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }).split(":");
+    const dateStr = date.toLocaleDateString({ year: "numeric", month: "2-digit", day: "2-digit" }, { timezone: timezone }).split("/").reverse().join("-");
+    const [currentHour, currentMinute] = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", timezone: timezone }).split(":");
     const startTimeStr = (currentMinute < 30) ?
         `${currentHour}:30`
-        : `${((Number(currentHour) + 1) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false })}:00`
+        : `${((Number(currentHour) + 1) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false, timezone: timezone })}:00`
     const endTimeStr = (currentMinute < 30) ?
-        `${((Number(currentHour) + 1) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false })}:30`
-        : `${((Number(currentHour) + 2) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false })}:00`
+        `${((Number(currentHour) + 1) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false, timezone: timezone })}:30`
+        : `${((Number(currentHour) + 2) % 24).toLocaleString([], { minimumIntegerDigits: 2, useGrouping: false, timezone: timezone })}:00`
 
     const [expandTimeOptions, setExpandTimeOptions] = useState(false);
     const [expandMoreOptions, setExpanMoreOptions] = useState(false);
