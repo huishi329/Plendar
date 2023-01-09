@@ -33,25 +33,14 @@ The following are screenshots of this user flow:
 
 #### A user lands on the homepage
 
-<img src="https://user-images.githubusercontent.com/8968171/208163326-080de349-cf36-4d68-a9e1-d86e749008d6.png" width="500px">
-
-#### Uses the search bar and sees a list of products
-
-<img src="https://user-images.githubusercontent.com/8968171/208163438-57eeca38-ee1d-478b-9c04-ff93038b3dbc.png" width="500px">
-
-#### Inspects a product
-
-<img src="https://user-images.githubusercontent.com/8968171/208164131-0e121a87-85d6-4468-85fa-c941b8e7ce72.png" width="500px">
-
-#### Adds it to their cart
-
-<img src="https://user-images.githubusercontent.com/8968171/208164232-333de740-b40b-4d67-8bfc-1e94276d528c.png" width="500px">
-
-<img src="https://user-images.githubusercontent.com/8968171/208164280-91631e69-4e73-4dda-b7cf-be596b51d4db.png" width="500px">
+<img src="https://user-images.githubusercontent.com/98060462/211226532-5551612e-811f-4389-beba-e9bd9d302ed8.png" width="500px">
 
 #### Registers for an account
 
-<img src="https://user-images.githubusercontent.com/8968171/208164492-57e342a5-814c-423f-8f1f-d7cef8ea5243.png" width="500px">
+<img src="https://user-images.githubusercontent.com/98060462/211226596-9ea51261-fd92-4b77-8ee6-cfd8ec35b554.png" width="500px">
+
+#### A user can click anywhere on the Calendar or click the Create button to create a new event
+<img src="https://user-images.githubusercontent.com/98060462/211226690-18e7e5fc-926e-4e31-8e3c-9dde34eeaeb2.png" width="500px">
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
