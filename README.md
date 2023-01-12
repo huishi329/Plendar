@@ -1,6 +1,24 @@
 <a name="readme-top"></a>
 
+
+[![Github](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/huishi329)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2.svg?style=for-the-badge&logo=LinkedIn&logoColor=white)](https://www.linkedin.com/in/huishi-an-8397311b1/)
+[![Gmail](https://img.shields.io/badge/Gmail-EA4335.svg?style=for-the-badge&logo=Gmail&logoColor=white)](mailto:anhuishi95@gmail.com)
+
 ## Plendar
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://eeveenvee.herokuapp.com/">
+    <img src="https://user-images.githubusercontent.com/98060462/211986996-6d3a9890-844b-4545-8e13-c967dff944f4.png" alt="Logo" height="80">
+  </a>
+
+</div>
+
+<br />
+
+
 
 Plendar is a clone of Google calendar, which provides a light-weight scheduling web application for users to organize their daily life.
 
@@ -75,6 +93,10 @@ The most common user flow of Plendar is as follows:
 
 ### Contact
 
-This is a solo project created by [Huishi An](https://www.linkedin.com/in/huishi-an-8397311b1/)
+This is a solo project created by Huishi An. Find her on:
+
+[![Github](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/huishi329)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2.svg?style=for-the-badge&logo=LinkedIn&logoColor=white)](https://www.linkedin.com/in/huishi-an-8397311b1/)
+[![Gmail](https://img.shields.io/badge/Gmail-EA4335.svg?style=for-the-badge&logo=Gmail&logoColor=white)](mailto:anhuishi95@gmail.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
