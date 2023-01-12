@@ -4,7 +4,7 @@
 
 Plendar is a clone of Google calendar, which provides a light-weight scheduling web application for users to organize their daily life.
 
-Live demo: https://plendar.onrender.com/
+Live demo: https://plendar.herokuapp.com/
 
 It was built using this stack:
 
@@ -15,13 +15,13 @@ It was built using this stack:
 
 #### Backend
 
-![SQLAlchemy](https://img.shields.io/badge/sqlalchemy⠀⠀⠀⠀-424242?style=for-the-badge&logo=academia&logoColor=d71f00)
-![Flask](https://img.shields.io/badge/flask⠀⠀⠀⠀⠀-%23000000.svg?style=for-the-badge&logo=flask&logoColor=%23FFFFFF)
+![SQLAlchemy](https://img.shields.io/badge/sqlalchemy-424242?style=for-the-badge&logo=academia&logoColor=d71f00)
+![Flask](https://img.shields.io/badge/flask-%23000000.svg?style=for-the-badge&logo=flask&logoColor=%23FFFFFF)
 <br/>
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
-![Python](https://img.shields.io/badge/python⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀-376c99?style=for-the-badge&logo=python&logoColor=f7d34b)
+![Python](https://img.shields.io/badge/python-376c99?style=for-the-badge&logo=python&logoColor=f7d34b)
 <br/>
-![Render](https://img.shields.io/badge/render⠀⠀⠀⠀⠀⠀⠀⠀-%23242a55.svg?style=for-the-badge&logo=render&logoColor=45e1b6)
+![Render](https://img.shields.io/badge/render-%23242a55.svg?style=for-the-badge&logo=render&logoColor=45e1b6)
 
 ## Features
 
