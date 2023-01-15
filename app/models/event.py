@@ -27,6 +27,8 @@ class Event(db.Model):
                         nullable=False)
 
     calendar = relationship('Calendar', back_populates="events")
+    guests = relationship(
+        "EventGuest", back_populates="event", cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
