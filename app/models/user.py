@@ -30,6 +30,8 @@ class User(db.Model, UserMixin):
 
     calendars = relationship(
         "UserCalendar", back_populates="user", cascade="all, delete-orphan")
+    events_invited = relationship(
+        'EventGuest', back_populates="guest", cascade="all, delete-orphan")
 
     @property
     def password(self):
