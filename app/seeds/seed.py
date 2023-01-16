@@ -22,17 +22,17 @@ def seed_all():
         owner=bobbie, name=bobbie.name, timezone='Canada/Pacific', is_default=True)
     yoga_event = Event(
         calendar=demo_calendar,
-        title='Viniyasa | Yoga with Young Ji',
+        title='Viniyasa | Yoga with Ellen',
         start_time=datetime(2022, 12, 4, 11, 30),
         end_time=datetime(2022, 12, 4, 12, 30),
         end_date=datetime.max,
         recurrence=7,
     )
 
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
-    db.session.commit()
+    # db.session.add(demo)
+    # db.session.add(marnie)
+    # db.session.add(bobbie)
+    # db.session.commit()
 
     db.session.add_all([
         UserCalendar(calendar=demo_work_calendar, user=demo),
@@ -84,14 +84,12 @@ def seed_all():
         ),
         EventGuest(
             event=yoga_event,
-            guest_id=demo.id,
-            is_organiser=True,
-            status=True,
-            modify_event=True
+            guest=demo,
+            status='Yes',
         ),
         EventGuest(
             event=yoga_event,
-            guest_id=marnie.id,
+            guest=marnie,
         ),
     ])
 
