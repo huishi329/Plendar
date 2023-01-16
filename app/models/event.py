@@ -55,5 +55,6 @@ class Event(db.Model):
             "guest_see_guest_list": self.guest_see_guest_list
         }
         if self.guest_see_guest_list or self.calendar.owner.id == self.organiser_id:
-            event["guests"] = [guest.guest_to_dict() for guest in self.guests]
+            event["guests"] = {guest.guest_id: guest.guest_to_dict()
+                               for guest in self.guests}
         return event
