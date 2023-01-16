@@ -12,12 +12,7 @@ class EventGuest(db.Model):
                       primary_key=True)
     guest_id = Column(Integer, ForeignKey('users.id', name='fk_event_guest_guest_id'),
                       primary_key=True)
-    is_organiser = Column(BOOLEAN, server_default='False', nullable=False)
-    status = Column(BOOLEAN)
-    modify_event = Column(BOOLEAN, server_default='False', nullable=False)
-    invite_others = Column(BOOLEAN, server_default='True', nullable=False)
-    see_guest_list = Column(BOOLEAN, server_default='True', nullable=False)
-
+    status = Column(VARCHAR(10), nullable=False, server_default='awaiting')
     created_at = Column(DateTime(timezone=True),
                         server_default=func.now(), nullable=False)
     updated_at = Column(DateTime(timezone=True),
@@ -25,8 +20,14 @@ class EventGuest(db.Model):
                         nullable=False)
 
     event = relationship('Event', back_populates="guests")
+    guest = relationship('User', back_populates="events_invited")
 
-    def to_dict(self):
-        return {
-            "id": self.id,
-        }
+    def guest_to_dict(self):
+        guest = self.guest.to_dict()
+        guest["status"] = self.status
+        return guest
+
+    def event_to_dict(self):
+        event = self.event.to_dict()
+        event["status"] = self.status
+        return event
