@@ -86,7 +86,7 @@ def seed_all():
         EventGuest(
             event=yoga_event,
             guest=demo,
-            status='Yes',
+            status='yes',
         ),
         EventGuest(
             event=yoga_event,
