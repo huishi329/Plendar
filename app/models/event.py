@@ -12,6 +12,8 @@ class Event(db.Model):
 
     calendar_id = Column(Integer, ForeignKey('calendars.id', name='fk_event_calendar_id'),
                          nullable=False)
+    organiser_id = Column(Integer, ForeignKey('users.id', name='fk_event_organiser_id'),
+                          nullable=False)
     title = Column(VARCHAR, server_default='(No title)')
     address = Column(VARCHAR)
     description = Column(VARCHAR)
@@ -34,11 +36,13 @@ class Event(db.Model):
     calendar = relationship('Calendar', back_populates="events")
     guests = relationship(
         "EventGuest", back_populates="event", cascade="all, delete-orphan")
+    organiser = relationship('User', foreign_keys=[organiser_id])
 
     def to_dict(self):
-        return {
+        event = {
             "id": self.id,
             "calendar_id": self.calendar_id,
+            "organiser": self.organiser.to_dict(),
             "title": self.title,
             "address": self.address,
             "description": self.description,
@@ -50,3 +54,6 @@ class Event(db.Model):
             "guets_invite_others": self.guets_invite_others,
             "guest_see_guest_list": self.guest_see_guest_list
         }
+        if self.guest_see_guest_list or self.calendar.owner.id == self.organiser_id:
+            event["guest"] = [guest.guest_to_dict() for guest in self.guests]
+        return event
