@@ -54,7 +54,17 @@ export const removeEvents = (calendar_id) => {
     return { type: REMOVE_EVENTS, calendar_id }
 }
 
-const CLEAR_EVENTS = 'events/clearEvents'
+const UPDATE_EVENT_STATUS = 'events/updateEventStatus';
+
+export const updateEventStatus = (eventId, guestId, status) => async dispatch => {
+    await csrfFetch(`api/events_guests/${eventId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ status })
+    });
+    dispatch({ type: UPDATE_EVENT_STATUS, eventId, guestId, status })
+}
+
+const CLEAR_EVENTS = 'events/clearEvents';
 
 export const clearEvents = () => {
     return { type: CLEAR_EVENTS }
@@ -81,6 +91,10 @@ export default function eventsReducer(state = {}, action) {
             return newState;
         case DELETE_EVENT:
             delete newState[action.eventId];
+            return newState;
+        case UPDATE_EVENT_STATUS:
+            console.log(action);
+            newState[action.eventId].guests[action.guestId].status = action.status;
             return newState;
         case CLEAR_EVENTS:
             return {}
