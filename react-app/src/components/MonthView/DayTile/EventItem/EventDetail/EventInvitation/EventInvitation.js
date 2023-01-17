@@ -8,7 +8,7 @@ export default function EventInvitation({ event }) {
     const handleClick = (status) => {
         if (event.guests[user.id].status !== status)
             dispatch(updateEventStatus(event.id, user.id, status))
-    }
+    };
 
     return (
         <div className={styles.wrapper}>
@@ -31,4 +31,4 @@ export default function EventInvitation({ event }) {
             </div>
         </div>
     )
-}
+};
