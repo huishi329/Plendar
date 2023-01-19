@@ -91,6 +91,7 @@ def add_event_guest(event_id):
         db.session.add(EventGuest(
             event=event,
             guest_id=current_user.id,
+            status='yes'
         ))
     guest = User.query.filter(User.email == guest_email).one()
     event_guest = EventGuest(
