@@ -10,9 +10,16 @@
 }
 
 .image {
-    display: flex;
-    align-items: center;
+    /* display: flex; */
+    position: relative;
+    align-self: center;
     margin-right: 0.5rem;
+}
+
+.image i {
+    position: absoulte;
+    right: 0px;
+    border-radius: 50%;
 }
 
 .organiser {
