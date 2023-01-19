@@ -92,6 +92,10 @@ def seed_all():
             event=yoga_event,
             guest=marnie,
         ),
+        EventGuest(
+            event=yoga_event,
+            guest=bobbie,
+        ),
     ])
 
     db.session.commit()
