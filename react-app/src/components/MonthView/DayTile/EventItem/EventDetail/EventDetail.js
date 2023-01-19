@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentEvent } from '../../../../../store/modals';
 import styles from './EventDetail.module.css'
+import { EventGuests } from './EventGuests/EventGuests';
 import EventInvitation from './EventInvitation/EventInvitation';
 import EventNavbar from './EventNavbar/EventNavbar';
 
@@ -29,7 +30,7 @@ export default function EventDetail({ event, x, y }) {
                     <i className="fa-solid fa-square"></i>
                     {event.title}
                 </div>
-                <div className={styles.dataContainer}>
+                <div className={styles.datetimeContainer}>
                     {event.start_time.getDate() === event.end_time.getDate() &&
                         <div className={styles.datetime}>
                             {event.start_time.toLocaleDateString('en-US',
@@ -65,7 +66,7 @@ export default function EventDetail({ event, x, y }) {
                             { weekday: 'long' })}`}
                     </div>}
                 </div>
-
+                {event.guests && <EventGuests event={event} />}
                 {event.address && <div className={styles.address}>
                     <i className="fa-solid fa-location-dot"></i>
                     {event.address}
@@ -82,7 +83,7 @@ export default function EventDetail({ event, x, y }) {
                 </div>}
 
             </div>
-            {Object.values(event.guests).length > 0 && <EventInvitation event={event} />}
+            {event.guests && <EventInvitation event={event} />}
         </div >
     )
 }
