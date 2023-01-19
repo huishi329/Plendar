@@ -20,7 +20,7 @@ class User(db.Model, UserMixin):
     email = Column(VARCHAR(100), nullable=False, unique=True)
     hashed_password = Column(TEXT, nullable=False)
     profile_picture_url = Column(
-        TEXT, server_default="https://github.com/huishi329/Plendar/blob/main/react-app/public/plendar.png?raw=true")
+        TEXT, server_default="https://plendar.s3.us-west-2.amazonaws.com/plendar.png")
 
     created_at = Column(DateTime(timezone=True),
                         server_default=func.now(), nullable=False)
