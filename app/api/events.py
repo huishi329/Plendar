@@ -19,6 +19,7 @@ def post_event():
         if calendar.owner.id == current_user.id:
             event = Event(
                 calendar_id=data['calendar_id'],
+                organiser_id=data['organiser_id'],
                 title=data['title'],
                 address=data['address'],
                 description=data["description"],
@@ -46,6 +47,7 @@ def update_event(event_id):
         if calendar.owner.id == current_user.id:
             event = Event.query.get(event_id)
             event.calendar_id = data['calendar_id'],
+            event.organiser_id = data['organiser_id'],
             event.title = data['title'],
             event.address = data['address'],
             event.description = data["description"],

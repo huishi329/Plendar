@@ -24,3 +24,4 @@ class EventForm(FlaskForm):
     end_date = DateTimeField('End date', validators=[DataRequired()])
     recurrence = IntegerField('Recurrence', default=0)
     calendar_id = IntegerField('Calendar', validators=[DataRequired()])
+    organiser_id = IntegerField('Organiser', validators=[DataRequired()])
