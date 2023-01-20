@@ -1,4 +1,4 @@
-from app.models import db, User, Calendar, Event, UserCalendar
+from app.models import db, User, Calendar, Event, UserCalendar, EventGuest
 from datetime import time, datetime
 
 # Adds a demo user, you can add other users here if you want
@@ -20,6 +20,15 @@ def seed_all():
         owner=marnie, name=marnie.name, timezone='Canada/Pacific', is_default=True)
     bobbie_calendar = Calendar(
         owner=bobbie, name=bobbie.name, timezone='Canada/Pacific', is_default=True)
+    yoga_event = Event(
+        calendar=demo_calendar,
+        organiser=demo,
+        title='Viniyasa | Yoga with Ellen',
+        start_time=datetime(2022, 12, 4, 11, 30),
+        end_time=datetime(2022, 12, 4, 12, 30),
+        end_date=datetime.max,
+        recurrence=7,
+    )
 
     db.session.add_all([
         UserCalendar(calendar=demo_work_calendar, user=demo),
@@ -32,6 +41,7 @@ def seed_all():
         Event(
             calendar=demo_work_calendar,
             title='Stand Up',
+            organiser=demo,
             start_time=datetime(2022, 12, 19, 8, 0),
             end_time=datetime(2022, 12, 19, 8, 15),
             end_date=datetime.max,
@@ -40,6 +50,7 @@ def seed_all():
         Event(
             calendar=demo_work_calendar,
             title='Project Time: Solo Full Stack',
+            organiser=demo,
             start_time=datetime(2022, 12, 19, 8, 15),
             end_time=datetime(2022, 12, 19, 11, 15),
             end_date=datetime.max,
@@ -48,6 +59,7 @@ def seed_all():
         Event(
             calendar=demo_work_calendar,
             title='Lunch',
+            organiser=demo,
             start_time=datetime(2022, 12, 19, 11, 15),
             end_time=datetime(2022, 12, 19, 12, 30),
             end_date=datetime.max,
@@ -56,6 +68,7 @@ def seed_all():
         Event(
             calendar=demo_work_calendar,
             title='Peer Review',
+            organiser=demo,
             start_time=datetime(2022, 12, 19, 12, 30),
             end_time=datetime(2022, 12, 19, 13, 30),
             end_date=datetime.max,
@@ -64,24 +77,27 @@ def seed_all():
         Event(
             calendar=demo_work_calendar,
             title='Project Time: Solo Full Stack',
+            organiser=demo,
             start_time=datetime(2022, 12, 19, 13, 30),
             end_time=datetime(2022, 12, 19, 17, 00),
             end_date=datetime.max,
             recurrence=5,
         ),
-        Event(
-            calendar=demo_calendar,
-            title='Viniyasa | Yoga with Young Ji',
-            start_time=datetime(2022, 12, 4, 11, 30),
-            end_time=datetime(2022, 12, 4, 12, 30),
-            end_date=datetime.max,
-            recurrence=7,
+        EventGuest(
+            event=yoga_event,
+            guest=demo,
+            status='yes',
+        ),
+        EventGuest(
+            event=yoga_event,
+            guest=marnie,
+        ),
+        EventGuest(
+            event=yoga_event,
+            guest=bobbie,
         ),
     ])
 
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
     db.session.commit()
 
 

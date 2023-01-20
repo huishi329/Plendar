@@ -4,7 +4,7 @@
     border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1);
     border-right: 0.1rem solid rgba(0, 0, 0, 0.1);
     height: calc(90vh/5);
-    padding-right: 0.5rem;
+    /* padding-right: 0.5rem; */
     white-space: nowrap;
     overflow-y: auto;
 }
@@ -18,12 +18,15 @@
     font-size: 12px;
     font-weight: 600;
     margin: 0.2rem 0;
-    line-height: 1rem;
 }
 
 .currentDate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 50%;
-    padding: 0.1rem 0.2rem;
+    width: 1.3rem;
+    height: 1.3rem;
     background-color: #6BB29C;
     color: white;
 }

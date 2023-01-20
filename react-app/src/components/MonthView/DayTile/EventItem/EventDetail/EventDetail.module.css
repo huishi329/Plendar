@@ -6,7 +6,6 @@
     box-shadow: 0px 0px 0.5rem rgba(0, 0, 0, 0.3);
 
     font-size: 0.8rem;
-    padding: 1rem 1.5rem;
     min-width: 25rem;
     max-width: 25rem;
     overflow-x: hidden;
@@ -18,6 +17,10 @@
     margin-right: 0.5rem;
 }
 
+.top {
+    padding: 1rem 1.5rem;
+}
+
 .title {
     font-size: 1rem;
     font-weight: 500;
@@ -27,7 +30,7 @@
     text-overflow: ellipsis;
 }
 
-.dataContainer {
+.datetimeContainer {
     margin-left: 1.5rem;
     margin-bottom: 1rem;
 }
