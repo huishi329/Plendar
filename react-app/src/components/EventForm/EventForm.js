@@ -47,6 +47,7 @@ export default function EventForm({ date, x, y }) {
 
         dispatch(createEvent({
             title: title === '' ? '(No title)' : title,
+            organiser_id: user.id,
             start_time,
             end_time,
             address,

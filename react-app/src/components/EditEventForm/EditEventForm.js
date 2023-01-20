@@ -46,6 +46,7 @@ export default function EditEventForm() {
         const end_date = recurrence ? '9999-12-31 23:59:59' : end_time;
         dispatch(updateEvent(event.id, {
             title: title === '' ? '(No title)' : title,
+            organiser_id: event.organiser.id,
             start_time,
             end_time,
             address,
