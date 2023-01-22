@@ -93,7 +93,6 @@ export default function eventsReducer(state = {}, action) {
             delete newState[action.eventId];
             return newState;
         case UPDATE_EVENT_STATUS:
-            console.log(action);
             newState[action.eventId].guests[action.guestId].status = action.status;
             return newState;
         case CLEAR_EVENTS:
