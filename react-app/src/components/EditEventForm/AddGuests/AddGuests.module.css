@@ -1,0 +1,8 @@
+.wrapper select {
+    margin-top: 5rem;
+    border: none;
+    background-color: #f7f7f7;
+    width: fit-content;
+    max-width: 90%;
+    text-overflow: ellipsis;
+}
