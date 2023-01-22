@@ -8,6 +8,16 @@ from app.forms import validation_errors_formatter
 bp = Blueprint('events', __name__, url_prefix="/events")
 
 
+@bp.route("/<int:event_id>", methods=["GET"])
+@login_required
+def get_event_by_id(event_id):
+    event = Event.query.get(event_id)
+    if event.guest_see_guest_list or current_user.id in event.guests:
+        return event.to_dict(current_user.id), 200
+    else:
+        return {'errors': ['Unauthorized']}, 401
+
+
 @bp.route("", methods=["POST"])
 @login_required
 def post_event():
