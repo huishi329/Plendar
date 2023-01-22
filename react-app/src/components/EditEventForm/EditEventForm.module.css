@@ -69,7 +69,7 @@
     grid-auto-columns: 1fr;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
-    gap: 0px 0px;
+    gap: 0px 16px;
     grid-template-areas:
         ". .";
 }
@@ -87,6 +87,7 @@
 
 .title {
     display: flex;
+    margin-bottom: 1rem;
 }
 
 .title i {
@@ -107,6 +108,7 @@
     align-items: center;
     min-width: fit-content;
     margin-left: 2.5rem;
+    margin-bottom: 1rem;
 }
 
 .datetime * {
@@ -141,6 +143,7 @@
     row-gap: 0.5rem;
     display: flex;
     align-items: center;
+    margin-bottom: 2rem;
 }
 
 .allDay {
