@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import calendarsReducer from './calendars';
+import eventReducer from './event';
 import eventsReducer from './events';
 import modalsReducer from './modals';
 import sessionReducer from './session';
@@ -10,8 +11,9 @@ const rootReducer = combineReducers({
   session: sessionReducer,
   modals: modalsReducer,
   events: eventsReducer,
+  event: eventReducer,
   calendars: calendarsReducer,
-  sessionData: sessionDataReducer
+  sessionData: sessionDataReducer,
 });
 
 
