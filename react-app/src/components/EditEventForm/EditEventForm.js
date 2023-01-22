@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { updateEvent } from '../../store/events';
 import { setCurrentEvent } from '../../store/modals';
 import { toggleCalendar } from '../../store/calendars';
+import AddGuests from './AddGuests/AddGuests';
 
 export default function EditEventForm() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
-    const data = JSON.parse(window.localStorage.getItem('plendar'))
     const event = data.event;
     const calendars = Object.values(data.calendars);
     const calendarsOwned = calendars?.filter(calendar => calendar.owner_id === user.id)
@@ -22,7 +22,6 @@ export default function EditEventForm() {
     const startDateStr = event.start_time.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
     const endDateStr = event.end_time.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
 
-    // use an empty array to show hour and minute only
     const startTimeStr = event.start_time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: timezone })
     const endTimeStr = event.end_time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: timezone })
 
@@ -197,8 +196,8 @@ export default function EditEventForm() {
                         type="submit"
                         className={styles.submitButton}
                     >Save</button>
+                    <AddGuests event={event} user={user} />
                 </div>
-
             </div>
         </form >
     )
