@@ -66,136 +66,140 @@ export default function EditEventForm() {
 
     return (
         <form className={styles.form} onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.topContainer}>
-
-                <div className={styles.title}>
-                    <button type='button' className={styles.button} onClick={() => {
-                        navigate('/');
-                        dispatch(setCurrentEvent(null))
-                    }}>
-                        <i className="fa-solid fa-x"></i>
-                    </button>
-                    <input
-                        placeholder='Add title and time'
-                        name="Add title"
-                        type="text"
-                        autoComplete='off'
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                    />
-                </div>
-                <button
-                    type="submit"
-                    className={styles.submitButton}
-                >Save</button>
-
-            </div>
-            {errors.length > 0 && <ul className={styles.formErrors}>
-                {errors.map((error, i) => <li key={i}>{error}</li>)}
-            </ul>}
-            <div className={styles.datetime}>
-                <div
-                    className={styles.datePicker}>
-                    <div className={styles.datePickerInput}>
+            <div className={styles.wrapper}>
+                <div className={styles.leftContainer}>
+                    <div className={styles.title}>
+                        <button type='button' className={styles.button} onClick={() => {
+                            navigate('/');
+                            dispatch(setCurrentEvent(null))
+                        }}>
+                            <i className="fa-solid fa-x"></i>
+                        </button>
                         <input
-                            type="date"
-                            value={startDate}
-                            onChange={(e) => setStartDate(e.target.value)}
+                            placeholder='Add title and time'
+                            name="Add title"
+                            type="text"
+                            autoComplete='off'
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
                         />
+                    </div>
 
-                        {expandTimeOptions &&
-                            <div className={styles.timePicker}>
+                    {errors.length > 0 && <ul className={styles.formErrors}>
+                        {errors.map((error, i) => <li key={i}>{error}</li>)}
+                    </ul>}
+
+                    <div className={styles.datetime}>
+                        <div
+                            className={styles.datePicker}>
+                            <div className={styles.datePickerInput}>
                                 <input
-                                    type="time"
-                                    value={startTime}
-                                    onChange={(e) => setStartTime(e.target.value)}
+                                    type="date"
+                                    value={startDate}
+                                    onChange={(e) => setStartDate(e.target.value)}
                                 />
-                                <span>to</span>
-                                <input
-                                    type="time"
-                                    value={endTime}
-                                    onChange={(e) => {
-                                        setEndTime(e.target.value)
-                                        // allow event runs across midnight
-                                        if (startTime > e.target.value) {
-                                            console.log(startTime, e.target.value);
-                                            const tomorrow = new Date(event.start_time);
-                                            tomorrow.setDate(tomorrow.getDate() + 1);
-                                            const endDateStr = tomorrow.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
-                                            setEndDate(endDateStr);
-                                        }
-                                    }}
-                                /></div>}
 
-                        <div>
-                            {!expandTimeOptions && <span>to</span>}
+                                {expandTimeOptions &&
+                                    <div className={styles.timePicker}>
+                                        <input
+                                            type="time"
+                                            value={startTime}
+                                            onChange={(e) => setStartTime(e.target.value)}
+                                        />
+                                        <span>to</span>
+                                        <input
+                                            type="time"
+                                            value={endTime}
+                                            onChange={(e) => {
+                                                setEndTime(e.target.value)
+                                                // allow event runs across midnight
+                                                if (startTime > e.target.value) {
+                                                    console.log(startTime, e.target.value);
+                                                    const tomorrow = new Date(event.start_time);
+                                                    tomorrow.setDate(tomorrow.getDate() + 1);
+                                                    const endDateStr = tomorrow.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
+                                                    setEndDate(endDateStr);
+                                                }
+                                            }}
+                                        /></div>}
+
+                                <div>
+                                    {!expandTimeOptions && <span>to</span>}
+                                    <input
+                                        type="date"
+                                        value={endDate}
+                                        min={startDate}
+                                        onChange={(e) => setEndDate(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div className={styles.moreOptions}>
+                        <div className={styles.allDay}>
                             <input
-                                type="date"
-                                value={endDate}
-                                min={startDate}
-                                onChange={(e) => setEndDate(e.target.value)}
+                                type='checkbox'
+                                checked={!expandTimeOptions}
+                                name='allDay'
+                                onChange={() => setExpandTimeOptions(!expandTimeOptions)}
+                            ></input>
+                            <label htmlFor='allDay'>All day</label>
+                        </div>
+                        <div className={styles.recurrence}>
+                            <select defaultValue={recurrence}
+                                onChange={(e) => setRecurrence(e.target.value)}>
+                                <option value={0}>Doesn't repeat</option>
+                                <option value={1}>Every day</option>
+                                <option value={7}>Weekly on {event.start_time.toLocaleDateString('en-US', { weekday: 'long', timeZone: timezone })}</option>
+                                <option value={5}>Every weekday</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className={styles.eventDetail}>
+
+                        <div className={styles.address}>
+                            <i className="fa-solid fa-location-dot"></i>
+                            <input
+                                placeholder='Add location'
+                                className={styles.address}
+                                name="Add address"
+                                type="text"
+                                autoComplete='off'
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                            />
+                        </div>
+                        <div className={styles.calendars}>
+                            <i className="fa-regular fa-calendar"></i>
+                            <select defaultValue={calendarId} onChange={(e) => setCalendarId(e.target.value)}>
+                                {calendarsOwned?.map(calendar =>
+                                    (<option value={calendar.id} key={calendar.id} >{calendar.name}</option>))
+                                }
+                            </select>
+                        </div>
+                        <div className={styles.description}>
+                            <i className="fa-solid fa-bars"></i>
+                            <textarea
+                                placeholder='Add description'
+                                className={styles.description}
+                                name="Add description"
+                                type="text"
+                                autoComplete='off'
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
                             />
                         </div>
                     </div>
                 </div>
+                <div className={styles.rightContainer}>
+                    <button
+                        type="submit"
+                        className={styles.submitButton}
+                    >Save</button>
+                </div>
 
             </div>
-            <div className={styles.moreOptions}>
-                <div className={styles.allDay}>
-                    <input
-                        type='checkbox'
-                        checked={!expandTimeOptions}
-                        name='allDay'
-                        onChange={() => setExpandTimeOptions(!expandTimeOptions)}
-                    ></input>
-                    <label htmlFor='allDay'>All day</label>
-                </div>
-                <div className={styles.recurrence}>
-                    <select defaultValue={recurrence}
-                        onChange={(e) => setRecurrence(e.target.value)}>
-                        <option value={0}>Doesn't repeat</option>
-                        <option value={1}>Every day</option>
-                        <option value={7}>Weekly on {event.start_time.toLocaleDateString('en-US', { weekday: 'long', timeZone: timezone })}</option>
-                        <option value={5}>Every weekday</option>
-                    </select>
-                </div>
-            </div>
-            <div className={styles.eventDetail}>
-
-                <div className={styles.address}>
-                    <i className="fa-solid fa-location-dot"></i>
-                    <input
-                        placeholder='Add location'
-                        className={styles.address}
-                        name="Add address"
-                        type="text"
-                        autoComplete='off'
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                    />
-                </div>
-                <div className={styles.calendars}>
-                    <i className="fa-regular fa-calendar"></i>
-                    <select defaultValue={calendarId} onChange={(e) => setCalendarId(e.target.value)}>
-                        {calendarsOwned?.map(calendar =>
-                            (<option value={calendar.id} key={calendar.id} >{calendar.name}</option>))
-                        }
-                    </select>
-                </div>
-                <div className={styles.description}>
-                    <i className="fa-solid fa-bars"></i>
-                    <textarea
-                        placeholder='Add description'
-                        className={styles.description}
-                        name="Add description"
-                        type="text"
-                        autoComplete='off'
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                </div>
-            </div>
-
         </form >
     )
 };
