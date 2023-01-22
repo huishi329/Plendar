@@ -1,40 +1,45 @@
 import styles from './EditEventForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
 import { updateEvent } from '../../store/events';
 import { setCurrentEvent } from '../../store/modals';
-import { toggleCalendar } from '../../store/calendars';
+import { getCalendars, toggleCalendar } from '../../store/calendars';
 import AddGuests from './AddGuests/AddGuests';
+import { getEvent } from '../../store/event';
 
 export default function EditEventForm() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const params = useParams();
+    const eventId = params.eventId;
     const user = useSelector(state => state.session.user);
-    const event = data.event;
-    const calendars = Object.values(data.calendars);
-    const calendarsOwned = calendars?.filter(calendar => calendar.owner_id === user.id)
+    const event = useSelector(state => state.event);
+    const calendars = useSelector(state => state.calendars);
+    const calendarsOwned = calendars ? Object.values(calendars).filter(calendar => calendar.owner_id === user.id) : null;
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    event.start_time = new Date(event.start_time);
-    event.end_time = new Date(event.end_time);
+    if (event) {
+        event.start_time = new Date(event.start_time);
+        event.end_time = new Date(event.end_time);
+    }
 
-    const startDateStr = event.start_time.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
-    const endDateStr = event.end_time.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
+    const startDateStr = event?.start_time.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
+    const endDateStr = event?.end_time.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
 
-    const startTimeStr = event.start_time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: timezone })
-    const endTimeStr = event.end_time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: timezone })
+    const startTimeStr = event?.start_time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: timezone })
+    const endTimeStr = event?.end_time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: timezone })
 
     const [expandTimeOptions, setExpandTimeOptions] = useState(startTimeStr !== "00:00" && endTimeStr !== "23:59");
-    const [title, setTitle] = useState(event.title);
+    const [title, setTitle] = useState(event?.title);
     const [startDate, setStartDate] = useState(startDateStr);
     const [endDate, setEndDate] = useState(endDateStr);
     const [startTime, setStartTime] = useState(startTimeStr === "00:00" && endTimeStr === "23:59" ? "10:00" : startTimeStr);
     const [endTime, setEndTime] = useState(startTimeStr === "00:00" && endTimeStr === "23:59" ? "10:30" : endTimeStr);
-    const [recurrence, setRecurrence] = useState(event.recurrence || 0);
-    const [address, setAddress] = useState(event.address || "");
-    const [description, setDescription] = useState(event.description || "");
-    const [calendarId, setCalendarId] = useState(event.calendar_id);
+    const [recurrence, setRecurrence] = useState(event?.recurrence || 0);
+    const [address, setAddress] = useState(event?.address || "");
+    const [description, setDescription] = useState(event?.description || "");
+    const [calendarId, setCalendarId] = useState(event?.calendar_id);
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = (e) => {
@@ -56,12 +61,33 @@ export default function EditEventForm() {
         })).then((event) => {
             navigate('/');
             dispatch(setCurrentEvent(null));
-            if (!data.calendars[event.calendar_id].is_displayed) dispatch(toggleCalendar(event.calendar_id));
+            if (!calendars[event.calendar_id].is_displayed) dispatch(toggleCalendar(event.calendar_id));
         }).catch(e => {
             const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
             setErrors(errors);
         });
     };
+
+    // Make page refreshable
+    useEffect(() => {
+        setExpandTimeOptions(startTimeStr !== "00:00" && endTimeStr !== "23:59");
+        setTitle(event?.title);
+        setStartDate(startDateStr);
+        setEndDate(endDateStr);
+        setStartTime(startTimeStr === "00:00" && endTimeStr === "23:59" ? "10:00" : startTimeStr);
+        setEndTime(startTimeStr === "00:00" && endTimeStr === "23:59" ? "10:30" : endTimeStr);
+        setRecurrence(event?.recurrence || 0);
+        setAddress(event?.address || "");
+        setDescription(event?.description || "");
+        setCalendarId(event?.calendar_id)
+    }, [event, endDateStr, endTimeStr, startDateStr, startTimeStr])
+
+    useEffect(() => {
+        dispatch(getEvent(eventId));
+        dispatch(getCalendars());
+    }, [dispatch, eventId]);
+
+    if (!event || !calendars) return null;
 
     return (
         <form className={styles.form} onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
