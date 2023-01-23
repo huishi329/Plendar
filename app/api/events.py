@@ -40,7 +40,7 @@ def post_event():
             )
             db.session.add(event)
             db.session.commit()
-            return event.to_dict(), 201
+            return event.to_dict(current_user.id), 201
         else:
             return {'errors': ['Unauthorized']}, 401
     return {'errors': validation_errors_formatter(form, form.errors)}, 400
@@ -66,7 +66,7 @@ def update_event(event_id):
             event.end_date = data["end_date"],
             event.recurrence = data['recurrence']
             db.session.commit()
-            return event.to_dict(), 200
+            return event.to_dict(current_user.id), 200
         else:
             return {'errors': ['Unauthorized']}, 401
     return {'errors': validation_errors_formatter(form, form.errors)}, 400
