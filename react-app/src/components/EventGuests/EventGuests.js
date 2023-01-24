@@ -13,7 +13,7 @@ export function EventGuests({ event }) {
         <div className={styles.wrapper}>
             <div className={styles.guestList}>
                 <div>
-                    {Object.values.length} guests
+                    {Object.values(event.guests).length} guests
                     <div className={styles.statusSummary}>
                         {Object.entries(statusSummary).map(([status, num]) => {
                             return num + ' ' + status
