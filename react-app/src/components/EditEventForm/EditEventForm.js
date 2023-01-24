@@ -90,7 +90,7 @@ export default function EditEventForm() {
     if (!event || !calendars) return null;
 
     return (
-        <form className={styles.form} onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
+        <form className={styles.form} onClick={(e) => e.stopPropagation()}>
             <div className={styles.wrapper}>
                 <div className={styles.leftContainer}>
                     <div className={styles.title}>
@@ -220,8 +220,9 @@ export default function EditEventForm() {
                 </div>
                 <div className={styles.rightContainer}>
                     <button
-                        type="submit"
+                        type="button"
                         className={styles.submitButton}
+                        onClick={handleSubmit}
                     >Save</button>
                     <AddGuests event={event} user={user} />
                 </div>
