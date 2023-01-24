@@ -1,15 +1,27 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { updateTentativeEventStatus } from '../../../store/event';
+import { addGuest, updateTentativeEventStatus } from '../../../store/event';
 import styles from './AddGuests.module.css'
 
 
 export default function AddGuests({ event, user }) {
     const dispatch = useDispatch();
-    const [status, setStatus] = useState(event.guests ? event.guests[user.id].status : false)
-    const [guest, setGuest] = useState('')
-    const handleAddGuest = () => {
-        return
+    const [status, setStatus] = useState(event.guests ? event.guests[user.id].status : false);
+    const [guestEmail, setGuestEmail] = useState('');
+    const [error, setError] = useState('')
+    console.log(error);
+    const handleAddGuest = (e) => {
+        e.stopPropagation();
+        if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+            const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (guestEmail.match(re)) {
+                dispatch(addGuest(guestEmail, user))
+                    .then(() => setGuestEmail(''))
+                    .catch(e => {
+                        setError(Object.values(e))
+                    })
+            } else setError('Invalid email');
+        }
     }
 
     return (
@@ -28,20 +40,20 @@ export default function AddGuests({ event, user }) {
             {!status && <div className={styles.placeholder}></div>}
             <div className={styles.guests}>Guests</div>
 
-            <input
-                placeholder='Add guests'
-                name="Add guests"
-                type="email"
-                autoComplete='off'
-                value={guest}
-                onChange={(e) => setGuest(e.target.value)}
-                onKeyDown={(e) => {
-                    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
-                    }
-                }}
-
-            />
-            <button type='submit' hidden></button>
+            <div data-error={error}>
+                <input
+                    placeholder='Add guests'
+                    name="Add guests"
+                    type="email"
+                    autoComplete='off'
+                    value={guestEmail}
+                    onChange={(e) => {
+                        setError('');
+                        setGuestEmail(e.target.value);
+                    }}
+                    onKeyDown={handleAddGuest}
+                />
+            </div>
 
         </div>
     )
