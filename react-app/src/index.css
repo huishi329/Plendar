@@ -48,17 +48,13 @@ button {
     /* customizable */
     padding: 0.3rem;
     color: white;
+    background-color: rgb(60, 64, 67);
     font-size: 0.7rem;
 
     max-width: 15rem;
     white-space: pre-wrap;
     word-wrap: break-word;
-}
 
-[data-error]:focus:before {
-    opacity: 1;
-
-    background-color: rgb(60, 64, 67);
-    margin-top: 1.2rem;
-    z-index: 100;
+    margin-top: -1.2rem;
+    margin-left: 3rem;
 }
