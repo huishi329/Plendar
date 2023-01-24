@@ -95,7 +95,7 @@ def get_events_by_calendar_id(calendar_id):
     all_events = calendar.events
     month_events = list(filter(lambda event: event.end_date >= start or
                                (event.start_time >= start and event.start_time <= end), all_events))
-    return [event.to_dict() for event in month_events]
+    return [event.to_dict(current_user.id) for event in month_events]
 
 
 @bp.route("/<int:calendar_id>/events", methods=["DELETE"])
