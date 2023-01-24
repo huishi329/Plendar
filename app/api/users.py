@@ -1,10 +1,22 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user, login_user, logout_user
+from werkzeug.exceptions import HTTPException
 from app.forms import SignUpForm, validation_errors_formatter
 from app.models import db, User
 
 
 bp = Blueprint("users", __name__, url_prefix="/users")
+
+
+@bp.route("",  methods=["GET"])
+@login_required
+def verify_user():
+    email = request.args.get('email')
+    user = User.query.filter(User.email == email).one_or_none()
+    if user:
+        return user.to_dict()
+    else:
+        return {"errors": "Guest not found"}, 400
 
 
 @bp.route("",  methods=["POST"])
