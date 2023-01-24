@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addGuest, updateTentativeEventStatus } from '../../../store/event';
+import { EventGuests } from '../../EventGuests/EventGuests';
 import styles from './AddGuests.module.css'
-
 
 export default function AddGuests({ event, user }) {
     const dispatch = useDispatch();
@@ -13,14 +13,14 @@ export default function AddGuests({ event, user }) {
     const handleAddGuest = (e) => {
         e.stopPropagation();
         if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
-            const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            const re = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
             if (guestEmail.match(re)) {
                 dispatch(addGuest(guestEmail, user))
                     .then(() => setGuestEmail(''))
                     .catch(e => {
                         setError(Object.values(e))
                     })
-            } else setError('Invalid email');
+            } else setError('Invalid email address.');
         }
     }
 
@@ -40,21 +40,20 @@ export default function AddGuests({ event, user }) {
             {!status && <div className={styles.placeholder}></div>}
             <div className={styles.guests}>Guests</div>
 
-            <div data-error={error}>
-                <input
-                    placeholder='Add guests'
-                    name="Add guests"
-                    type="email"
-                    autoComplete='off'
-                    value={guestEmail}
-                    onChange={(e) => {
-                        setError('');
-                        setGuestEmail(e.target.value);
-                    }}
-                    onKeyDown={handleAddGuest}
-                />
-            </div>
-
+            {error && <div data-error={error}></div>}
+            <input
+                placeholder='Add guests'
+                name="Add guests"
+                type="email"
+                autoComplete='off'
+                value={guestEmail}
+                onChange={(e) => {
+                    setError('');
+                    setGuestEmail(e.target.value);
+                }}
+                onKeyDown={handleAddGuest}
+            />
+            <EventGuests event={event} />
         </div>
     )
 };
