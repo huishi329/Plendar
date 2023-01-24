@@ -1,6 +1,14 @@
 .wrapper {
     display: flex;
-    margin-bottom: 0.5rem;
+    padding: 0.2rem 0;
+    align-items: center;
+    justify-content: space-between;
+    width: 20rem;
+
+}
+
+.wrapper:hover {
+    background-color: rgba(107, 178, 156, 0.15);
 }
 
 .wrapper img {
@@ -9,16 +17,17 @@
     object-fit: cover;
 }
 
+.left {
+    display: flex;
+}
+
 .image {
-    /* display: flex; */
     position: relative;
     align-self: center;
-    margin-right: 0.5rem;
 }
 
 .image i {
     position: absoulte;
-    right: 0px;
     border-radius: 50%;
 }
 
