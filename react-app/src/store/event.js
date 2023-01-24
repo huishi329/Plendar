@@ -42,7 +42,7 @@ export default function eventReducer(state = null, action) {
                 newState.guests = {};
                 newState.guests[action.user.id] = Object.assign(action.user, { status: 'yes' })
             } else {
-                if (!action.guest.id in newState.guests)
+                if (action.guest.id in newState.guests === false)
                     newState.guests[action.guest.id] = Object.assign(action.guest, { status: 'awaiting' });
             }
             return newState;
