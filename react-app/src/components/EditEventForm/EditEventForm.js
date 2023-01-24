@@ -6,7 +6,7 @@ import { updateEvent } from '../../store/events';
 import { setCurrentEvent } from '../../store/modals';
 import { getCalendars, toggleCalendar } from '../../store/calendars';
 import AddGuests from './AddGuests/AddGuests';
-import { cleanEvent, getEvent } from '../../store/event';
+import { clearEvent, getEvent } from '../../store/event';
 
 export default function EditEventForm() {
     const navigate = useNavigate();
@@ -97,7 +97,7 @@ export default function EditEventForm() {
                         <button type='button' className={styles.button} onClick={() => {
                             navigate('/');
                             dispatch(setCurrentEvent(null));
-                            dispatch(cleanEvent());
+                            dispatch(clearEvent());
                         }}>
                             <i className="fa-solid fa-x"></i>
                         </button>
