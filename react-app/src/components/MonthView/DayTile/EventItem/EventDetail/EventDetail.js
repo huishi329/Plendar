@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentEvent } from '../../../../../store/modals';
+import { EventGuests } from '../../../../EventGuests/EventGuests';
 import styles from './EventDetail.module.css'
-import { EventGuests } from './EventGuests/EventGuests';
 import EventInvitation from './EventInvitation/EventInvitation';
 import EventNavbar from './EventNavbar/EventNavbar';
 
@@ -66,7 +66,11 @@ export default function EventDetail({ event, x, y }) {
                             { weekday: 'long' })}`}
                     </div>}
                 </div>
-                {event.guests && <EventGuests event={event} />}
+                {event.guests && <div>
+                    <i className="fa-solid fa-user-group"></i>
+                    <EventGuests event={event} />
+                </div>
+                }
                 {event.address && <div className={styles.address}>
                     <i className="fa-solid fa-location-dot"></i>
                     {event.address}
