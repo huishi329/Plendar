@@ -6,7 +6,7 @@ import styles from './AddGuests.module.css'
 
 export default function AddGuests({ event, user }) {
     const dispatch = useDispatch();
-    const [status, setStatus] = useState(event.guests[user.id].status)
+    const [status, setStatus] = useState(event.guests ? event.guests[user.id].status : false)
     const [guest, setGuest] = useState('')
     const handleAddGuest = () => {
         return
@@ -14,7 +14,7 @@ export default function AddGuests({ event, user }) {
 
     return (
         <div className={styles.wrapper}>
-            <select
+            {status && <select
                 defaultValue={""}
                 onChange={(e) => {
                     setStatus(e.target.value)
@@ -24,7 +24,8 @@ export default function AddGuests({ event, user }) {
                 <option value="yes">{status === 'yes' ? 'RSVP: Yes' : 'Yes'}</option>
                 <option value="no">{status === 'no' ? 'RSVP: No' : 'No'}</option>
                 <option value="maybe">{status === 'maybe' ? 'RSVP: Maybe' : 'Maybe'}</option>
-            </select>
+            </select>}
+            {!status && <div className={styles.placeholder}></div>}
             <div className={styles.guests}>Guests</div>
 
             <input
@@ -34,6 +35,11 @@ export default function AddGuests({ event, user }) {
                 autoComplete='off'
                 value={guest}
                 onChange={(e) => setGuest(e.target.value)}
+                onKeyDown={(e) => {
+                    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+                    }
+                }}
+
             />
             <button type='submit' hidden></button>
 
