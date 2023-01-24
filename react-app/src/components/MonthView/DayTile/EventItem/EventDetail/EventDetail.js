@@ -66,7 +66,7 @@ export default function EventDetail({ event, x, y }) {
                             { weekday: 'long' })}`}
                     </div>}
                 </div>
-                {event.guests && <div>
+                {event.guests && <div className={styles.guests}>
                     <i className="fa-solid fa-user-group"></i>
                     <EventGuests event={event} />
                 </div>

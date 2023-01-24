@@ -45,6 +45,13 @@
     margin: 0 0.5rem;
 }
 
+.guests {
+    display: flex;
+}
+
+.guests i {
+    margin-top: 0.6rem;
+}
 
 .address {
     margin-bottom: 0.5rem;
