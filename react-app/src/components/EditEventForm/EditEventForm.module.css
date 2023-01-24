@@ -23,7 +23,7 @@
     text-overflow: ellipsis;
 }
 
-.form i {
+.leftContainer i {
     margin-left: 0.8rem;
     margin-right: 0.8rem;
     font-size: 1rem;
@@ -43,7 +43,7 @@
 .form select {
     padding: 0.5rem 0.3rem;
     cursor: pointer;
-    width: 100%;
+    width: fit-content;
     max-width: 95%;
 }
 
