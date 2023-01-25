@@ -37,6 +37,7 @@ export const clearEvent = () => {
 
 export default function eventReducer(state = null, action) {
     const newState = { ...state };
+    newState.guests = { ...newState.guests };
     switch (action.type) {
         case GET_EVENT:
             return action.event;
@@ -44,7 +45,7 @@ export default function eventReducer(state = null, action) {
             newState.guests[action.userId].status = action.status;
             return newState;
         case ADD_GUEST:
-            if (!newState.guests || Object.values(newState.guests) === 0) {
+            if (!newState.guests || Object.values(newState.guests).length === 0) {
                 newState.guests = {};
                 newState.guests[action.user.id] = Object.assign(action.user, { status: 'yes' })
             }
