@@ -17,11 +17,11 @@ export default function EventDetail({ event, x, y }) {
     }, [dispatch])
 
     if (!calendars) return null;
-
+    console.log(y);
     return (
         <div
             className={styles.wrapper}
-            style={{ left: x, top: y }}
+            style={{ left: x, bottom: y }}
             onClick={(e) => e.stopPropagation()}
         >
             <div className={styles.top}>
