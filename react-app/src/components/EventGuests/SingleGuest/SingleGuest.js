@@ -31,7 +31,8 @@ export function SingleGuest({ guest, event }) {
                 }
             </div>
             <div className={styles.right}
-                onClick={removeGuestHandler}>
+                onClick={removeGuestHandler}
+                data-tooltip={'Remove'}>
                 {location.pathname.match(/^.*eventedit.*$/) &&
                     <i className="fa-solid fa-xmark"></i>}
             </div>
