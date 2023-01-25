@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: space-between;
     width: 20rem;
-
+    padding-right: 0.5rem;
 }
 
 .wrapper:hover {
@@ -39,4 +39,13 @@
 
 .boldText {
     font-weight: 500;
+}
+
+.right {
+    cursor: pointer;
+}
+
+.right i {
+    margin: 0 0;
+    padding: 0.2rem 0.5rem;
 }
