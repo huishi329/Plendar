@@ -20,7 +20,7 @@ export const addGuest = (email, user) => async dispatch => {
     const response = await csrfFetch(`/api/users?email=${email}`);
     const guest = await response.json();
 
-    dispatch({ type: ADD_GUEST, guest, user })
+    dispatch({ type: ADD_GUEST, guest, user });
 };
 
 const REMOVE_GUEST = 'event/removeGuest';
@@ -47,10 +47,9 @@ export default function eventReducer(state = null, action) {
             if (!newState.guests || Object.values(newState.guests) === 0) {
                 newState.guests = {};
                 newState.guests[action.user.id] = Object.assign(action.user, { status: 'yes' })
-            } else {
-                if (action.guest.id in newState.guests === false)
-                    newState.guests[action.guest.id] = Object.assign(action.guest, { status: 'awaiting' });
             }
+            if (action.guest.id in newState.guests === false)
+                newState.guests[action.guest.id] = Object.assign(action.guest, { status: 'awaiting' });
             return newState;
         case REMOVE_GUEST:
             delete newState.guests[action.guestId];
