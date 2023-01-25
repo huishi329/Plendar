@@ -23,6 +23,12 @@ export const addGuest = (email, user) => async dispatch => {
     dispatch({ type: ADD_GUEST, guest, user })
 };
 
+const REMOVE_GUEST = 'event/removeGuest';
+
+export const removeGuest = (guestId) => {
+    return { type: REMOVE_GUEST, guestId };
+};
+
 const CLEAR_EVENT = 'event/clearEvent';
 
 export const clearEvent = () => {
@@ -45,6 +51,9 @@ export default function eventReducer(state = null, action) {
                 if (action.guest.id in newState.guests === false)
                     newState.guests[action.guest.id] = Object.assign(action.guest, { status: 'awaiting' });
             }
+            return newState;
+        case REMOVE_GUEST:
+            delete newState.guests[action.guestId];
             return newState;
         case CLEAR_EVENT:
             return null;
