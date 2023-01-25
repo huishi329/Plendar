@@ -1,9 +1,10 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { removeGuest } from '../../../store/event';
 import styles from './SingleGuest.module.css';
 
 export function SingleGuest({ guest, event }) {
+    const user = useSelector(state => state.session.user);
     const location = useLocation();
     const dispatch = useDispatch();
     const removeGuestHandler = () => {
@@ -30,12 +31,14 @@ export function SingleGuest({ guest, event }) {
                         <div className={styles.boldText}>{guest.email}</div>
                 }
             </div>
-            <div className={styles.right}
-                onClick={removeGuestHandler}
-                data-tooltip={'Remove'}>
-                {location.pathname.match(/^.*eventedit.*$/) &&
-                    <i className="fa-solid fa-xmark"></i>}
-            </div>
+            {location.pathname.match(/^.*eventedit.*$/) &&
+                user.id === event.organiser.id &&
+                <div className={styles.right}
+                    onClick={removeGuestHandler}
+                    data-tooltip={'Remove'}>
+
+                    <i className="fa-solid fa-xmark"></i>
+                </div>}
         </div >
     )
 }
