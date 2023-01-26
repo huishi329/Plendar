@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addGuest, updateTentativeEventStatus } from '../../../store/event';
 import { EventGuests } from '../../EventGuests/EventGuests';
@@ -6,10 +6,12 @@ import styles from './AddGuests.module.css'
 
 export default function AddGuests({ event, user }) {
     const dispatch = useDispatch();
-    const [status, setStatus] = useState(event.guests ? event.guests[user.id].status : false);
+    // catch the edge case of deleting the last guest in event.guests
+    const [status, setStatus] = useState(event.guests &&
+        user.id in event.guests ? event.guests[user.id].status : false);
     const [guestEmail, setGuestEmail] = useState('');
-    const [error, setError] = useState('')
-    console.log(error);
+    const [error, setError] = useState('');
+
     const handleAddGuest = (e) => {
         e.stopPropagation();
         if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
@@ -23,6 +25,11 @@ export default function AddGuests({ event, user }) {
             } else setError('Invalid email address.');
         }
     }
+
+    useEffect(() => {
+        setStatus((event.guests &&
+            user.id in event.guests > 0) ? event.guests[user.id].status : false)
+    }, [event, setStatus, user.id])
 
     return (
         <div className={styles.wrapper}>
@@ -53,7 +60,8 @@ export default function AddGuests({ event, user }) {
                 }}
                 onKeyDown={handleAddGuest}
             />
-            <EventGuests event={event} />
+            {event.guests &&
+                Object.values(event.guests).length > 0 && <EventGuests event={event} />}
         </div>
     )
 };
