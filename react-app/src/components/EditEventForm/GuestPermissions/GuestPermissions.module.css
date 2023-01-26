@@ -1,0 +1,10 @@
+.options {
+    display: flex;
+    gap: 0.3rem;
+    margin: 0.5rem 0;
+}
+
+.options input {
+    width: 1.5rem;
+    cursor: pointer;
+}
