@@ -2,7 +2,7 @@ import styles from './EventGuests.module.css';
 import { SingleGuest } from './SingleGuest/SingleGuest';
 
 export function EventGuests({ event }) {
-    const organiser = event.guests[event.organiser.id];
+    const organiser = event.organiser.id;
     const statusSummary = Object.values(event.guests).reduce((summary, guest) => {
         if (guest.status in summary) summary[guest.status] += 1
         else summary[guest.status] = 1
@@ -21,7 +21,7 @@ export function EventGuests({ event }) {
                     </div>
                 </div>
                 <div>
-                    <SingleGuest guest={organiser} event={event} />
+                    {organiser.id in event.guests && <SingleGuest guest={organiser} event={event} />}
                     {Object.values(event.guests).map(guest => {
                         if (guest.id !== organiser.id)
                             return (<SingleGuest key={guest.id} guest={guest} event={event} />)
