@@ -12,7 +12,7 @@ bp = Blueprint('events', __name__, url_prefix="/events")
 @login_required
 def get_event_by_id(event_id):
     event = Event.query.get(event_id)
-    if event.guest_see_guest_list or current_user.id in event.guests:
+    if event.guest_see_guest_list or current_user.id == event.organiser.id:
         return event.to_dict(current_user.id), 200
     else:
         return {'errors': ['Unauthorized']}, 401
@@ -70,6 +70,21 @@ def update_event(event_id):
         else:
             return {'errors': ['Unauthorized']}, 401
     return {'errors': validation_errors_formatter(form, form.errors)}, 400
+
+
+@bp.route("/<int:event_id>", methods=["PATCH"])
+@login_required
+def update_guest_permission(event_id):
+    event = Event.query.get(event_id)
+    data = request.json
+    if event.organiser.id == current_user.id:
+        event.guest_modify_event = data['guest_modify_event']
+        event.guest_invite_others = data['guest_invite_others']
+        event.guest_see_guest_list = data['guest_see_guest_list']
+        db.session.commit()
+        return event.to_dict(current_user.id), 200
+    else:
+        return {'errors': ['Unauthorized']}, 401
 
 
 @bp.route("/<int:event_id>", methods=["DELETE"])
