@@ -8,6 +8,16 @@ from app.forms import validation_errors_formatter
 bp = Blueprint('events', __name__, url_prefix="/events")
 
 
+@bp.route("/<int:event_id>", methods=["GET"])
+@login_required
+def get_event_by_id(event_id):
+    event = Event.query.get(event_id)
+    if event.guest_see_guest_list or current_user.id in event.guests:
+        return event.to_dict(current_user.id), 200
+    else:
+        return {'errors': ['Unauthorized']}, 401
+
+
 @bp.route("", methods=["POST"])
 @login_required
 def post_event():
@@ -30,7 +40,7 @@ def post_event():
             )
             db.session.add(event)
             db.session.commit()
-            return event.to_dict(), 201
+            return event.to_dict(current_user.id), 201
         else:
             return {'errors': ['Unauthorized']}, 401
     return {'errors': validation_errors_formatter(form, form.errors)}, 400
@@ -56,7 +66,7 @@ def update_event(event_id):
             event.end_date = data["end_date"],
             event.recurrence = data['recurrence']
             db.session.commit()
-            return event.to_dict(), 200
+            return event.to_dict(current_user.id), 200
         else:
             return {'errors': ['Unauthorized']}, 401
     return {'errors': validation_errors_formatter(form, form.errors)}, 400
@@ -86,20 +96,20 @@ def get_event_guests(event_id):
 
 @bp.route("/<int:event_id>/guests", methods=["POST"])
 @login_required
-def add_event_guest(event_id):
-    guest_email = request.json["email"]
+def add_event_guests(event_id):
     event = Event.query.get(event_id)
-    if len(event.guests) == 0 and event.calendar.owner.id == current_user.id:
-        db.session.add(EventGuest(
-            event=event,
-            guest_id=current_user.id,
-            status='yes'
-        ))
-    guest = User.query.filter(User.email == guest_email).one()
-    event_guest = EventGuest(
-        event=event,
-        guest=guest
-    )
-    db.session.add(event_guest)
+    old_guests = {guest.guest_id: guest for guest in event.guests}
+    new_guests = request.json['guests']  # list
+    new_guests = [int(guest_id) for guest_id in new_guests]
+
+    for guest_id in new_guests:
+        if guest_id not in old_guests:
+            db.session.add(EventGuest(
+                event=event,
+                guest_id=guest_id,
+            ))
+    for guest_id in old_guests:  # dict
+        if guest_id not in new_guests:
+            db.session.delete(old_guests[guest_id])
     db.session.commit()
-    return event_guest.guest_to_dict()
+    return [guest.guest_to_dict() for guest in event.guests]

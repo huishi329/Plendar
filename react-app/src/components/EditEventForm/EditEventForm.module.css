@@ -23,7 +23,7 @@
     text-overflow: ellipsis;
 }
 
-.form i {
+.leftContainer i {
     margin-left: 0.8rem;
     margin-right: 0.8rem;
     font-size: 1rem;
@@ -43,7 +43,7 @@
 .form select {
     padding: 0.5rem 0.3rem;
     cursor: pointer;
-    width: 100%;
+    width: fit-content;
     max-width: 95%;
 }
 
@@ -64,12 +64,12 @@
     color: rgb(246, 18, 18);
 }
 
-.topContainer {
+.wrapper {
     display: grid;
     grid-auto-columns: 1fr;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
-    gap: 0px 0px;
+    gap: 0px 16px;
     grid-template-areas:
         ". .";
 }
@@ -87,6 +87,7 @@
 
 .title {
     display: flex;
+    margin-bottom: 1rem;
 }
 
 .title i {
@@ -107,6 +108,7 @@
     align-items: center;
     min-width: fit-content;
     margin-left: 2.5rem;
+    margin-bottom: 1rem;
 }
 
 .datetime * {
@@ -141,6 +143,7 @@
     row-gap: 0.5rem;
     display: flex;
     align-items: center;
+    margin-bottom: 2rem;
 }
 
 .allDay {

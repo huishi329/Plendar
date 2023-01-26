@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
+import { getEvent } from "../../../../../../store/event";
 import { deleteEvent } from "../../../../../../store/events";
 import { setCurrentEvent } from "../../../../../../store/modals";
 import styles from './EventNavbar.module.css'
@@ -16,7 +17,7 @@ export default function EventNavbar({ event, calendars }) {
                     onClick={(e) => {
                         e.stopPropagation();
                         navigate(`/eventedit/${event.id}`);
-                        window.localStorage.setItem('plendar', JSON.stringify({ event, calendars }));
+                        dispatch(getEvent(event.id));
                     }}>
                     <i className="fa-regular fa-pen-to-square"></i>
                 </button>

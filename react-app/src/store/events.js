@@ -9,8 +9,8 @@ export const getEvents = (calendar_id, year, month) => async dispatch => {
         month: month + 1
     })}`);
     const events = await response.json();
-    dispatch({ type: GET_MONTH_EVENTS, events })
-}
+    dispatch({ type: GET_MONTH_EVENTS, events });
+};
 
 const CREATE_EVENT = 'events/createEvent';
 
@@ -41,7 +41,7 @@ const DELETE_EVENT = 'events/deleteEvent';
 export const deleteEvent = (eventId) => async dispatch => {
     await csrfFetch(`api/events/${eventId}`, { method: 'DELETE' });
     dispatch({ type: DELETE_EVENT, eventId });
-}
+};
 
 export const deleteEventsByCalendar = (calendarId) => async dispatch => {
     await csrfFetch(`/api/calendars/${calendarId}/events`, { method: 'DELETE' });
@@ -51,24 +51,35 @@ export const deleteEventsByCalendar = (calendarId) => async dispatch => {
 const REMOVE_EVENTS = 'events/removeEvents'
 
 export const removeEvents = (calendar_id) => {
-    return { type: REMOVE_EVENTS, calendar_id }
-}
+    return { type: REMOVE_EVENTS, calendar_id };
+};
 
 const UPDATE_EVENT_STATUS = 'events/updateEventStatus';
 
 export const updateEventStatus = (eventId, guestId, status) => async dispatch => {
-    await csrfFetch(`api/events_guests/${eventId}`, {
+    await csrfFetch(`/api/events_guests/${eventId}`, {
         method: 'PATCH',
         body: JSON.stringify({ status })
     });
-    dispatch({ type: UPDATE_EVENT_STATUS, eventId, guestId, status })
-}
+    dispatch({ type: UPDATE_EVENT_STATUS, eventId, guestId, status });
+};
+
+const UPDATE_EVENT_GUESTS = 'events/updateEventGuests';
+
+export const updateEventGuests = (eventId, guests) => async dispatch => {
+    await csrfFetch(`/api/events/${eventId}/guests`, {
+        method: 'POST',
+        body: JSON.stringify({ guests })
+    })
+
+    dispatch({ type: UPDATE_EVENT_GUESTS, eventId, guests });
+};
 
 const CLEAR_EVENTS = 'events/clearEvents';
 
 export const clearEvents = () => {
     return { type: CLEAR_EVENTS }
-}
+};
 
 export default function eventsReducer(state = {}, action) {
     const newState = { ...state };
@@ -93,12 +104,16 @@ export default function eventsReducer(state = {}, action) {
             delete newState[action.eventId];
             return newState;
         case UPDATE_EVENT_STATUS:
-            console.log(action);
-            newState[action.eventId].guests[action.guestId].status = action.status;
+            // when navigate from EditEvent form to MonthView, events is empty obj
+            if (Object.keys(newState).lenth > 0)
+                newState[action.eventId].guests[action.guestId].status = action.status;
+            return newState;
+        case UPDATE_EVENT_GUESTS:
+            newState[action.eventId].guests = action.guests;
             return newState;
         case CLEAR_EVENTS:
             return {}
         default:
             return state;
-    }
-}
+    };
+};

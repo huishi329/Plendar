@@ -11,8 +11,8 @@ export default function EventItem({ event }) {
     const showEventDetail = modals.event?.id === event.id &&
         modals.event?.start_time.getTime() === event.start_time.getTime();
 
-    const [x, setX] = useState();
-    const [y, setY] = useState();
+    const [x, setX] = useState(0);
+    const [y, setY] = useState(0);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [windowHeight, setWindowHeight] = useState(window.innerHeight);
     const [eventItemWidth, setEventItemWidth] = useState(0);
@@ -27,8 +27,10 @@ export default function EventItem({ event }) {
         if (windowWidth < 800) setX((windowWidth - 400) / 2)
         else if (eventRef.current.offsetLeft > (windowWidth / 2)) setX(eventRef.current.offsetLeft - 400)
         else setX(eventRef.current.offsetLeft + (eventItemWidth || eventRef.current.offsetWidth));
-        if (eventRef.current.offsetTop >= windowHeight - 150) setY(eventRef.current.offsetTop - 150);
-        else setY(eventRef.current.offsetTop);
+
+        // setY to undefined so that the EventDetaio pops up right next to the EventItem
+        if (eventRef.current.offsetTop < windowHeight / 2) setY();
+        else setY(windowHeight - eventRef.current.offsetTop);
         const updateSize = () => {
             setWindowWidth(window.innerWidth);
             setWindowHeight(window.innerHeight);

@@ -23,7 +23,7 @@ class Event(db.Model):
     recurrence = Column(Integer, server_default="0", nullable=False)
     guest_modify_event = Column(
         BOOLEAN, server_default='False', nullable=False)
-    guets_invite_others = Column(
+    guest_invite_others = Column(
         BOOLEAN, server_default='True', nullable=False)
     guest_see_guest_list = Column(
         BOOLEAN, server_default='True', nullable=False)
@@ -38,7 +38,7 @@ class Event(db.Model):
         "EventGuest", back_populates="event", cascade="all, delete-orphan")
     organiser = relationship('User', foreign_keys=[organiser_id])
 
-    def to_dict(self):
+    def to_dict(self, user_id):
         event = {
             "id": self.id,
             "calendar_id": self.calendar_id,
@@ -51,10 +51,10 @@ class Event(db.Model):
             "end_date": self.end_date.strftime('%Y-%m-%d %H:%M:%S'),
             "recurrence": self.recurrence,
             "guest_modify_event": self.guest_modify_event,
-            "guets_invite_others": self.guets_invite_others,
+            "guest_invite_others": self.guest_invite_others,
             "guest_see_guest_list": self.guest_see_guest_list
         }
-        if (self.guest_see_guest_list or self.calendar.owner.id == self.organiser_id) and len(self.guests) > 0:
+        if (self.guest_see_guest_list or user_id == self.organiser_id) and len(self.guests) > 0:
             event["guests"] = {guest.guest_id: guest.guest_to_dict()
                                for guest in self.guests}
         return event
