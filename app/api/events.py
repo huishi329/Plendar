@@ -96,20 +96,20 @@ def get_event_guests(event_id):
 
 @bp.route("/<int:event_id>/guests", methods=["POST"])
 @login_required
-def add_event_guest(event_id):
-    guest_email = request.json["email"]
+def add_event_guests(event_id):
     event = Event.query.get(event_id)
-    if len(event.guests) == 0 and event.calendar.owner.id == current_user.id:
-        db.session.add(EventGuest(
-            event=event,
-            guest_id=current_user.id,
-            status='yes'
-        ))
-    guest = User.query.filter(User.email == guest_email).one()
-    event_guest = EventGuest(
-        event=event,
-        guest=guest
-    )
-    db.session.add(event_guest)
+    old_guests = {guest.guest_id: guest for guest in event.guests}
+    new_guests = request.json['guests']  # list
+    new_guests = [int(guest_id) for guest_id in new_guests]
+
+    for guest_id in new_guests:
+        if guest_id not in old_guests:
+            db.session.add(EventGuest(
+                event=event,
+                guest_id=guest_id,
+            ))
+    for guest_id in old_guests:  # dict
+        if guest_id not in new_guests:
+            db.session.delete(old_guests[guest_id])
     db.session.commit()
-    return event_guest.guest_to_dict()
+    return [guest.guest_to_dict() for guest in event.guests]
