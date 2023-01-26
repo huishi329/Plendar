@@ -105,7 +105,7 @@ export default function eventsReducer(state = {}, action) {
             return newState;
         case UPDATE_EVENT_STATUS:
             // when navigate from EditEvent form to MonthView, events is empty obj
-            if (Object.keys(newState).lenth > 0)
+            if (Object.keys(newState).length > 0)
                 newState[action.eventId].guests[action.guestId].status = action.status;
             return newState;
         case UPDATE_EVENT_GUESTS:
