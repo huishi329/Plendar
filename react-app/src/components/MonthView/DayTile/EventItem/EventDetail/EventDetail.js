@@ -17,7 +17,7 @@ export default function EventDetail({ event, x, y }) {
     }, [dispatch])
 
     if (!calendars) return null;
-    console.log(y);
+
     return (
         <div
             className={styles.wrapper}
