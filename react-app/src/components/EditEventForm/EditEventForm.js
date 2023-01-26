@@ -7,6 +7,7 @@ import { setCurrentEvent } from '../../store/modals';
 import { getCalendars, toggleCalendar } from '../../store/calendars';
 import AddGuests from './AddGuests/AddGuests';
 import { clearEvent, getEvent } from '../../store/event';
+import GuestPermission from './GuestPermissions/GuestPermissions';
 
 export default function EditEventForm() {
     const navigate = useNavigate();
@@ -45,7 +46,6 @@ export default function EditEventForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
-        console.log(event.guests);
         const start_time = expandTimeOptions ? `${startDate} ${startTime}:00` : `${startDate} 00:00:00`;
         const end_time = expandTimeOptions ? `${endDate} ${endTime}:00` : `${endDate} 23:59:59`;
         const end_date = recurrence ? '9999-12-31 23:59:59' : end_time;
@@ -145,7 +145,6 @@ export default function EditEventForm() {
                                                 setEndTime(e.target.value)
                                                 // allow event runs across midnight
                                                 if (startTime > e.target.value) {
-                                                    console.log(startTime, e.target.value);
                                                     const tomorrow = new Date(event.start_time);
                                                     tomorrow.setDate(tomorrow.getDate() + 1);
                                                     const endDateStr = tomorrow.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
@@ -229,7 +228,8 @@ export default function EditEventForm() {
                         className={styles.submitButton}
                         onClick={handleSubmit}
                     >Save</button>
-                    <AddGuests event={event} user={user} />
+                    {(event.guest_invite_others || event.organiser.id === user.id) && <AddGuests event={event} user={user} />}
+                    {event.organiser.id === user.id && <GuestPermission event={event} />}
                 </div>
             </div>
         </form >
