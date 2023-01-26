@@ -29,7 +29,7 @@ def post_calendar():
             name=data['name'],
             description=data['description'],
             timezone=data['timezone'],
-            is_default=data['is_default'] if data.get('is_default') else False
+            is_default=data.get('is_default', False)
         )
         user_calendar = UserCalendar(
             user_id=current_user.id,
