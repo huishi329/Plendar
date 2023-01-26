@@ -13,7 +13,6 @@
     margin-bottom: 2rem;
 }
 
-
 .guests {
     font-weight: 600;
     color: rgba(107, 178, 156, 1);
@@ -31,6 +30,7 @@
     padding: 0.5rem 0.3rem;
     background-color: #f7f7f7;
     border-bottom: 2px solid white;
+    margin-bottom: 1rem;
 }
 
 .wrapper input:focus {
