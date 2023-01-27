@@ -5,14 +5,14 @@ import { deleteEvent } from "../../../../../../store/events";
 import { setCurrentEvent } from "../../../../../../store/modals";
 import styles from './EventNavbar.module.css'
 
-export default function EventNavbar({ event, calendars }) {
+export default function EventNavbar({ event }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector(state => state.session.user);
 
     return (
         <div className={styles.wrapper}>
-            {(user.id === calendars[event.calendar_id].owner_id) && <div>
+            {(user.id === event.organiser.id || event.guest_modify_event) && <div>
                 <button className={styles.button}
                     onClick={(e) => {
                         e.stopPropagation();
