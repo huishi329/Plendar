@@ -40,8 +40,21 @@ export const updateEventGuests = (eventId, guests) => async () => {
     await csrfFetch(`/api/events/${eventId}/guests`, {
         method: 'POST',
         body: JSON.stringify({ guests })
-    })
+    });
 };
+
+const UPDATE_TENTATIVE_GUEST_PERMISSION = 'event/updateTentativeGuestPermission';
+
+export const updateTentativeGuestPermission = (permission) => {
+    return { type: UPDATE_TENTATIVE_GUEST_PERMISSION, permission }
+}
+
+export const updateGuestPermissions = (eventId, permissions) => async () => {
+    await csrfFetch(`/api/events/${eventId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ ...permissions })
+    });
+}
 
 const CLEAR_EVENT = 'event/clearEvent';
 
@@ -57,6 +70,9 @@ export default function eventReducer(state = null, action) {
             return action.event;
         case UPDATE_TENTATIVE_EVENT_STATUS:
             newState.guests[action.userId].status = action.status;
+            return newState;
+        case UPDATE_TENTATIVE_GUEST_PERMISSION:
+            newState[action.permission] = !newState[action.permission]
             return newState;
         case ADD_GUEST:
             if (!newState.guests || Object.values(newState.guests).length === 0) {
