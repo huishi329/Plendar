@@ -2,11 +2,11 @@ import styles from './EditEventForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
-import { updateEvent, updateEventGuests, updateEventStatus } from '../../store/events';
+import { updateEvent } from '../../store/events';
 import { setCurrentEvent } from '../../store/modals';
 import { getCalendars, toggleCalendar } from '../../store/calendars';
 import AddGuests from './AddGuests/AddGuests';
-import { clearEvent, getEvent } from '../../store/event';
+import { clearEvent, getEvent, updateEventStatusOnSave, updateEventGuests } from '../../store/event';
 import GuestPermission from './GuestPermissions/GuestPermissions';
 
 export default function EditEventForm() {
@@ -62,9 +62,10 @@ export default function EditEventForm() {
         })).then((response) => {
             if (event.guests) {
                 dispatch(updateEventGuests(event.id, Object.keys(event.guests)));
-                if (event.guests[user.id]) dispatch(updateEventStatus(event.id, user.id, event.guests[user.id].status))
+                if (event.guests[user.id]) dispatch(updateEventStatusOnSave(event.id, event.guests[user.id].status))
             }
             dispatch(setCurrentEvent(null));
+            dispatch(clearEvent());
             if (!calendars[response.calendar_id].is_displayed) dispatch(toggleCalendar(response.calendar_id));
             navigate('/');
         }).catch(e => {
