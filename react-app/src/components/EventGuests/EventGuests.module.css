@@ -7,6 +7,12 @@
     margin-right: 0.5rem;
 }
 
+
+.hiddenGuestList {
+    white-space: pre-wrap;
+}
+
+
 .statusSummary {
     font-size: 12px;
     color: #5F6368;
