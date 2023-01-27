@@ -39,6 +39,7 @@ export default function SignInForm() {
                     className="field"
                     type="text"
                     value={email}
+                    autoComplete='off'
                     onChange={(e) => setEmail(e.target.value)}
                     required
                 />
@@ -49,6 +50,7 @@ export default function SignInForm() {
                     className="field"
                     type="password"
                     value={password}
+                    autoComplete='off'
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
@@ -65,7 +67,11 @@ export default function SignInForm() {
             <button type="button" className={styles.demoButton} onClick={() => {
                 setEmail("demo@aa.io");
                 setPassword("password");
-            }}>Log in as demo user</button>
+            }}>Log in as demo</button>
+            <button type="button" className={styles.demoButton} onClick={() => {
+                setEmail("marnie@aa.io");
+                setPassword("password");
+            }}>Log in as marnie</button>
         </form>
     );
 }
