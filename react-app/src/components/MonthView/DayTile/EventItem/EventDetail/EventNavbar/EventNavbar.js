@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { getEvent } from "../../../../../../store/event";
-import eventsReducer, { deleteEvent } from "../../../../../../store/events";
+import { deleteEvent } from "../../../../../../store/events";
 import { setCurrentEvent } from "../../../../../../store/modals";
 import styles from './EventNavbar.module.css'
 
