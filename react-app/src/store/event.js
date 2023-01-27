@@ -14,6 +14,13 @@ export const updateTentativeEventStatus = (userId, status) => {
     return { type: UPDATE_TENTATIVE_EVENT_STATUS, userId, status }
 }
 
+export const updateEventStatusOnSave = (eventId, status) => async () => {
+    await csrfFetch(`/api/events_guests/${eventId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ status })
+    });
+};
+
 const ADD_GUEST = 'event/addGuest';
 
 export const addGuest = (email, user) => async dispatch => {
@@ -27,6 +34,13 @@ const REMOVE_GUEST = 'event/removeGuest';
 
 export const removeGuest = (guestId) => {
     return { type: REMOVE_GUEST, guestId };
+};
+
+export const updateEventGuests = (eventId, guests) => async () => {
+    await csrfFetch(`/api/events/${eventId}/guests`, {
+        method: 'POST',
+        body: JSON.stringify({ guests })
+    })
 };
 
 const CLEAR_EVENT = 'event/clearEvent';
