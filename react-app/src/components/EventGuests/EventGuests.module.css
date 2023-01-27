@@ -9,7 +9,11 @@
 
 
 .hiddenGuestList {
+    display: flex;
+    align-items: center;
     white-space: pre-wrap;
+    max-width: 20rem;
+    margin-bottom: 0.5rem;
 }
 
 
