@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { getEvent } from "../../../../../../store/event";
-import { deleteEvent } from "../../../../../../store/events";
+import eventsReducer, { deleteEvent } from "../../../../../../store/events";
 import { setCurrentEvent } from "../../../../../../store/modals";
 import styles from './EventNavbar.module.css'
 
@@ -12,7 +12,7 @@ export default function EventNavbar({ event }) {
 
     return (
         <div className={styles.wrapper}>
-            {(user.id === event.organiser.id || event.guest_modify_event) && <div>
+            {(user.id === event.organiser.id || (event.guests && user.id in event.guests)) && <div>
                 <button className={styles.button}
                     onClick={(e) => {
                         e.stopPropagation();
