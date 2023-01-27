@@ -18,6 +18,7 @@ export default function EditEventForm() {
     const event = useSelector(state => state.event);
     const calendars = useSelector(state => state.calendars);
     const calendarsOwned = calendars ? Object.values(calendars).filter(calendar => calendar.owner_id === user.id) : null;
+    const canModifyEvent = event?.organiser.id === user.id || event?.guest_modify_event;
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     if (event) {
@@ -119,6 +120,7 @@ export default function EditEventForm() {
                             autoComplete='off'
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
+                            disabled={!canModifyEvent}
                         />
                     </div>
 
@@ -134,6 +136,7 @@ export default function EditEventForm() {
                                     type="date"
                                     value={startDate}
                                     onChange={(e) => setStartDate(e.target.value)}
+                                    disabled={!canModifyEvent}
                                 />
 
                                 {expandTimeOptions &&
@@ -142,11 +145,13 @@ export default function EditEventForm() {
                                             type="time"
                                             value={startTime}
                                             onChange={(e) => setStartTime(e.target.value)}
+                                            disabled={!canModifyEvent}
                                         />
                                         <span>to</span>
                                         <input
                                             type="time"
                                             value={endTime}
+                                            disabled={!canModifyEvent}
                                             onChange={(e) => {
                                                 setEndTime(e.target.value)
                                                 // allow event runs across midnight
@@ -166,6 +171,7 @@ export default function EditEventForm() {
                                         value={endDate}
                                         min={startDate}
                                         onChange={(e) => setEndDate(e.target.value)}
+                                        disabled={!canModifyEvent}
                                     />
                                 </div>
                             </div>
@@ -179,12 +185,14 @@ export default function EditEventForm() {
                                 checked={!expandTimeOptions}
                                 name='allDay'
                                 onChange={() => setExpandTimeOptions(!expandTimeOptions)}
+                                disabled={!canModifyEvent}
                             ></input>
                             <label htmlFor='allDay'>All day</label>
                         </div>
                         <div className={styles.recurrence}>
                             <select defaultValue={recurrence}
-                                onChange={(e) => setRecurrence(e.target.value)}>
+                                onChange={(e) => setRecurrence(e.target.value)}
+                                disabled={!canModifyEvent}>
                                 <option value={0}>Doesn't repeat</option>
                                 <option value={1}>Every day</option>
                                 <option value={7}>Weekly on {event.start_time.toLocaleDateString('en-US', { weekday: 'long', timeZone: timezone })}</option>
@@ -204,15 +212,17 @@ export default function EditEventForm() {
                                 autoComplete='off'
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}
+                                disabled={!canModifyEvent}
                             />
                         </div>
                         <div className={styles.calendars}>
                             <i className="fa-regular fa-calendar"></i>
-                            <select defaultValue={calendarId} onChange={(e) => setCalendarId(e.target.value)}>
-                                {calendarsOwned?.map(calendar =>
-                                    (<option value={calendar.id} key={calendar.id} >{calendar.name}</option>))
-                                }
-                            </select>
+                            {event.organiser.id === user.id ?
+                                <select defaultValue={calendarId} onChange={(e) => setCalendarId(e.target.value)}>
+                                    {calendarsOwned?.map(calendar =>
+                                        (<option value={calendar.id} key={calendar.id} >{calendar.name}</option>))}
+                                </select> :
+                                <div>{event.organiser.email}</div>}
                         </div>
                         <div className={styles.description}>
                             <i className="fa-solid fa-bars"></i>
