@@ -1,9 +1,11 @@
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import styles from './EventGuests.module.css';
 import { SingleGuest } from './SingleGuest/SingleGuest';
 
 export function EventGuests({ event }) {
-    const user = useSelector(state => state.session.user)
+    const user = useSelector(state => state.session.user);
+    const location = useLocation();
     const statusSummary = Object.values(event.guests).reduce((summary, guest) => {
         if (guest.status in summary) summary[guest.status] += 1
         else summary[guest.status] = 1
@@ -17,7 +19,7 @@ export function EventGuests({ event }) {
                 <div className={styles.summary}>
                     {!event.guest_see_guest_list && event.organiser.id !== user.id ?
                         <div className={styles.hiddenGuestList}>
-                            <i className="fa-solid fa-user-group"></i>
+                            {location.pathname.match(/^.*eventedit.*$/) && <i className="fa-solid fa-user-group"></i>}
                             <div>The full guest list has been hidden at the organiser's request.</div>
                         </div>
                         :
