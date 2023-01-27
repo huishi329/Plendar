@@ -18,6 +18,15 @@ def get_event_by_id(event_id):
         return {'errors': ['Unauthorized']}, 401
 
 
+@bp.route("/invited",  methods=["GET"])
+@login_required
+def get_events_invited():
+    user = User.query.get(current_user.id)
+    return [event_guest.event_to_dict(user.id)
+            for event_guest in user.events_invited
+            if event_guest.event.organiser_id != current_user.id]
+
+
 @bp.route("", methods=["POST"])
 @login_required
 def post_event():
