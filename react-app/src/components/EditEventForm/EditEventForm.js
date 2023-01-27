@@ -2,11 +2,12 @@ import styles from './EditEventForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
-import { updateEvent, updateEventGuests, updateEventStatus } from '../../store/events';
+import { updateEvent } from '../../store/events';
 import { setCurrentEvent } from '../../store/modals';
 import { getCalendars, toggleCalendar } from '../../store/calendars';
 import AddGuests from './AddGuests/AddGuests';
-import { clearEvent, getEvent } from '../../store/event';
+import { clearEvent, getEvent, updateEventStatusOnSave, updateEventGuests, updateGuestPermissions } from '../../store/event';
+import GuestPermission from './GuestPermissions/GuestPermissions';
 
 export default function EditEventForm() {
     const navigate = useNavigate();
@@ -45,7 +46,6 @@ export default function EditEventForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
-        console.log(event.guests);
         const start_time = expandTimeOptions ? `${startDate} ${startTime}:00` : `${startDate} 00:00:00`;
         const end_time = expandTimeOptions ? `${endDate} ${endTime}:00` : `${endDate} 23:59:59`;
         const end_date = recurrence ? '9999-12-31 23:59:59' : end_time;
@@ -62,11 +62,17 @@ export default function EditEventForm() {
         })).then((response) => {
             if (event.guests) {
                 dispatch(updateEventGuests(event.id, Object.keys(event.guests)));
-                if (event.guests[user.id]) dispatch(updateEventStatus(event.id, user.id, event.guests[user.id].status))
+                if (event.guests[user.id]) dispatch(updateEventStatusOnSave(event.id, event.guests[user.id].status))
             }
-            dispatch(setCurrentEvent(null));
+            dispatch(updateGuestPermissions(event.id, {
+                "guest_modify_event": event.guest_modify_event,
+                "guest_invite_others": event.guest_invite_others,
+                "guest_see_guest_list": event.guest_see_guest_list
+            }));
             if (!calendars[response.calendar_id].is_displayed) dispatch(toggleCalendar(response.calendar_id));
+            dispatch(setCurrentEvent(null));
             navigate('/');
+            dispatch(clearEvent());
         }).catch(e => {
             const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
             setErrors(errors);
@@ -145,7 +151,6 @@ export default function EditEventForm() {
                                                 setEndTime(e.target.value)
                                                 // allow event runs across midnight
                                                 if (startTime > e.target.value) {
-                                                    console.log(startTime, e.target.value);
                                                     const tomorrow = new Date(event.start_time);
                                                     tomorrow.setDate(tomorrow.getDate() + 1);
                                                     const endDateStr = tomorrow.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
@@ -229,7 +234,8 @@ export default function EditEventForm() {
                         className={styles.submitButton}
                         onClick={handleSubmit}
                     >Save</button>
-                    <AddGuests event={event} user={user} />
+                    {(event.guest_invite_others || event.organiser.id === user.id) && <AddGuests event={event} user={user} />}
+                    {event.organiser.id === user.id && <GuestPermission event={event} />}
                 </div>
             </div>
         </form >

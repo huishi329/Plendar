@@ -8,6 +8,7 @@ import EventNavbar from './EventNavbar/EventNavbar';
 
 export default function EventDetail({ event, x, y }) {
     const dispatch = useDispatch();
+    const user = useSelector(state => state.session.user);
     const calendars = useSelector(state => state.calendars);
 
     useEffect(() => {
@@ -87,7 +88,7 @@ export default function EventDetail({ event, x, y }) {
                 </div>}
 
             </div>
-            {event.guests && <EventInvitation event={event} />}
+            {event.guests && user.id in event.guests && <EventInvitation event={event} />}
         </div >
     )
 }

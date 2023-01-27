@@ -1,3 +1,7 @@
+.wrapper {
+    margin-bottom: 1rem;
+}
+
 .wrapper select {
     background-color: #f7f7f7;
     width: fit-content;
