@@ -33,15 +33,15 @@ export default function EditEventForm() {
     const endTimeStr = event?.end_time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: timezone })
 
     const [expandTimeOptions, setExpandTimeOptions] = useState(startTimeStr !== "00:00" && endTimeStr !== "23:59");
-    const [title, setTitle] = useState(event?.title);
-    const [startDate, setStartDate] = useState(startDateStr);
-    const [endDate, setEndDate] = useState(endDateStr);
+    const [title, setTitle] = useState(event?.title || "");
+    const [startDate, setStartDate] = useState(startDateStr || "");
+    const [endDate, setEndDate] = useState(endDateStr || "");
     const [startTime, setStartTime] = useState(startTimeStr === "00:00" && endTimeStr === "23:59" ? "10:00" : startTimeStr);
     const [endTime, setEndTime] = useState(startTimeStr === "00:00" && endTimeStr === "23:59" ? "10:30" : endTimeStr);
     const [recurrence, setRecurrence] = useState(event?.recurrence || 0);
     const [address, setAddress] = useState(event?.address || "");
     const [description, setDescription] = useState(event?.description || "");
-    const [calendarId, setCalendarId] = useState(event?.calendar_id);
+    const [calendarId, setCalendarId] = useState(event?.calendar_id || "");
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = (e) => {
@@ -64,25 +64,33 @@ export default function EditEventForm() {
             })).then((response) => {
                 if (event.guests) {
                     dispatch(updateEventGuests(event.id, Object.keys(event.guests)));
+                    // Guard the case that the organiser is not in the guest list
+                    if (event.guests[user.id]) dispatch(updateEventStatusOnSave(event.id, event.guests[user.id].status))
                 }
-                if (event.organiser.id === user.id) dispatch(updateGuestPermissions(event.id, {
-                    "guest_modify_event": event.guest_modify_event,
-                    "guest_invite_others": event.guest_invite_others,
-                    "guest_see_guest_list": event.guest_see_guest_list
-                }));
-                if (!calendars[response.calendar_id].is_displayed) dispatch(toggleCalendar(response.calendar_id));
+                if (event.organiser.id === user.id) {
+                    dispatch(updateGuestPermissions(event.id, {
+                        "guest_modify_event": event.guest_modify_event,
+                        "guest_invite_others": event.guest_invite_others,
+                        "guest_see_guest_list": event.guest_see_guest_list
+                    }));
+                    // if event is changed to a calendar that is not displayed, make it display
+                    if (!calendars[response.calendar_id].is_displayed) dispatch(toggleCalendar(response.calendar_id));
+                }
+                dispatch(setCurrentEvent(null));
+                navigate('/');
+                dispatch(clearEvent());
             }).catch(e => {
+                console.log(e);
                 const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
                 setErrors(errors);
             });
         } else if (event.guest_invite_others) {
             dispatch(updateEventGuests(event.id, Object.keys(event.guests)));
+            dispatch(updateEventStatusOnSave(event.id, event.guests[user.id].status));
+            dispatch(setCurrentEvent(null));
+            navigate('/');
+            dispatch(clearEvent());
         }
-        if (event.guests[user.id]) dispatch(updateEventStatusOnSave(event.id, event.guests[user.id].status))
-
-        dispatch(setCurrentEvent(null));
-        navigate('/');
-        dispatch(clearEvent());
     };
 
     // Make page refreshable
@@ -198,6 +206,7 @@ export default function EditEventForm() {
                             <select defaultValue={recurrence}
                                 onChange={(e) => setRecurrence(e.target.value)}
                                 disabled={!canModifyEvent}>
+                                data-tooltip={!canModifyEvent && `You cannot modify this event at the organiser's request`}
                                 <option value={0}>Doesn't repeat</option>
                                 <option value={1}>Every day</option>
                                 <option value={7}>Weekly on {event.start_time.toLocaleDateString('en-US', { weekday: 'long', timeZone: timezone })}</option>
