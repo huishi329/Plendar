@@ -47,37 +47,42 @@ export default function EditEventForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
-        const start_time = expandTimeOptions ? `${startDate} ${startTime}:00` : `${startDate} 00:00:00`;
-        const end_time = expandTimeOptions ? `${endDate} ${endTime}:00` : `${endDate} 23:59:59`;
-        const end_date = recurrence ? '9999-12-31 23:59:59' : end_time;
-        dispatch(updateEvent(event.id, {
-            title: title === '' ? '(No title)' : title,
-            organiser_id: event.organiser.id,
-            start_time,
-            end_time,
-            address,
-            description,
-            calendar_id: calendarId,
-            recurrence,
-            end_date
-        })).then((response) => {
-            if (event.guests) {
-                dispatch(updateEventGuests(event.id, Object.keys(event.guests)));
-                if (event.guests[user.id]) dispatch(updateEventStatusOnSave(event.id, event.guests[user.id].status))
-            }
-            dispatch(updateGuestPermissions(event.id, {
-                "guest_modify_event": event.guest_modify_event,
-                "guest_invite_others": event.guest_invite_others,
-                "guest_see_guest_list": event.guest_see_guest_list
-            }));
-            if (!calendars[response.calendar_id].is_displayed) dispatch(toggleCalendar(response.calendar_id));
-            dispatch(setCurrentEvent(null));
-            navigate('/');
-            dispatch(clearEvent());
-        }).catch(e => {
-            const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
-            setErrors(errors);
-        });
+        if (event.organiser.id === user.id || event.guest_modify_event) {
+            const start_time = expandTimeOptions ? `${startDate} ${startTime}:00` : `${startDate} 00:00:00`;
+            const end_time = expandTimeOptions ? `${endDate} ${endTime}:00` : `${endDate} 23:59:59`;
+            const end_date = recurrence ? '9999-12-31 23:59:59' : end_time;
+            dispatch(updateEvent(event.id, {
+                title: title === '' ? '(No title)' : title,
+                organiser_id: event.organiser.id,
+                start_time,
+                end_time,
+                address,
+                description,
+                calendar_id: calendarId,
+                recurrence,
+                end_date
+            })).then((response) => {
+                if (event.guests) {
+                    dispatch(updateEventGuests(event.id, Object.keys(event.guests)));
+                }
+                if (event.organiser.id === user.id) dispatch(updateGuestPermissions(event.id, {
+                    "guest_modify_event": event.guest_modify_event,
+                    "guest_invite_others": event.guest_invite_others,
+                    "guest_see_guest_list": event.guest_see_guest_list
+                }));
+                if (!calendars[response.calendar_id].is_displayed) dispatch(toggleCalendar(response.calendar_id));
+            }).catch(e => {
+                const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
+                setErrors(errors);
+            });
+        } else if (event.guest_invite_others) {
+            dispatch(updateEventGuests(event.id, Object.keys(event.guests)));
+        }
+        if (event.guests[user.id]) dispatch(updateEventStatusOnSave(event.id, event.guests[user.id].status))
+
+        dispatch(setCurrentEvent(null));
+        navigate('/');
+        dispatch(clearEvent());
     };
 
     // Make page refreshable
@@ -234,6 +239,7 @@ export default function EditEventForm() {
                                 autoComplete='off'
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
+                                disabled={!canModifyEvent}
                             />
                         </div>
                     </div>
