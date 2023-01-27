@@ -10,14 +10,21 @@ export function EventGuests({ event }) {
 
     return (
         <div className={styles.wrapper}>
-            <div className={styles.guestList}>
-                <div>
-                    {Object.values(event.guests).length} guests
-                    <div className={styles.statusSummary}>
-                        {Object.entries(statusSummary).map(([status, num]) => {
-                            return num + ' ' + status
-                        }).join(', ')}
-                    </div>
+
+            <div>
+                <div className={styles.summary}>
+                    {!event.guest_see_guest_list &&
+                        <div className={styles.hiddenGuestList}>The full guest list has been hidden at the organiser's request.</div>}
+                    {event.guest_see_guest_list &&
+                        <div>
+                            <div>{Object.values(event.guests).length} guests</div>
+
+                            <div className={styles.statusSummary}>
+                                {Object.entries(statusSummary).map(([status, num]) => {
+                                    return num + ' ' + status
+                                }).join(', ')}
+                            </div>
+                        </div>}
                 </div>
                 <div>
                     {event.organiser.id in event.guests && <SingleGuest guest={event.guests[event.organiser.id]} event={event} />}
