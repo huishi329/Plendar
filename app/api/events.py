@@ -12,7 +12,9 @@ bp = Blueprint('events', __name__, url_prefix="/events")
 @login_required
 def get_event_by_id(event_id):
     event = Event.query.get(event_id)
-    if event.guest_see_guest_list or current_user.id == event.organiser_id:
+    validate_guest_status = filter(
+        lambda guest: guest.guest_id == current_user.id, event.guests)
+    if validate_guest_status or current_user.id in event.guests or current_user.id == event.organiser_id:
         return event.to_dict(current_user.id), 200
     else:
         return {'errors': ['Unauthorized']}, 401
