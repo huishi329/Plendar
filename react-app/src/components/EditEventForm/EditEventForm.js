@@ -6,7 +6,7 @@ import { updateEvent } from '../../store/events';
 import { setCurrentEvent } from '../../store/modals';
 import { getCalendars, toggleCalendar } from '../../store/calendars';
 import AddGuests from './AddGuests/AddGuests';
-import { clearEvent, getEvent, updateEventStatusOnSave, updateEventGuests } from '../../store/event';
+import { clearEvent, getEvent, updateEventStatusOnSave, updateEventGuests, updateGuestPermissions } from '../../store/event';
 import GuestPermission from './GuestPermissions/GuestPermissions';
 
 export default function EditEventForm() {
@@ -64,10 +64,15 @@ export default function EditEventForm() {
                 dispatch(updateEventGuests(event.id, Object.keys(event.guests)));
                 if (event.guests[user.id]) dispatch(updateEventStatusOnSave(event.id, event.guests[user.id].status))
             }
-            dispatch(setCurrentEvent(null));
-            dispatch(clearEvent());
+            dispatch(updateGuestPermissions(event.id, {
+                "guest_modify_event": event.guest_modify_event,
+                "guest_invite_others": event.guest_invite_others,
+                "guest_see_guest_list": event.guest_see_guest_list
+            }));
             if (!calendars[response.calendar_id].is_displayed) dispatch(toggleCalendar(response.calendar_id));
+            dispatch(setCurrentEvent(null));
             navigate('/');
+            dispatch(clearEvent());
         }).catch(e => {
             const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage}`);
             setErrors(errors);
