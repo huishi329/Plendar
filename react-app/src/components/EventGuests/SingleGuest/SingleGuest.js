@@ -13,7 +13,8 @@ export function SingleGuest({ guest, event }) {
 
     return (
 
-        <div key={guest.id} className={`${styles.wrapper} ${location.pathname.match(/^.*eventedit.*$/) && styles.background}`}>
+        <div key={guest.id} className={`${styles.wrapper} ${location.pathname.match(/^.*eventedit.*$/) &&
+            event.organiser.id === guest.id && styles.background}`}>
             <div className={styles.left}>
                 <div className={styles.image}>
                     <img src={guest.profile_picture_url} alt={guest.name}></img>
