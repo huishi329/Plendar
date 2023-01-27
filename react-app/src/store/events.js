@@ -64,17 +64,6 @@ export const updateEventStatus = (eventId, guestId, status) => async dispatch =>
     dispatch({ type: UPDATE_EVENT_STATUS, eventId, guestId, status });
 };
 
-const UPDATE_EVENT_GUESTS = 'events/updateEventGuests';
-
-export const updateEventGuests = (eventId, guests) => async dispatch => {
-    await csrfFetch(`/api/events/${eventId}/guests`, {
-        method: 'POST',
-        body: JSON.stringify({ guests })
-    })
-
-    dispatch({ type: UPDATE_EVENT_GUESTS, eventId, guests });
-};
-
 const CLEAR_EVENTS = 'events/clearEvents';
 
 export const clearEvents = () => {
@@ -104,12 +93,7 @@ export default function eventsReducer(state = {}, action) {
             delete newState[action.eventId];
             return newState;
         case UPDATE_EVENT_STATUS:
-            // when navigate from EditEvent form to MonthView, events is empty obj
-            if (Object.keys(newState).length > 0)
-                newState[action.eventId].guests[action.guestId].status = action.status;
-            return newState;
-        case UPDATE_EVENT_GUESTS:
-            newState[action.eventId].guests = action.guests;
+            newState[action.eventId].guests[action.guestId].status = action.status;
             return newState;
         case CLEAR_EVENTS:
             return {}
