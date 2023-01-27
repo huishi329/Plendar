@@ -64,9 +64,8 @@ def update_event(event_id):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         data = form.data
-        calendar = Calendar.query.get(data['calendar_id'])
-        if calendar.owner.id == current_user.id:
-            event = Event.query.get(event_id)
+        event = Event.query.get(event_id)
+        if event.organiser_id == current_user.id or event.guest_modify_event:
             event.calendar_id = data['calendar_id'],
             event.organiser_id = data['organiser_id'],
             event.title = data['title'],
@@ -88,7 +87,6 @@ def update_event(event_id):
 def update_guest_permission(event_id):
     event = Event.query.get(event_id)
     data = request.json
-    print(data, '-'*50)
     if event.organiser_id == current_user.id:
         event.guest_modify_event = data['guest_modify_event']
         event.guest_invite_others = data['guest_invite_others']
