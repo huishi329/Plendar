@@ -115,7 +115,7 @@ export default function EditEventForm() {
     if (!event || !calendars) return null;
 
     return (
-        <form className={styles.form} onClick={(e) => e.stopPropagation()}>
+        <form className={styles.form}>
             <div className={styles.wrapper}>
                 <div className={styles.leftContainer}>
                     <div className={styles.title}>
