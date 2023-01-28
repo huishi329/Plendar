@@ -96,7 +96,7 @@ export default function EditEventForm() {
     // Make page refreshable
     useEffect(() => {
         setExpandTimeOptions(startTimeStr !== "00:00" && endTimeStr !== "23:59");
-        setTitle(event?.title);
+        setTitle(event?.title || "");
         setStartDate(startDateStr);
         setEndDate(endDateStr);
         setStartTime(startTimeStr === "00:00" && endTimeStr === "23:59" ? "10:00" : startTimeStr);
@@ -104,7 +104,7 @@ export default function EditEventForm() {
         setRecurrence(event?.recurrence || 0);
         setAddress(event?.address || "");
         setDescription(event?.description || "");
-        setCalendarId(event?.calendar_id)
+        setCalendarId(event?.calendar_id || "");
     }, [event, endDateStr, endTimeStr, startDateStr, startTimeStr])
 
     useEffect(() => {
