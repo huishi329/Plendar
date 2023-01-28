@@ -62,6 +62,7 @@ export default function AddGuests({ event, user }) {
                 }}
                 onKeyDown={handleAddGuest}
                 onFocus={() => setShowDemoGuestDropdown(true)}
+                onClick={(e) => e.stopPropagation()}
             />
             {showDemoGuestDropdown && <DemoGuestDropdown user={user} setShowDemoGuestDropdown={setShowDemoGuestDropdown} />}
             {event.guests &&
