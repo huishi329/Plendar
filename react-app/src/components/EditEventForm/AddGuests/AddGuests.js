@@ -63,7 +63,7 @@ export default function AddGuests({ event, user }) {
                 onKeyDown={handleAddGuest}
                 onFocus={() => setShowDemoGuestDropdown(true)}
             />
-            {showDemoGuestDropdown && <DemoGuestDropdown user={user} />}
+            {showDemoGuestDropdown && <DemoGuestDropdown user={user} setShowDemoGuestDropdown={setShowDemoGuestDropdown} />}
             {event.guests &&
                 Object.values(event.guests).length > 0 && <EventGuests event={event} />}
         </div>
