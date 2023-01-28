@@ -27,7 +27,7 @@ class EventGuest(db.Model):
         guest["status"] = self.status
         return guest
 
-    def event_to_dict(self):
-        event = self.event.to_dict()
+    def event_to_dict(self, user_id):
+        event = self.event.to_dict(user_id)
         event["status"] = self.status
         return event

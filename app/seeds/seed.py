@@ -6,11 +6,15 @@ from datetime import time, datetime
 
 def seed_all():
     demo = User(
-        name='Demo', email='demo@aa.io', password='password')
+        name='Demo', email='demo@plendar.io', password='password')
+    huishi = User(
+        name='Huishi', email='huishi@plendar.io', password='password')
+    matt = User(
+        name='Matt', email='matt@plendar.io', password='password')
     marnie = User(
-        name='marnie', email='marnie@aa.io', password='password')
+        name='Marnie', email='marnie@plendar.io', password='password')
     bobbie = User(
-        name='bobbie', email='bobbie@aa.io', password='password')
+        name='Bobbie', email='bobbie@plendar.io', password='password')
 
     demo_calendar = Calendar(owner=demo, name=demo.name,
                              timezone='Canada/Pacific', is_default=True)
@@ -37,7 +41,8 @@ def seed_all():
         UserCalendar(calendar=demo_calendar, user=demo),
         UserCalendar(calendar=marnie_calendar, user=marnie),
         UserCalendar(calendar=bobbie_calendar, user=bobbie),
-
+        huishi,
+        matt,
         Event(
             calendar=demo_work_calendar,
             title='Stand Up',

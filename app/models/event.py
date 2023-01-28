@@ -54,7 +54,11 @@ class Event(db.Model):
             "guest_invite_others": self.guest_invite_others,
             "guest_see_guest_list": self.guest_see_guest_list
         }
-        if (self.guest_see_guest_list or user_id == self.organiser_id) and len(self.guests) > 0:
+        if (user_id == self.organiser_id or self.guest_see_guest_list) and len(self.guests) > 0:
             event["guests"] = {guest.guest_id: guest.guest_to_dict()
                                for guest in self.guests}
+        if user_id != self.organiser_id and not self.guest_see_guest_list:
+            event["guests"] = {guest.guest_id: guest.guest_to_dict()
+                               for guest in self.guests
+                               if guest.guest_id == user_id}
         return event

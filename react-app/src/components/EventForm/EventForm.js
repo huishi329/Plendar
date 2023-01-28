@@ -109,7 +109,10 @@ export default function EventForm({ date, x, y }) {
                                     value={startTime}
                                     onChange={(e) => {
                                         setStartTime(e.target.value);
-                                        if (e.target.value > endTime && startDate === endDate) setEndDate(tomorrowStr);
+                                        const new_start_time = new Date(`${startDate} ${e.target.value}:00`);
+                                        const new_end_time = new Date(new_start_time.getTime() + 3600000);
+                                        setEndTime(new_end_time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: timezone }));
+                                        setEndDate(new_end_time.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-"));
                                     }}
                                 />
                                 <span>-</span>

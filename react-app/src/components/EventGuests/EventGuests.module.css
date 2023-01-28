@@ -7,6 +7,16 @@
     margin-right: 0.5rem;
 }
 
+
+.hiddenGuestList {
+    display: flex;
+    align-items: center;
+    white-space: pre-wrap;
+    max-width: 20rem;
+    margin-bottom: 0.5rem;
+}
+
+
 .statusSummary {
     font-size: 12px;
     color: #5F6368;

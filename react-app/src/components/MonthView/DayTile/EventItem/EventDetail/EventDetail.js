@@ -82,11 +82,12 @@ export default function EventDetail({ event, x, y }) {
                         <i className="fa-solid fa-bars"></i>
                         <div className={styles.descriptionText}>{event.description}</div>
                     </div>}
-                {calendars && <div className={styles.calendar}>
+                <div className={styles.calendar}>
                     <i className="fa-regular fa-calendar"></i>
-                    {calendars[event.calendar_id].name}
-                </div>}
-
+                    {calendars && event.organiser.id === user.id ?
+                        calendars[event.calendar_id].name :
+                        event.organiser.email}
+                </div>
             </div>
             {event.guests && user.id in event.guests && <EventInvitation event={event} />}
         </div >

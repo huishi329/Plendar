@@ -24,7 +24,7 @@ export default function GuestPermission({ event }) {
                     name='inviteOthers'
                     checked={event.guest_invite_others}
                     onChange={() => dispatch(updateTentativeGuestPermission('guest_invite_others'))}
-
+                    disabled={event.guest_modify_event}
                 ></input>
                 <label htmlFor='inviteOthers'>Invite others</label>
             </div>
@@ -34,6 +34,7 @@ export default function GuestPermission({ event }) {
                     name='seeGuestList'
                     checked={event.guest_see_guest_list}
                     onChange={() => dispatch(updateTentativeGuestPermission('guest_see_guest_list'))}
+                    disabled={event.guest_modify_event}
                 ></input>
                 <label htmlFor='seeGuestList'>See guest list</label>
             </div>

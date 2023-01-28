@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import styles from './MonthView.module.css'
 import DayTile from './DayTile/DayTile'
 import DayOfWeek from './DayOfWeek/DayOfWeek';
-import { getEvents } from "../../store/events";
+import { getEvents, getEventsInvited } from "../../store/events";
 
 export default function MonthView() {
     const dispatch = useDispatch();
@@ -21,7 +21,10 @@ export default function MonthView() {
     useEffect(() => {
         if (calendars) {
             Object.values(calendars).forEach((calendar) => {
-                if (calendar.is_displayed) dispatch(getEvents(calendar.id, year, month))
+                if (calendar.is_displayed) {
+                    dispatch(getEvents(calendar.id, year, month));
+                    if (calendar.is_default) dispatch(getEventsInvited());
+                }
             })
         }
     }, [dispatch, month, year, calendars])

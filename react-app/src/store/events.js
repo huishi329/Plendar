@@ -12,6 +12,14 @@ export const getEvents = (calendar_id, year, month) => async dispatch => {
     dispatch({ type: GET_MONTH_EVENTS, events });
 };
 
+const GET_EVENTS_INVITED = 'events/getEventsInvited';
+
+export const getEventsInvited = () => async dispatch => {
+    const response = await csrfFetch('/api/events/invited');
+    const eventsInvited = await response.json()
+    dispatch({ type: GET_EVENTS_INVITED, eventsInvited })
+}
+
 const CREATE_EVENT = 'events/createEvent';
 
 export const createEvent = requestBody => async dispatch => {
@@ -75,6 +83,11 @@ export default function eventsReducer(state = {}, action) {
     switch (action.type) {
         case GET_MONTH_EVENTS:
             return action.events.reduce((events, event) => {
+                events[event.id] = event;
+                return events;
+            }, newState);
+        case GET_EVENTS_INVITED:
+            return action.eventsInvited.reduce((events, event) => {
                 events[event.id] = event;
                 return events;
             }, newState);

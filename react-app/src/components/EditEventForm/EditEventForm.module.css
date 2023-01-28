@@ -189,6 +189,11 @@
     background-color: #f7f7f7;
 }
 
+.calendars {
+    display: flex;
+    align-items: center;
+}
+
 .calendars select {
     border: none;
     background-color: #f7f7f7;
