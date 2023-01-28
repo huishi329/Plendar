@@ -3,7 +3,12 @@ import { addGuest } from '../../../../store/event'
 import styles from './DemoGuestDropdown.module.css'
 import { demoGuests } from './demoGuests'
 
-export default function DemoGuestDropdown({ user }) {
+export default function DemoGuestDropdown({ user, setShowDemoGuestDropdown }) {
+    useEffect(() => {
+        const closeDropdown = (e) => setShowDemoGuestDropdown(false);
+        document.addEventListener('click', closeDropdown);
+        return () => document.removeEventListener('click', closeDropdown)
+    }, [setShowDemoGuestDropdown])
 
     return (
         <div className={styles.wrapper}>
