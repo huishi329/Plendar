@@ -1,11 +1,13 @@
 import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { addGuest } from '../../../../store/event'
 import styles from './DemoGuestDropdown.module.css'
 import { demoGuests } from './demoGuests'
 
 export default function DemoGuestDropdown({ user, setShowDemoGuestDropdown }) {
+    const dispatch = useDispatch();
     useEffect(() => {
-        const closeDropdown = (e) => setShowDemoGuestDropdown(false);
+        const closeDropdown = () => setShowDemoGuestDropdown(false);
         document.addEventListener('click', closeDropdown);
         return () => document.removeEventListener('click', closeDropdown)
     }, [setShowDemoGuestDropdown])
@@ -13,8 +15,8 @@ export default function DemoGuestDropdown({ user, setShowDemoGuestDropdown }) {
     return (
         <div className={styles.wrapper}>
             {demoGuests.map(guest => (
-                < div className={styles.guest} key={guest.name}
-                    onClick={() => addGuest(guest.email, user)}>
+                <div className={styles.guest} key={guest.name}
+                    onClick={() => dispatch(addGuest(guest.email, user))}>
                     <div className={styles.image}>
                         <img src={guest.profile_picture_url} alt={guest.name}></img>
                     </div>
