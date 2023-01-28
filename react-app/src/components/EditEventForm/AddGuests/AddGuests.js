@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { addGuest, updateTentativeEventStatus } from '../../../store/event';
 import { EventGuests } from '../../EventGuests/EventGuests';
 import styles from './AddGuests.module.css'
+import DemoGuestDropdown from './DemoGuestDropdown/DemoGuestDropdown';
 
 export default function AddGuests({ event, user }) {
     const dispatch = useDispatch();
@@ -11,6 +12,7 @@ export default function AddGuests({ event, user }) {
         user.id in event.guests ? event.guests[user.id].status : false);
     const [guestEmail, setGuestEmail] = useState('');
     const [error, setError] = useState('');
+    const [showDemoGuestDropdown, setShowDemoGuestDropdown] = useState(false);
 
     const handleAddGuest = (e) => {
         e.stopPropagation();
@@ -59,7 +61,9 @@ export default function AddGuests({ event, user }) {
                     setGuestEmail(e.target.value);
                 }}
                 onKeyDown={handleAddGuest}
+                onFocus={() => setShowDemoGuestDropdown(true)}
             />
+            {showDemoGuestDropdown && <DemoGuestDropdown user={user} />}
             {event.guests &&
                 Object.values(event.guests).length > 0 && <EventGuests event={event} />}
         </div>
