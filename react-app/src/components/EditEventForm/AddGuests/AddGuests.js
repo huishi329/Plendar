@@ -57,6 +57,8 @@ export default function AddGuests({ event, user }) {
                 autoComplete='off'
                 value={guestEmail}
                 onChange={(e) => {
+                    if (!e.target.value) setShowDemoGuestDropdown(true);
+                    else setShowDemoGuestDropdown(false);
                     setError('');
                     setGuestEmail(e.target.value);
                 }}
