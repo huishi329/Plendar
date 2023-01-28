@@ -25,7 +25,7 @@ export default function EditEventForm() {
         event.start_time = new Date(event.start_time);
         event.end_time = new Date(event.end_time);
     }
-
+    const duration = event?.end_time - event?.start_time;
     const startDateStr = event?.start_time.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
     const endDateStr = event?.end_time.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-");
 
@@ -157,7 +157,13 @@ export default function EditEventForm() {
                                         <input
                                             type="time"
                                             value={startTime}
-                                            onChange={(e) => setStartTime(e.target.value)}
+                                            onChange={(e) => {
+                                                setStartTime(e.target.value);
+                                                const new_start_time = new Date(`${startDate} ${e.target.value}:00`);
+                                                const new_end_time = new Date(new_start_time.getTime() + duration);
+                                                setEndTime(new_end_time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: timezone }));
+                                                setEndDate(new_end_time.toLocaleDateString('en-GB', { year: "numeric", month: "2-digit", day: "2-digit", timeZone: timezone }).split("/").reverse().join("-"));
+                                            }}
                                             disabled={!canModifyEvent}
                                         />
                                         <span>to</span>
@@ -166,7 +172,7 @@ export default function EditEventForm() {
                                             value={endTime}
                                             disabled={!canModifyEvent}
                                             onChange={(e) => {
-                                                setEndTime(e.target.value)
+                                                setEndTime(e.target.value);
                                                 // allow event runs across midnight
                                                 if (startTime > e.target.value) {
                                                     const tomorrow = new Date(event.start_time);
