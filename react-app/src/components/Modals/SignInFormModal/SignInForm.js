@@ -65,11 +65,11 @@ export default function SignInForm() {
             </div>
 
             <button type="button" className={styles.demoButton} onClick={() => {
-                setEmail("demo@aa.io");
+                setEmail("demo@plendar.io");
                 setPassword("password");
             }}>Log in as demo</button>
             <button type="button" className={styles.demoButton} onClick={() => {
-                setEmail("marnie@aa.io");
+                setEmail("marnie@plendar.io");
                 setPassword("password");
             }}>Log in as marnie</button>
         </form>
