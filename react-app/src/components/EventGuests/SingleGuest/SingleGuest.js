@@ -13,7 +13,7 @@ export function SingleGuest({ guest, event }) {
 
     return (
 
-        <div key={guest.id} className={`${styles.wrapper} ${location.pathname.match(/^.*eventedit.*$/) &&
+        <div className={`${styles.wrapper} ${location.pathname.match(/^.*eventedit.*$/) &&
             event.organiser.id === guest.id && styles.background}`}>
             <div className={styles.left}>
                 <div className={styles.image}>
@@ -40,6 +40,6 @@ export function SingleGuest({ guest, event }) {
 
                     <i className="fa-solid fa-xmark"></i>
                 </div>}
-        </div >
+        </div>
     )
 }
