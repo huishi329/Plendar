@@ -5,6 +5,7 @@ import styles from './MonthView.module.css'
 import DayTile from './DayTile/DayTile'
 import DayOfWeek from './DayOfWeek/DayOfWeek';
 import { getEvents, getEventsInvited } from "../../store/events";
+import { setMonth, setYear, setSideCalendarMonth, setSideCalendarYear } from "../../store/sessionData";
 
 export default function MonthView() {
     const dispatch = useDispatch();
@@ -14,8 +15,28 @@ export default function MonthView() {
     const firstDateOfMonth = new Date(year, month);
     const firstDayOfMonth = firstDateOfMonth.getDay();
     const handleWheel = (e) => {
-        // console.log(e.currentTarget);
-        // console.log(e.deltaY);
+        console.log(e.currentTarget);
+        console.log(e.deltaY);
+        if (e.deltaY > 0) {
+            if (month === 11) {
+                dispatch(setYear(year + 1));
+                dispatch(setMonth(0));
+                dispatch(setSideCalendarYear(year + 1));
+                dispatch(setSideCalendarMonth(0));
+            }
+            dispatch(setMonth(month + 1));
+            dispatch(setSideCalendarMonth(month + 1));
+
+        } else {
+            if (month === 0) {
+                dispatch(setYear(year - 1));
+                dispatch(setMonth(11));
+                dispatch(setSideCalendarYear(year - 1));
+                dispatch(setSideCalendarMonth(11));
+            }
+            dispatch(setMonth(month - 1));
+            dispatch(setSideCalendarMonth(month - 1));
+        }
     }
 
     useEffect(() => {
