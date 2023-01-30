@@ -5,7 +5,7 @@ import styles from './MonthView.module.css'
 import DayTile from './DayTile/DayTile'
 import DayOfWeek from './DayOfWeek/DayOfWeek';
 import { getEvents, getEventsInvited } from "../../store/events";
-import { setMonth, setYear, setSideCalendarMonth, setSideCalendarYear } from "../../store/sessionData";
+import { setMonth, setYear, setSideCalendarMonth, setSideCalendarYear, setSideCalendarDate } from "../../store/sessionData";
 
 export default function MonthView() {
     const dispatch = useDispatch();
@@ -14,6 +14,7 @@ export default function MonthView() {
     const month = useSelector(state => state.sessionData.month);
     const firstDateOfMonth = new Date(year, month);
     const firstDayOfMonth = firstDateOfMonth.getDay();
+
     const handleWheel = (e) => {
         const path = e.nativeEvent?.composedPath();
         if (path) {
@@ -24,28 +25,15 @@ export default function MonthView() {
                 }
             }
         }
-
-        if (e.deltaY > 0) {
-            if (month === 11) {
-                dispatch(setYear(year + 1));
-                dispatch(setMonth(0));
-                dispatch(setSideCalendarYear(year + 1));
-                dispatch(setSideCalendarMonth(0));
-            } else {
-                dispatch(setMonth(month + 1));
-                dispatch(setSideCalendarMonth(month + 1));
-            }
-        } else {
-            if (month === 0) {
-                dispatch(setYear(year - 1));
-                dispatch(setMonth(11));
-                dispatch(setSideCalendarYear(year - 1));
-                dispatch(setSideCalendarMonth(11));
-            } else {
-                dispatch(setMonth(month - 1));
-                dispatch(setSideCalendarMonth(month - 1));
-            }
-        }
+        const date = e.deltaY > 0 ? new Date(year, month + 1) : new Date(year, month - 1);
+        date.setHours(23, 59, 59, 59);
+        const newMonth = date.getMonth();
+        const newYear = date.getFullYear();
+        dispatch(setYear(newYear));
+        dispatch(setMonth(newMonth));
+        dispatch(setSideCalendarMonth(newMonth));
+        dispatch(setSideCalendarYear(newYear));
+        dispatch(setSideCalendarDate(date));
     }
 
     useEffect(() => {
