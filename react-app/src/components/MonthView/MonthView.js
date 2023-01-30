@@ -15,27 +15,36 @@ export default function MonthView() {
     const firstDateOfMonth = new Date(year, month);
     const firstDayOfMonth = firstDateOfMonth.getDay();
     const handleWheel = (e) => {
-        console.log(e.currentTarget);
-        console.log(e.deltaY);
+        const path = e.nativeEvent?.composedPath();
+        if (path) {
+            for (const ele of path) {
+                // if DayTile or EventDetail are in the path of scroll event and they have scrollbar, then don't trigger the month change
+                if (ele?.className?.includes('DayTile') || ele?.className?.includes('EventDetail')) {
+                    if (ele.scrollHeight > ele.clientHeight) return;
+                }
+            }
+        }
+
         if (e.deltaY > 0) {
             if (month === 11) {
                 dispatch(setYear(year + 1));
                 dispatch(setMonth(0));
                 dispatch(setSideCalendarYear(year + 1));
                 dispatch(setSideCalendarMonth(0));
+            } else {
+                dispatch(setMonth(month + 1));
+                dispatch(setSideCalendarMonth(month + 1));
             }
-            dispatch(setMonth(month + 1));
-            dispatch(setSideCalendarMonth(month + 1));
-
         } else {
             if (month === 0) {
                 dispatch(setYear(year - 1));
                 dispatch(setMonth(11));
                 dispatch(setSideCalendarYear(year - 1));
                 dispatch(setSideCalendarMonth(11));
+            } else {
+                dispatch(setMonth(month - 1));
+                dispatch(setSideCalendarMonth(month - 1));
             }
-            dispatch(setMonth(month - 1));
-            dispatch(setSideCalendarMonth(month - 1));
         }
     }
 
