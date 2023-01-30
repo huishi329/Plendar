@@ -67,6 +67,7 @@ export default function AddGuests({ event, user }) {
                 onClick={(e) => e.stopPropagation()}
             />
             {showDemoGuestDropdown && <DemoGuestDropdown user={user} setShowDemoGuestDropdown={setShowDemoGuestDropdown} />}
+            <div className={styles.margin}></div>
             {event.guests &&
                 Object.values(event.guests).length > 0 && <EventGuests event={event} />}
         </div>
