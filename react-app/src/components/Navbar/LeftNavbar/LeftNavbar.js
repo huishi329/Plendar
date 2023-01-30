@@ -47,9 +47,11 @@ export function LeftNavbar() {
 
     return (
         <div className={styles.wrapper}>
-            <img src='/plendar.png' alt='plendar logo'></img>
             <div className={`${styles.largeText} ${styles.logo}`}
-                onClick={() => dispatch(setLandingModal(true))}>Plendar</div>
+                onClick={() => dispatch(setLandingModal(true))}>
+                <img src='/plendar.png' alt='plendar logo'></img>
+                Plendar
+            </div>
             <button className={styles.todayButton} onClick={backToToday}>
                 Today
             </button>
