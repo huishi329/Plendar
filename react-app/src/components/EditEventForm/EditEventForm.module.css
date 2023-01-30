@@ -29,6 +29,7 @@
     font-size: 1rem;
 }
 
+
 .form span {
     margin: 0 0.5rem
 }
@@ -224,4 +225,8 @@
     padding: 0.5rem 1rem;
     margin-left: 0.5rem;
     width: fit-content;
+}
+
+.noModification *:not(button, i) {
+    cursor: not-allowed;
 }

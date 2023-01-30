@@ -117,7 +117,7 @@ export default function EditEventForm() {
     return (
         <form className={styles.form}>
             <div className={styles.wrapper}>
-                <div className={styles.leftContainer}>
+                <div className={`${styles.leftContainer} ${!canModifyEvent && styles.noModification}`}>
                     <div className={styles.title}>
                         <button type='button' className={styles.button} onClick={() => {
                             navigate('/');
