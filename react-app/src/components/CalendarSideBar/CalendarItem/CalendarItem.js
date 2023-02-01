@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom';
 import { toggleCalendar } from '../../../store/calendars'
 import { setCurrentCalendar, setDeleteCalendarModal } from '../../../store/modals'
 import styles from './CalendarItem.module.css'
@@ -42,7 +41,7 @@ export default function CalendarItem({ calendar, user }) {
                     <i className="fa-solid fa-ellipsis-vertical"></i>
                 </button>
             </div>
-            {showCalendarOptionsDropdown && <CalendarOptionsDropdown calendar={calendar} user={user} />}
+            {showCalendarOptionsDropdown && <CalendarOptionsDropdown calendar={calendar} user={user} setShowCalendarOptionsDropdown={setShowCalendarOptionsDropdown} />}
         </div>
     )
 }
