@@ -8,6 +8,7 @@ export default function EventItem({ event }) {
     const eventRef = useRef();
     const dispatch = useDispatch();
     const modals = useSelector(state => state.modals)
+    const calendars = useSelector(state => state.calendars);
     const showEventDetail = modals.event?.id === event.id &&
         modals.event?.start_time.getTime() === event.start_time.getTime();
 
@@ -49,7 +50,12 @@ export default function EventItem({ event }) {
             >
                 <div className={styles.title}>
                     <div className={styles.dot}>
-                        <i className="fa-solid fa-circle"></i>
+                        <i className="fa-solid fa-circle"
+                            style={{
+                                color: `${event.calendar_id in calendars ?
+                                    calendars[event.calendar_id].color :
+                                    Object.values(calendars).filter(calendar => calendar.is_default)[0].color}`
+                            }}></i>
                     </div>
                     {`${new Date(event.start_time).toLocaleTimeString(
                         'en-US',

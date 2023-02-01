@@ -28,7 +28,12 @@ export default function EventDetail({ event, x, y }) {
             <div className={styles.top}>
                 <EventNavbar event={event} calendars={calendars} />
                 <div className={styles.title} >
-                    <i className="fa-solid fa-square"></i>
+                    <i className="fa-solid fa-square"
+                        style={{
+                            color: `${event.calendar_id in calendars ?
+                                calendars[event.calendar_id].color :
+                                Object.values(calendars).filter(calendar => calendar.is_default)[0].color}`
+                        }}></i>
                     {event.title}
                 </div>
                 <div className={styles.datetimeContainer}>
