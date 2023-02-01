@@ -35,9 +35,11 @@ def seed_all():
     )
 
     db.session.add_all([
-        UserCalendar(calendar=demo_work_calendar, user=demo),
-        UserCalendar(calendar=demo_work_calendar, user=bobbie),
-        UserCalendar(calendar=demo_work_calendar, user=marnie),
+        UserCalendar(calendar=demo_work_calendar, user=demo, color='#3F51B5'),
+        UserCalendar(calendar=demo_work_calendar,
+                     user=bobbie, color='#3F51B5'),
+        UserCalendar(calendar=demo_work_calendar,
+                     user=marnie, color='#3F51B5'),
         UserCalendar(calendar=demo_calendar, user=demo),
         UserCalendar(calendar=marnie_calendar, user=marnie),
         UserCalendar(calendar=bobbie_calendar, user=bobbie),
