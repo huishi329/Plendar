@@ -52,7 +52,16 @@ export const toggleCalendar = (calendar_id) => async dispatch => {
     const calendar = await response.json();
     if (!calendar.is_displayed) dispatch(removeEvents(calendar.id))
     dispatch({ type: TOGGLE_CALENDAR, calendar });
-}
+};
+
+export const changeCalendarColor = (calendar_id, color) => async dispatch => {
+    const response = await csrfFetch(`/api/users_calendars/current/${calendar_id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ color })
+    });
+    const calendar = await response.json();
+    dispatch({ type: TOGGLE_CALENDAR, calendar });
+};
 
 const CLEAR_CALENDARS = 'calendars/clearCalendars'
 
