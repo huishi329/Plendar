@@ -26,7 +26,7 @@ export default function MyCalendars() {
                 </button>
             </div>
             {calendars && Object.values(calendars).map(calendar =>
-                (<CalendarItem calendar={calendar} key={calendar.id} />))}
+                (<CalendarItem calendar={calendar} user={user} key={calendar.id} />))}
         </div >
     )
 }

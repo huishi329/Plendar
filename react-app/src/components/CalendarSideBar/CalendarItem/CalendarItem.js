@@ -4,7 +4,7 @@ import { toggleCalendar } from '../../../store/calendars'
 import { setCurrentCalendar, setDeleteCalendarModal } from '../../../store/modals'
 import styles from './CalendarItem.module.css'
 
-export default function CalendarItem({ calendar }) {
+export default function CalendarItem({ calendar, user }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleVisibility = () => {
@@ -37,9 +37,10 @@ export default function CalendarItem({ calendar }) {
                 {!calendar.is_default && <button onClick={handleDelete}>
                     <i className="fa-solid fa-xmark"></i>
                 </button>}
-                <button onClick={handleEdit} data-tooltip={`options for ${calendar.name}`} className={styles.option}>
-                    <i className="fa-solid fa-ellipsis-vertical"></i>
-                </button>
+                {calendar.owner_id === user.id &&
+                    <button onClick={handleEdit} data-tooltip={`options for ${calendar.name}`} className={styles.option}>
+                        <i className="fa-solid fa-ellipsis-vertical"></i>
+                    </button>}
             </div>
         </div>
     )
