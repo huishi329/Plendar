@@ -3,7 +3,6 @@ from sqlalchemy.schema import Column, ForeignKey, Table
 from sqlalchemy.orm import relationship
 from sqlalchemy.types import Integer, DateTime, VARCHAR, BOOLEAN
 from sqlalchemy.sql import func
-
 from .db import db
 
 
@@ -15,6 +14,8 @@ class UserCalendar(db.Model):
     calendar_id = Column(Integer, ForeignKey(
         'calendars.id', name='fk_user_calendar_calendar_id'), primary_key=True)
     is_displayed = Column(BOOLEAN, server_default='True')
+    color = Column(
+        VARCHAR(7), server_default='#6BB29C', nullable=False)
     created_at = Column(DateTime(timezone=True),
                         server_default=func.now(), nullable=False)
     updated_at = Column(DateTime(timezone=True),
@@ -27,4 +28,5 @@ class UserCalendar(db.Model):
     def to_dict(self):
         calendar = self.calendar.to_dict()
         calendar['is_displayed'] = self.is_displayed
+        calendar['color'] = self.color
         return calendar
