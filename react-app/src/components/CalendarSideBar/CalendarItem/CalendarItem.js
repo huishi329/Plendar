@@ -1,12 +1,14 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import { toggleCalendar } from '../../../store/calendars'
 import { setCurrentCalendar, setDeleteCalendarModal } from '../../../store/modals'
 import styles from './CalendarItem.module.css'
+import CalendarOptionsDropdown from './CalendarOptionsDropdown/CalendarOptionsDropdown';
 
 export default function CalendarItem({ calendar, user }) {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [showCalendarOptionsDropdown, setShowCalendarOptionsDropdown] = useState(false);
     const handleVisibility = () => {
         dispatch(toggleCalendar(calendar.id));
     };
@@ -15,11 +17,6 @@ export default function CalendarItem({ calendar, user }) {
         dispatch(setCurrentCalendar(calendar));
         dispatch(setDeleteCalendarModal(true));
     };
-
-    const handleEdit = (e) => {
-        e.stopPropagation();
-        navigate(`settings/calendar/${calendar.id}`)
-    }
 
     return (
         <div className={styles.wrapper} onClick={handleVisibility}>
@@ -37,11 +34,15 @@ export default function CalendarItem({ calendar, user }) {
                 {!calendar.is_default && <button onClick={handleDelete}>
                     <i className="fa-solid fa-xmark"></i>
                 </button>}
-                {calendar.owner_id === user.id &&
-                    <button onClick={handleEdit} data-tooltip={`options for ${calendar.name}`} className={styles.option}>
-                        <i className="fa-solid fa-ellipsis-vertical"></i>
-                    </button>}
+                <button
+                    className={styles.option}
+                    onClick={() => setShowCalendarOptionsDropdown(true)}
+                    data-tooltip={`options for ${calendar.name}`}
+                >
+                    <i className="fa-solid fa-ellipsis-vertical"></i>
+                </button>
             </div>
+            {showCalendarOptionsDropdown && <CalendarOptionsDropdown calendar={calendar} user={user} />}
         </div>
     )
 }
