@@ -27,8 +27,8 @@ if __name__ == '__main__':
     socketio.run(app)
 
 
-@socketio.on('connect')
-def test_connect():
+@socketio.on('message')
+def handle_message(data):
     print("socket connected")
 
 
