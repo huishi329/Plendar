@@ -18,28 +18,33 @@ export default function CalendarItem({ calendar, user }) {
     };
 
     return (
-        <div className={styles.wrapper} onClick={handleVisibility}>
-            <div className={styles.left}>
-                <input
-                    type="checkbox"
-                    checked={calendar.is_displayed}
-                    readOnly
-                    style={{ accentColor: `${calendar.color}` }}
-                >
-                </input>
-                <label htmlFor={calendar.name}>{calendar.name}</label>
-            </div>
-            <div className={styles.buttons}>
-                {!calendar.is_default && <button onClick={handleDelete}>
-                    <i className="fa-solid fa-xmark"></i>
-                </button>}
-                <button
-                    className={styles.option}
-                    onClick={() => setShowCalendarOptionsDropdown(true)}
-                    data-tooltip={`options for ${calendar.name}`}
-                >
-                    <i className="fa-solid fa-ellipsis-vertical"></i>
-                </button>
+        <div className={styles.wrapper}>
+            <div className={styles.singleCalendar} onClick={handleVisibility}>
+                <div className={styles.left}>
+                    <input
+                        type="checkbox"
+                        checked={calendar.is_displayed}
+                        readOnly
+                        style={{ accentColor: `${calendar.color}` }}
+                    >
+                    </input>
+                    <label htmlFor={calendar.name}>{calendar.name}</label>
+                </div>
+                <div className={styles.buttons}>
+                    {!calendar.is_default && <button onClick={handleDelete}>
+                        <i className="fa-solid fa-xmark"></i>
+                    </button>}
+                    <button
+                        className={styles.option}
+                        onClick={e => {
+                            e.stopPropagation();
+                            setShowCalendarOptionsDropdown(true);
+                        }}
+                        data-tooltip={`options for ${calendar.name}`}
+                    >
+                        <i className="fa-solid fa-ellipsis-vertical"></i>
+                    </button>
+                </div>
             </div>
             {showCalendarOptionsDropdown && <CalendarOptionsDropdown calendar={calendar} user={user} setShowCalendarOptionsDropdown={setShowCalendarOptionsDropdown} />}
         </div>
