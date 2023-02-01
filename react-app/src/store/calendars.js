@@ -46,7 +46,8 @@ const TOGGLE_CALENDAR = 'calendars/toggleCalendar'
 
 export const toggleCalendar = (calendar_id) => async dispatch => {
     const response = await csrfFetch(`/api/users_calendars/current/${calendar_id}`, {
-        method: "PATCH"
+        method: "PATCH",
+        body: JSON.stringify({})
     });
     const calendar = await response.json();
     if (!calendar.is_displayed) dispatch(removeEvents(calendar.id))
