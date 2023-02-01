@@ -5,6 +5,7 @@ import styles from './MonthView.module.css'
 import DayTile from './DayTile/DayTile'
 import DayOfWeek from './DayOfWeek/DayOfWeek';
 import { getEvents, getEventsInvited } from "../../store/events";
+import { setMonth, setYear, setSideCalendarMonth, setSideCalendarYear, setSideCalendarDate } from "../../store/sessionData";
 
 export default function MonthView() {
     const dispatch = useDispatch();
@@ -13,9 +14,26 @@ export default function MonthView() {
     const month = useSelector(state => state.sessionData.month);
     const firstDateOfMonth = new Date(year, month);
     const firstDayOfMonth = firstDateOfMonth.getDay();
+
     const handleWheel = (e) => {
-        // console.log(e.currentTarget);
-        // console.log(e.deltaY);
+        const path = e.nativeEvent?.composedPath();
+        if (path) {
+            for (const ele of path) {
+                // if DayTile or EventDetail are in the path of scroll event and they have scrollbar, then don't trigger the month change
+                if (ele?.className?.includes('DayTile') || ele?.className?.includes('EventDetail')) {
+                    if (ele.scrollHeight > ele.clientHeight) return;
+                }
+            }
+        }
+        const date = e.deltaY > 0 ? new Date(year, month + 1) : new Date(year, month - 1);
+        date.setHours(23, 59, 59, 59);
+        const newMonth = date.getMonth();
+        const newYear = date.getFullYear();
+        dispatch(setYear(newYear));
+        dispatch(setMonth(newMonth));
+        dispatch(setSideCalendarMonth(newMonth));
+        dispatch(setSideCalendarYear(newYear));
+        dispatch(setSideCalendarDate(date));
     }
 
     useEffect(() => {

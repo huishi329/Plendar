@@ -12,7 +12,7 @@ export default function EventNavbar({ event }) {
 
     return (
         <div className={styles.wrapper}>
-            {(user.id === event.organiser.id || (event.guests && user.id in event.guests)) && <div>
+            {(user.id === event.organiser.id || (event.guests && user.id in event.guests)) &&
                 <button className={styles.button}
                     onClick={(e) => {
                         e.stopPropagation();
@@ -21,10 +21,12 @@ export default function EventNavbar({ event }) {
                     }}>
                     <i className="fa-regular fa-pen-to-square"></i>
                 </button>
+            }
+            {user.id === event.organiser.id &&
                 <button className={styles.button} onClick={() => dispatch(deleteEvent(event.id))}>
                     <i className="fa-solid fa-trash-can"></i>
                 </button>
-            </div>}
+            }
             <button className={styles.button}
                 onClick={() => dispatch(setCurrentEvent(null))}>
                 <i className="fa-regular fa-circle-xmark"></i>

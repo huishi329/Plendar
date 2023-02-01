@@ -3,12 +3,16 @@
     align-items: center;
 }
 
-.wrapper img {
-    width: 2rem
+.logo img {
+    width: 2rem;
+    margin-right: 0.5rem;
 }
 
 .logo {
+    display: flex;
+    align-items: center;
     margin-right: 5rem;
+    cursor: pointer;
 }
 
 .largeText {

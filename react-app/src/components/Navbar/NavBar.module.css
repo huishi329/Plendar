@@ -1,6 +1,7 @@
 .navbarWrapper {
     width: 100%;
     border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1);
+    height: 8vh;
 }
 
 nav {

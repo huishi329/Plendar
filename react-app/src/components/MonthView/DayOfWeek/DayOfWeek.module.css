@@ -3,7 +3,8 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 0px 0px;
     grid-template-areas:
-        ". . . . . . ."
+        ". . . . . . .";
+    height: 2vh;
 }
 
 .wrapper div {

@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { setLandingModal } from "../../../store/modals";
 import { setMonth, setSideCalendarDate, setSideCalendarMonth, setSideCalendarYear, setYear } from "../../../store/sessionData";
 import styles from './LeftNavbar.module.css';
 
@@ -46,8 +47,11 @@ export function LeftNavbar() {
 
     return (
         <div className={styles.wrapper}>
-            <img src='/plendar.png' alt='plendar logo'></img>
-            <div className={`${styles.largeText} ${styles.logo}`}>Plendar</div>
+            <div className={`${styles.largeText} ${styles.logo}`}
+                onClick={() => dispatch(setLandingModal(true))}>
+                <img src='/plendar.png' alt='plendar logo'></img>
+                Plendar
+            </div>
             <button className={styles.todayButton} onClick={backToToday}>
                 Today
             </button>

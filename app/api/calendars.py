@@ -5,9 +5,24 @@ from app.forms import validation_errors_formatter
 from app.forms.calendar_form import CalendarForm
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
+from random import randint
 import calendar as pycalendar
 
 bp = Blueprint('calendars', __name__, url_prefix="/calendars")
+colors = [
+    '#AD1457',
+    '#F4511E',
+    "#A8974F",
+    "#317150",
+    '#3F51B5',
+    '#8E24AA',
+    '#D81B60',
+    '#EF6C00',
+    '#C0CA33',
+    '#009688',
+    '#7986CB',
+    '#795548'
+]
 
 
 @bp.route("/current", methods=["GET"])
@@ -33,8 +48,9 @@ def post_calendar():
         )
         user_calendar = UserCalendar(
             user_id=current_user.id,
-            calendar=calendar
-        )
+            calendar=calendar,
+            color='#6BB29C' if calendar.is_default else colors[randint(
+                1, 100) % 10])
         db.session.add(calendar, user_calendar)
         db.session.commit()
         # Add is_displayed property
