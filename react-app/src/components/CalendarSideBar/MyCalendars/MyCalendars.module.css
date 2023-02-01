@@ -1,7 +1,3 @@
-.wrapper {
-    padding: 1rem;
-}
-
 .title {
     display: flex;
     justify-content: space-between;
@@ -9,6 +5,7 @@
     font-size: 0.8rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
+    margin-left: 1rem;
 }
 
 .button {

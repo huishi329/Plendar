@@ -28,6 +28,7 @@ export default function CalendarItem({ calendar }) {
                     type="checkbox"
                     checked={calendar.is_displayed}
                     readOnly
+                    style={{ accentColor: `${calendar.color}` }}
                 >
                 </input>
                 <label htmlFor={calendar.name}>{calendar.name}</label>
