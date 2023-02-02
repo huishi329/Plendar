@@ -74,7 +74,7 @@ export default function EditEventForm() {
                         "guest_see_guest_list": event.guest_see_guest_list
                     }));
                     // if event is changed to a calendar that is not displayed, make it display
-                    if (!calendars[response.calendar_id].is_displayed) dispatch(toggleCalendar(response.calendar_id));
+                    if (!calendars[response.calendar_id].is_displayed) dispatch(toggleCalendar(response.calendar_id, user.id));
                 }
                 dispatch(setCurrentEvent(null));
                 navigate('/');

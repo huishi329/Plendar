@@ -57,7 +57,7 @@ export default function EventForm({ date, x, y }) {
             end_date
         })).then((event) => {
             dispatch(setCurrentDate(null));
-            if (!calendars[event.calendar_id].is_displayed) dispatch(toggleCalendar(event.calendar_id));
+            if (!calendars[event.calendar_id].is_displayed) dispatch(toggleCalendar(event.calendar_id, user.id));
         }).catch(e => {
             const errors = Object.entries(e.errors).map(([errorField, errorMessage]) => `${errorField}: ${errorMessage} `);
             setErrors(errors);
