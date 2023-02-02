@@ -50,17 +50,19 @@ export default function DayTile({ date }) {
     // Make a deep copy and then set date to the DayTile date
     const day_events_copy = JSON.parse(JSON.stringify(day_events))
     day_events_copy.forEach((event) => {
+
         event.start_time = new Date(event.start_time);
         event.end_time = new Date(event.end_time);
         const duration = event.end_time.getTime() - event.start_time.getTime();
-        event.start_time.setDate(date.getDate());
+        event.start_time.setYear(date.getFullYear());
         event.start_time.setMonth(date.getMonth());
-
+        event.start_time.setDate(date.getDate());
         event.end_time.setTime(event.start_time.getTime() + duration);
     })
 
     const day_events_sorted = day_events_copy.sort((a, b) => {
-        if (a.start_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) > b.start_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })) {
+        // console.log('a.title', a.start_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), a.start_time, a.start_time.getTime());
+        if (a.start_time.getTime() > b.start_time.getTime()) {
             return 1;
         }
         else {
