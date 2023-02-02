@@ -1,4 +1,4 @@
-import { useEffect, } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import styles from './CalendarOptionsDropdown.module.css'
@@ -26,11 +26,14 @@ export default function CalendarOptionsDropdown({ calendar, user, setShowCalenda
                 <div className={styles.settings} onClick={handleEdit}>Settings</div>}
             <div className={styles.colors}>
                 {colors.map(color => (
-                    <button
-                        key={color}
-                        className={styles.colorButton}
-                        style={{ backgroundColor: `${color}` }}
-                        onClick={() => dispatch(changeCalendarColor(calendar.id, color))}></button>))}
+                    <div className={styles.colorDiv}>
+                        <button
+                            key={color}
+                            className={styles.colorButton}
+                            style={{ backgroundColor: `${color}` }}
+                            onClick={() => dispatch(changeCalendarColor(calendar.id, color))}></button>
+                    </div>
+                ))}
             </div>
         </div>
     )

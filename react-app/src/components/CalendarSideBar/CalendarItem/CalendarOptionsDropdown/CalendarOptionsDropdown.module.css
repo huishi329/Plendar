@@ -19,8 +19,27 @@
     cursor: pointer;
 }
 
+.settings:hover {
+    background-color: rgba(34, 34, 34, 0.05);
+}
+
 .colors {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        ". . . . . ."
+        ". . . . . ."
+        ". . . . . ."
+        ". . . . . .";
     padding: 0.5rem;
+}
+
+.colorDiv {
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .colorButton {
@@ -29,4 +48,9 @@
     border-radius: 50%;
     margin: 0.2rem;
     cursor: pointer;
+}
+
+.colorButton:hover {
+    width: 1.2rem;
+    height: 1.2rem;
 }
