@@ -14,7 +14,6 @@ app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
 app.cli.add_command(seed_commands)
 CORS(app)
 app.config.from_object(Config)
-socketio = SocketIO(app)
 
 app.register_blueprint(api.bp)
 db.init_app(app)
@@ -23,13 +22,15 @@ Migrate(app, db, render_as_batch=True)
 login = LoginManager(app)
 login.login_view = "api.session.unauthorized"
 
-if __name__ == '__main__':
-    socketio.run(app)
+# socketio = SocketIO(app)
+
+# if __name__ == '__main__':
+#     socketio.run(app)
 
 
-@socketio.on('message')
-def handle_message(data):
-    print("socket connected")
+# @socketio.on('message')
+# def handle_message(data):
+#     print("socket connected")
 
 
 @login.user_loader
