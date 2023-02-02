@@ -1,5 +1,5 @@
 import { csrfFetch } from './csrf';
-import { removeEvents } from './events';
+import { removeEvents, removeEventsInvited } from './events';
 
 const GET_CALENDARS = 'calendars/getCalendars'
 
@@ -44,14 +44,27 @@ export const deleteCalendar = calendarId => async dispatch => {
 
 const TOGGLE_CALENDAR = 'calendars/toggleCalendar'
 
-export const toggleCalendar = (calendar_id) => async dispatch => {
+export const toggleCalendar = (calendar_id, user_id) => async dispatch => {
     const response = await csrfFetch(`/api/users_calendars/current/${calendar_id}`, {
-        method: "PATCH"
+        method: "PATCH",
+        body: JSON.stringify({})
     });
     const calendar = await response.json();
-    if (!calendar.is_displayed) dispatch(removeEvents(calendar.id))
+    if (!calendar.is_displayed) {
+        dispatch(removeEvents(calendar.id));
+        if (calendar.is_default) dispatch(removeEventsInvited(user_id));
+    }
     dispatch({ type: TOGGLE_CALENDAR, calendar });
-}
+};
+
+export const changeCalendarColor = (calendar_id, color) => async dispatch => {
+    const response = await csrfFetch(`/api/users_calendars/current/${calendar_id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ color })
+    });
+    const calendar = await response.json();
+    dispatch({ type: TOGGLE_CALENDAR, calendar });
+};
 
 const CLEAR_CALENDARS = 'calendars/clearCalendars'
 

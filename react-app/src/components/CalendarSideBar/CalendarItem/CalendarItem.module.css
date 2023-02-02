@@ -1,13 +1,16 @@
 .wrapper {
-    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.singleCalendar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.2rem 0;
+    padding: 0.5rem 1rem;
     cursor: pointer;
 }
 
-.wrapper:hover {
+.singleCalendar:hover {
     background-color: rgba(107, 178, 156, 0.15);
 }
 
@@ -16,8 +19,13 @@
     align-items: center;
 }
 
+.left input {
+    width: 1rem;
+    height: 1rem;
+}
+
 .left label {
-    font-size: 0.85rem;
+    font-size: 14px;
     margin-left: 0.5rem;
     cursor: pointer;
     white-space: nowrap;

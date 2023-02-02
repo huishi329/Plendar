@@ -25,8 +25,8 @@ export default function MyCalendars() {
                     <i className="fa-solid fa-plus"></i>
                 </button>
             </div>
-            {calendars && Object.values(calendars).map(calendar =>
-                (<CalendarItem calendar={calendar} key={calendar.id} />))}
+            {calendars && Object.values(calendars).sort((a, b) => b.is_default - a.is_default).map(calendar =>
+                (<CalendarItem calendar={calendar} user={user} key={calendar.id} />))}
         </div >
     )
 }

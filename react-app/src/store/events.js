@@ -62,6 +62,16 @@ export const removeEvents = (calendar_id) => {
     return { type: REMOVE_EVENTS, calendar_id };
 };
 
+const REMOVE_EVENTS_INVITED = 'events/removeEventsInvited'
+
+export const removeEventsInvited = (user_id) => async dispatch => {
+    const response = await csrfFetch('/api/events/invited');
+    const eventsInvited = await response.json();
+    const eventsToBeRemoved = new Set(eventsInvited.map(event => event.id));
+    console.log(eventsToBeRemoved);
+    dispatch({ type: REMOVE_EVENTS_INVITED, eventsToBeRemoved });
+};
+
 const UPDATE_EVENT_STATUS = 'events/updateEventStatus';
 
 export const updateEventStatus = (eventId, guestId, status) => async dispatch => {
@@ -94,6 +104,12 @@ export default function eventsReducer(state = {}, action) {
         case REMOVE_EVENTS:
             for (const event_id in newState) {
                 if (newState[event_id].calendar_id === action.calendar_id) delete newState[event_id]
+            }
+            return newState;
+        case REMOVE_EVENTS_INVITED:
+            for (const event_id in newState) {
+                // key is string
+                if (action.eventsToBeRemoved.has(Number(event_id))) delete newState[event_id]
             }
             return newState;
         case CREATE_EVENT:
