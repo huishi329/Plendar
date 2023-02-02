@@ -5,6 +5,7 @@
     grid-template-areas:
         ". . . . . . .";
     height: 2vh;
+    min-height: 12px;
 }
 
 .wrapper div {
