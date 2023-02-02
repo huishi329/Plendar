@@ -27,8 +27,29 @@ nav {
 
 .userIcon i {
     font-size: 1.5rem;
+    margin: 0 0.5rem;
+
 }
 
 .userIcon i:hover {
     color: #6BB29C;
+}
+
+.rightNavbar {
+    display: flex;
+    align-items: center;
+}
+
+.socialLink i {
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+}
+
+.socialLink i:hover {
+    color: #6BB29C;
+}
+
+.socialLink img {
+    height: 1.5rem;
+    margin: 0 0.5rem;
 }
