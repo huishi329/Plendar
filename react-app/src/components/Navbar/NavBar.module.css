@@ -55,6 +55,6 @@ nav {
 }
 
 .socialLink img:hover {
-    filter: drop-shadow(16px 16px 20px green) invert(90%);
+    filter: invert(77%) sepia(6%) saturate(2145%) hue-rotate(111deg) brightness(84%) contrast(86%);
 
 }
