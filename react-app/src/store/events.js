@@ -68,7 +68,6 @@ export const removeEventsInvited = (user_id) => async dispatch => {
     const response = await csrfFetch('/api/events/invited');
     const eventsInvited = await response.json();
     const eventsToBeRemoved = new Set(eventsInvited.map(event => event.id));
-    console.log(eventsToBeRemoved);
     dispatch({ type: REMOVE_EVENTS_INVITED, eventsToBeRemoved });
 };
 
