@@ -55,5 +55,6 @@ nav {
 }
 
 .socialLink img:hover {
-    filter: brightness(0) invert(1);
+    filter: drop-shadow(16px 16px 20px green) invert(90%);
+
 }
