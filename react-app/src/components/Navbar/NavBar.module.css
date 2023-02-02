@@ -53,3 +53,7 @@ nav {
     height: 1.5rem;
     margin: 0 0.5rem;
 }
+
+.socialLink img:hover {
+    filter: brightness(0) invert(1);
+}
