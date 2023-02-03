@@ -21,16 +21,16 @@ const NavBar = () => {
         <LeftNavbar />
         <div className={styles.rightNavbar}>
           <div>
-            <a className={styles.socialLink} target="_blank" rel="nofollow" href="https://huishi329.github.io/my-portfolio/">
+            <a className={styles.socialLink} target="_blank" rel="nofollow noreferrer" href="https://huishi329.github.io/my-portfolio/">
               <img src='/logo2.png' alt='huishi logo'></img>
             </a>
-            <a className={styles.socialLink} rel="nofollow" href="https://www.linkedin.com/in/huishi-an-8397311b1/">
+            <a className={styles.socialLink} rel="nofollow noreferrer" href="https://www.linkedin.com/in/huishi-an-8397311b1/">
               <i className="fa-brands fa-linkedin"></i>
             </a>
-            <a className={styles.socialLink} target="_blank" rel="nofollow" href="https://github.com/huishi329">
+            <a className={styles.socialLink} target="_blank" rel="nofollow noreferrer" href="https://github.com/huishi329">
               <i className="fa-brands fa-github"></i>
             </a>
-            <a className={styles.socialLink} target="_blank" rel="nofollow" href="mailto:anhuishi95@gmail.com">
+            <a className={styles.socialLink} target="_blank" rel="nofollow noreferrer" href="mailto:anhuishi95@gmail.com">
               <i className="fa-solid fa-envelope"></i>
             </a>
           </div>

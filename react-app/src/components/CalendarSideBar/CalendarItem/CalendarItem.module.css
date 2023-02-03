@@ -6,7 +6,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0 0.5rem 1rem;
     cursor: pointer;
 }
 
@@ -40,7 +40,7 @@
 .buttons {
     display: flex;
     align-items: center;
-    margin-right: 0.5rem;
+    margin-right: 0.7rem;
 }
 
 .wrapper:hover i {
