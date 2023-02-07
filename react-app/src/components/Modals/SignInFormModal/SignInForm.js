@@ -65,13 +65,13 @@ export default function SignInForm() {
             </div>
 
             <button type="button" className={styles.demoButton} onClick={() => {
-                setEmail("demo@plendar.io");
-                setPassword("password");
-            }}>Log in as demo</button>
+                dispatch(sessionActions.signIn({ "email": "demo@plendar.io", "password": "password" }))
+                    .then(() => dispatch(setSignInModal(false)))
+            }}>Log in as Demo</button>
             <button type="button" className={styles.demoButton} onClick={() => {
-                setEmail("marnie@plendar.io");
-                setPassword("password");
-            }}>Log in as marnie</button>
+                dispatch(sessionActions.signIn({ "email": "marnie@plendar.io", "password": "password" }))
+                    .then(() => dispatch(setSignInModal(false)))
+            }}>Log in as Marnie</button>
         </form>
     );
 }
