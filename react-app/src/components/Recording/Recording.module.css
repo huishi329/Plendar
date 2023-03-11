@@ -1,0 +1,9 @@
+.container i {
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+    cursor: pointer;
+}
+
+.container i:hover {
+    color: #6BB29C;
+}
