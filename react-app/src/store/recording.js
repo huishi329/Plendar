@@ -1,7 +1,5 @@
 import { csrfFetch } from './csrf';
 
-// const SENT_RECORDING = 'recording/sentRecording';
-
 export const sendRecording = (recording) => async () => {
     const formData = new FormData();
     formData.append('recording', recording);
@@ -13,6 +11,5 @@ export const sendRecording = (recording) => async () => {
         body: formData
     });
     const data = await response.json();
-    // dispatch(setRecording(data));
     return data;
     };
