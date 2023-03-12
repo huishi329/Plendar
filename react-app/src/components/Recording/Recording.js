@@ -1,14 +1,18 @@
 import styles from './Recording.module.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { sendRecording } from '../../store/recording';
+
 
 
 export function Recording() {
   const [isRecording, setIsRecording] = useState(false);
-  let mediaRecorder = null;
+  const dispatch = useDispatch();
+  const mediaRecorder = useRef(null);
 
   const handleClick = () => {
-    if (mediaRecorder && mediaRecorder.state === "recording") {
-      mediaRecorder.stop();
+    if (mediaRecorder.current && mediaRecorder.current.state === "recording") {
+      mediaRecorder.current.stop();
       setIsRecording(!isRecording);
     }
     setIsRecording(!isRecording);
@@ -29,30 +33,31 @@ export function Recording() {
 
           // Success callback
           .then((stream) => {
-            mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.current = new MediaRecorder(stream);
 
             const stopRecording = () => {
-              if (mediaRecorder.state === "recording") {
-                mediaRecorder.stop();
-                stream.getTracks().forEach((track) => {
-                  track.stop();
-                });
+              if (mediaRecorder.current.state === "recording") {
+                mediaRecorder.current.stop();
               }
+              stream.getTracks().forEach((track) => {
+                track.stop();
+            });
             }
-            mediaRecorder.start();
+            mediaRecorder.current.start();
             setTimeout(stopRecording, 5000);
 
             let chunks = [];
-            mediaRecorder.ondataavailable = (e) => {
+            mediaRecorder.current.ondataavailable = (e) => {
               chunks.push(e.data);
             };
 
-            mediaRecorder.onstop = (e) => {
+            mediaRecorder.current.onstop = (e) => {
               const blob = new Blob(chunks, { 'type': 'audio/ogg; codecs=opus' });
               chunks = [];
               const audioURL = window.URL.createObjectURL(blob);
               const audio = new Audio(audioURL);
               audio.play();
+              dispatch(sendRecording(blob))
             }
           })
 
@@ -64,15 +69,15 @@ export function Recording() {
         console.log("getUserMedia not supported on your browser!");
       }
     }
-  }, [isRecording]);
+  }, [isRecording, dispatch]);
 
 
 
 
 
   return (
-    <div className={styles.container} onClick={handleClick}>
-      <i className="fa-solid fa-microphone"></i>
+    <div className={styles.container} >
+      <i className="fa-solid fa-microphone" onClick={handleClick}></i>
     </div>
   );
 }
