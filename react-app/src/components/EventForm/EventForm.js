@@ -5,12 +5,18 @@ import { createEvent } from '../../store/events';
 import { setCurrentDate } from '../../store/modals';
 import { EventFormNavbar } from './EventFormNavbar/EventFormNavbar';
 import { toggleCalendar } from '../../store/calendars';
+import { Recording } from '../Recording/Recording';
+import { setRecordingTranscript } from '../../store/sessionData';
 
 export default function EventForm({ date, x, y }) {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
     const calendars = useSelector(state => state.calendars);
+    const transcript = useSelector(state => state.sessionData.transcript);
+    const inputField = useSelector(state => state.sessionData.inputField);
     const calendarsArr = Object.values(calendars);
+    const [isRecordingTitle, setIsRecordingTitle] = useState(false);
+    const [isRecordingDescription, setIsRecordingDescription] = useState(false);
     const calendarsOwned = calendarsArr?.filter(calendar => calendar.owner_id === user.id);
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -66,9 +72,24 @@ export default function EventForm({ date, x, y }) {
 
     useEffect(() => {
         const closeEventForm = () => dispatch(setCurrentDate(null));
+
         document.addEventListener('click', closeEventForm);
         return () => document.removeEventListener('click', closeEventForm)
     }, [dispatch]);
+
+    useEffect(() => {
+        console.log('transcript', transcript, 'inputField', inputField);
+        if (transcript) {
+            if (inputField === 'title') {
+                setTitle(transcript);
+                setIsRecordingTitle(false);
+            } else if (inputField === 'description') {
+                setDescription(transcript);
+                setIsRecordingDescription(false);
+            }
+        }
+        return () => dispatch(setRecordingTranscript(''))
+    }, [transcript, dispatch, inputField]);
 
     if (!calendarsArr) return null;
 
@@ -81,14 +102,19 @@ export default function EventForm({ date, x, y }) {
                 {errors.map((error, i) => <li key={i}>{error}</li>)}
             </ul>}
             <div className={styles.title}>
+                {isRecordingTitle &&
+                <div className={styles.loader}></div>}
                 <input
-                    placeholder='Add title and time'
+                    placeholder={isRecordingTitle? "🗣" :'Add title and time'}
                     name="Add title"
                     type="text"
                     autoComplete='off'
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
+                <div onClick={()=> setIsRecordingTitle(true)}>
+                    <Recording />
+                </div>
             </div>
             <div className={styles.datetime}>
                 <i className="fa-regular fa-clock"></i>
@@ -187,6 +213,8 @@ export default function EventForm({ date, x, y }) {
             </div>
             <div className={styles.description}>
                 <i className="fa-solid fa-bars"></i>
+                {isRecordingDescription &&
+                <div className={styles.loader}></div>}
                 <input
                     placeholder='Add description'
                     className={styles.description}
@@ -196,6 +224,9 @@ export default function EventForm({ date, x, y }) {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                 />
+                <div onClick={()=> setIsRecordingDescription(true)}>
+                    <Recording />
+                </div>
             </div>
             <div className={styles.calendars}>
                 <i className="fa-regular fa-calendar"></i>

@@ -51,6 +51,11 @@
     color: rgb(246, 18, 18);
 }
 
+.title {
+    display: flex;
+    align-items: center;
+}
+
 .title input {
     border: none;
     border-bottom: 1.5px solid rgba(34, 34, 34, 0.15);
@@ -64,6 +69,22 @@
     transform-origin: center;
 }
 
+.loader {
+    position: absolute;
+    left: 45%;
+    border: 5px solid #f3f3f3; /* Light grey */
+    border-top: 5px solid #6BB29C; /* Blue */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 2s linear infinite;
+  }
+
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 .datetime {
     display: flex;
