@@ -24,7 +24,6 @@ def post_recording():
         endpoint = "https://api.assemblyai.com/v2/transcript"
         json = {
             "audio_url": upload_url,
-            "entity_detection": True
         }
         response = requests.post(endpoint, json=json, headers=headers)
         data = response.json()
@@ -39,12 +38,10 @@ def post_recording():
 
     upload_url = get_upload_url()
     transcript_id = post_transcript(upload_url)
-    print('-'*50, 'upload_url', upload_url)
-    print('-'*50, 'transcript_id', transcript_id)
+
     result = None
     while result is None:
         response = get_transcript(transcript_id)
         if response['status'] == 'completed':
             result = response['text']
-    print('*'*50, result)
-    return {"result": result}, 200
+    return {"transcript": result}, 200
