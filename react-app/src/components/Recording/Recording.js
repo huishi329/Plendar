@@ -2,19 +2,26 @@ import styles from './Recording.module.css';
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { sendRecording } from '../../store/recording';
-
-
+import { setRecordingTranscript } from '../../store/sessionData';
 
 export function Recording() {
   const [isRecording, setIsRecording] = useState(false);
+  const [inputField, setInputField] = useState('');
   const dispatch = useDispatch();
+  const recordRef = useRef(null);
   const mediaRecorder = useRef(null);
 
-  const handleClick = () => {
-    if (mediaRecorder.current && mediaRecorder.current.state === "recording") {
-      mediaRecorder.current.stop();
-      setIsRecording(!isRecording);
+  const handleClick = (e) => {
+    for (const node of e.nativeEvent.composedPath()) {
+      if (node.className.includes("title")) {
+        if (inputField !== "title") setInputField("title");
+        break;
+      } else if (node.className.includes("description")) {
+        if (inputField !== "description") setInputField("description");
+        break;
+      }
     }
+    if (isRecording) mediaRecorder.current.stop();
     setIsRecording(!isRecording);
   }
 
@@ -30,7 +37,6 @@ export function Recording() {
               audio: true,
             }
           )
-
           // Success callback
           .then((stream) => {
             mediaRecorder.current = new MediaRecorder(stream);
@@ -39,12 +45,9 @@ export function Recording() {
               if (mediaRecorder.current.state === "recording") {
                 mediaRecorder.current.stop();
               }
-              stream.getTracks().forEach((track) => {
-                track.stop();
-            });
             }
             mediaRecorder.current.start();
-            setTimeout(stopRecording, 5000);
+            setTimeout(stopRecording, 10000);
 
             let chunks = [];
             mediaRecorder.current.ondataavailable = (e) => {
@@ -52,12 +55,24 @@ export function Recording() {
             };
 
             mediaRecorder.current.onstop = (e) => {
+              // for setTimout case
+              if (isRecording) setIsRecording(false);
+
+              stream.getTracks().forEach((track) => {
+                track.stop();
+              });
               const blob = new Blob(chunks, { 'type': 'audio/ogg; codecs=opus' });
               chunks = [];
+              // for debugging
               const audioURL = window.URL.createObjectURL(blob);
               const audio = new Audio(audioURL);
               audio.play();
               dispatch(sendRecording(blob))
+              .then((data) => {
+                if (data.transcript.length > 0 && inputField.length > 0) {
+                  dispatch(setRecordingTranscript(inputField, data.transcript))
+                }
+              })
             }
           })
 
@@ -69,14 +84,11 @@ export function Recording() {
         console.log("getUserMedia not supported on your browser!");
       }
     }
-  }, [isRecording, dispatch]);
-
-
-
+  }, [isRecording, dispatch, inputField]);
 
 
   return (
-    <div className={styles.container} >
+    <div className={`${styles.container} ${isRecording && styles.blink}`} ref={recordRef}>
       <i className="fa-solid fa-microphone" onClick={handleClick}></i>
     </div>
   );

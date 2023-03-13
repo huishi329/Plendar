@@ -21,8 +21,8 @@ export const setSideCalendarMonth = month => {
 export const setSideCalendarDate = date => {
     return { type: SET_SIDE_CALENDAR_DATE, date };
 };
-export const setRecordingTranscript = transcript => {
-    return { type: SET_RECORDING_TRANSCRIPT, transcript };
+export const setRecordingTranscript = (inputField, transcript) => {
+    return { type: SET_RECORDING_TRANSCRIPT, transcript, inputField };
 };
 
 export default function sessionDataReducer(state = {}, action) {
@@ -38,7 +38,7 @@ export default function sessionDataReducer(state = {}, action) {
         case SET_SIDE_CALENDAR_DATE:
             return { ...state, sideCalendarDate: action.date };
         case SET_RECORDING_TRANSCRIPT:
-            return { ...state, recordingTranscript: action.transcript };
+            return { ...state, transcript: action.transcript, inputField: action.inputField };
         default:
             return state;
     }
