@@ -216,7 +216,7 @@ export default function EventForm({ date, x, y }) {
                 {isRecordingDescription &&
                 <div className={styles.loader}></div>}
                 <input
-                    placeholder='Add description'
+                    placeholder={isRecordingDescription? "🗣" :'Add description'}
                     className={styles.description}
                     name="Add description"
                     type="text"
