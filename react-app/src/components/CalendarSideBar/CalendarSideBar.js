@@ -20,7 +20,7 @@ export default function CalendarSideBar() {
                 <i className="fa-solid fa-plus"></i>
                 Create
             </button>
-            <Recording />
+            {/* <Recording /> */}
             </div>}
             <SideCalendar />
             {user && <MyCalendars />}
