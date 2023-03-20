@@ -1,9 +1,13 @@
 import { useState } from 'react'
 import SignInForm from '../SignInFormModal/SignInForm'
 import styles from './Landing.module.css'
+import { useDispatch } from 'react-redux'
+import { setLandingModal } from '../../../store/modals';
 
 export default function Landing() {
     const [page, setPage] = useState(0);
+    const dispatch = useDispatch();
+    const handleClose = () => dispatch(setLandingModal(false));
 
     return (
         <div className={styles.wrapper}>
@@ -11,6 +15,10 @@ export default function Landing() {
                 <img src='/landing/pots.jpg' alt='pots'></img>
             </div>
             <div className={styles.right}>
+                <div className={styles.closeBtn}>
+                    <i className="fa-regular fa-circle-xmark" onClick={handleClose}></i>
+                </div>
+
                 <div className={styles.content}>
                     {page === 0 &&
                         <div className={styles.aboutPage}>
